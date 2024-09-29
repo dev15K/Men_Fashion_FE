@@ -1,0 +1,103 @@
+import {BASE_URL_SERVER} from "../config/server";
+import axios from "axios";
+
+const API_ENDPOINT = {
+    LIST_PRODUCT: "/api/products/list",
+    DETAIL_PRODUCT: "/api/products/detail/",
+    SEARCH_PRODUCT: "/api/products/search",
+    // ADMIN
+    ADMIN_LIST_PRODUCT: "/admin/api/products/list",
+    ADMIN_DETAIL_PRODUCT: "/admin/api/products/detail/",
+    ADMIN_POST_PRODUCT: "/admin/api/products/",
+    ADMIN_UPDATE_PRODUCT: "/admin/api/products/",
+    ADMIN_DELETE_PRODUCT: "/admin/api/products/",
+}
+
+class ProductService {
+    // USER
+    listProduct = (size, sort) => {
+        let params = `?size=${size}&sort=${sort}`;
+        return axios.get(BASE_URL_SERVER + API_ENDPOINT.LIST_PRODUCT + params);
+    }
+
+    detailProduct = (id) => {
+        return axios.get(BASE_URL_SERVER + API_ENDPOINT.DETAIL_PRODUCT + id);
+    }
+
+    searchProduct = (category, keyword, size, sort, minPrice, maxPrice) => {
+        let url = API_ENDPOINT.SEARCH_PRODUCT + `?category=${category}&keyword=${keyword}&size=${size}&sort=${sort}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
+        return axios.get(BASE_URL_SERVER + url);
+    }
+    // ADMIN
+    adminListProduct = () => {
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+            }
+        };
+        return axios.get(BASE_URL_SERVER + API_ENDPOINT.ADMIN_LIST_PRODUCT, config);
+    }
+
+    adminDetailProduct = (id) => {
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+            }
+        };
+        return axios.get(BASE_URL_SERVER + API_ENDPOINT.ADMIN_DETAIL_PRODUCT + id, config);
+    }
+
+    // adminCreateProduct = (data) => {
+    //     const formData = new FormData();
+    //
+    //     for (const key in data) {
+    //         if (data.hasOwnProperty(key)) {
+    //             formData.append(key, data[key]);
+    //         }
+    //     }
+    //
+    //     const config = {
+    //         headers: {
+    //             'content-type': 'multipart/form-data',
+    //             'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+    //         }
+    //     };
+    //
+    //     return axios.post(BASE_URL_SERVER + API_ENDPOINT.ADMIN_POST_PRODUCT, formData, config);
+    // };
+
+    adminCreateProduct = (data) => {
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
+                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+            }
+        };
+        return axios.post(BASE_URL_SERVER + API_ENDPOINT.ADMIN_POST_PRODUCT, data, config);
+    };
+
+    adminUpdateProduct = (id, data) => {
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
+                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+            }
+        };
+        return axios.put(BASE_URL_SERVER + API_ENDPOINT.ADMIN_UPDATE_PRODUCT + id, data, config)
+    };
+
+    adminDeleteProduct = (id) => {
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+            }
+        };
+        return axios.delete(BASE_URL_SERVER + API_ENDPOINT.ADMIN_DELETE_PRODUCT + id, config);
+    }
+}
+
+const productService = new ProductService();
+export default productService;
