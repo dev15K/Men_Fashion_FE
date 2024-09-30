@@ -21,7 +21,6 @@ function NoLogin() {
 }
 
 function YesLogin() {
-    const AuthName = sessionStorage.getItem("username")
     const userId = sessionStorage.getItem("id")
 
     const [data, setData] = useState([]);
@@ -176,29 +175,36 @@ function HeaderClient() {
                         <ul className="site-menu js-clone-nav d-none d-md-block">
                             <li><a href="/" className="active">Trang chủ</a></li>
                             <li className="has-children">
-                                <a href="/coming-soon">Danh mục</a>
+                                <a href="/products">Danh mục</a>
                                 <ul className="dropdown">
-                                    {categories.map((item, index) => (
-                                        <li key={index} className="mb-1">
-                                            <a href="#" data-id={item.categoryId} onClick={handleClick}
-                                               className="d-flex categoryID">
-                                                <span>{item.name}</span>
-                                            </a>
-                                        </li>
-                                    ))}
+                                    <li className="mb-1">
+                                        <a href="#" className="d-flex categoryID">
+                                            <span>Danh mục 1</span>
+                                        </a>
+                                    </li>
+                                    <li className="mb-1">
+                                        <a href="#" className="d-flex categoryID">
+                                            <span>Danh mục 2</span>
+                                        </a>
+                                    </li>
+                                    <li className="mb-1">
+                                        <a href="#" className="d-flex categoryID">
+                                            <span>Danh mục 3</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li className="has-children">
                                 <a href="#">Mục lục</a>
                                 <ul className="dropdown">
                                     <li><a href="/products">Cửa hàng</a></li>
-                                    <li><a href="/news-event">Tin tức & Sự kiện</a></li>
+                                    <li><a href="/coming-soon">Tin tức & Sự kiện</a></li>
                                     <li><a href="/about-us">Về chúng tôi</a></li>
                                     <li><a href="/contact">Liên hệ</a></li>
                                 </ul>
                             </li>
                             <li><a href="/products">Cửa hàng</a></li>
-                            <li><a href="/news-event">Tin tức & Sự kiện</a></li>
+                            <li><a href="/coming-soon">Tin tức & Sự kiện</a></li>
                             <li><a href="/about-us">Về chúng tôi</a></li>
                             <li><a href="/contact">Liên hệ</a></li>
                         </ul>

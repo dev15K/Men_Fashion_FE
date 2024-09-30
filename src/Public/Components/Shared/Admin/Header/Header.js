@@ -22,13 +22,13 @@ function IsAdmin() {
 }
 
 function Header() {
-    const AuthName = sessionStorage.getItem("username");
+    const email = sessionStorage.getItem("email");
     const tokenUser = sessionStorage.getItem("accessToken");
     const idUser = sessionStorage.getItem("id");
     const navigate = useNavigate();
 
     const login = async () => {
-        if (AuthName == null || tokenUser == null || idUser == null) {
+        if (email == null || tokenUser == null || idUser == null) {
             navigate("/not-found")
         }
     };
@@ -45,7 +45,7 @@ function Header() {
     const [data, setData] = useState([]);
 
     const isUser = async () => {
-        await accountService.findUserByUsername(AuthName)
+        await accountService.findUserByUsername(email)
             .then((res) => {
                 setData(res.data);
                 console.log("data:", JSON.parse(JSON.stringify(res.data)));
@@ -54,12 +54,12 @@ function Header() {
                 if (user.role === "ADMIN") {
                     localStorage.setItem('isAdmin', 1);
                 } else {
-                    navigate('/not-found')
+                    // navigate('/not-found')
                 }
             })
             .catch((err) => {
                 console.log(err);
-                navigate('/not-found');
+                // navigate('/not-found');
             });
     };
 

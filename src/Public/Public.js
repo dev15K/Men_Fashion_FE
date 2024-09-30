@@ -29,6 +29,7 @@ import NotFound from "./Components/Shared/Error/Error404";
 import ComingSoon from "./Components/Shared/ComingSoon/ComingSoon";
 /* Admin Page */
 import Dashboard from './Components/AdminApp/Dashboard/Dashboard';
+import AdminProduct from './Components/AdminApp/Dashboard/Dashboard';
 
 function Public() {
     return (
@@ -62,6 +63,7 @@ function Public() {
                 <Route path='/product-favourites' element={<ListProductFavourite/>}/>
                 {/* Admin Page */}
                 <Route path='/admin/dashboard' element={<Dashboard/>}/>
+                <Route path='/admin/products' element={<AdminProduct/>}/>
             </Routes>
         </div>
     )
