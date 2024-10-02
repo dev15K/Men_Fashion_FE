@@ -1,10 +1,12 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
+
 /* Auth Page */
 import Login from './Components/Account/Login/Login';
 import Register from './Components/Account/Register/Register';
 import ForgotPassword from "./Components/Account/ForgotPassword/ForgotPassword";
 import ChangePassword from "./Components/Account/ForgotPassword/ChangePassword";
+
 /* Main Page */
 import Home from './Components/Home/Home';
 import Contact from './Components/Contact/Contact';
@@ -16,21 +18,40 @@ import Cart from './Components/Cart/Cart';
 import Checkout from './Components/Checkout/Checkout';
 import ConfirmCheckout from './Components/Checkout/ConfirmCheckout';
 import ThanksYou from './Components/ThanksYou/ThanksYou';
-import NewsList from './Components/News/NewsList/NewsList';
-import NewsDetail from './Components/News/NewsDetail/NewsDetail';
 /* User Page */
 import Profile from './Components/Profile/Profile';
 /* My Order */
 import ListMyOrder from './Components/Profile/MyOrder/ListOrder/ListOrder';
 import DetailMyOrder from './Components/Profile/MyOrder/DetailOrder/DetailOrder';
-import ListProductFavourite from './Components/Profile/ProductFavourite/ListProductFavourite';
 /* Error Page */
 import NotFound from "./Components/Shared/Error/Error404";
 import ComingSoon from "./Components/Shared/ComingSoon/ComingSoon";
+
 /* Admin Page */
 import Dashboard from './Components/AdminApp/Dashboard/Dashboard';
-import AdminProduct from './Components/AdminApp/Dashboard/Dashboard';
+/* Admin Category */
+import ListCategory from './Components/AdminApp/Category/ListCategory/ListCategory';
+import CreateCategory from './Components/AdminApp/Category/CreateCategory/CreateCategory';
+import DetailCategory from './Components/AdminApp/Category/DetailCategory/DetailCategory';
+/* Admin Attribute */
+import ListAttribute from './Components/AdminApp/Attribute/ListAttribute/ListAttribute';
+import CreateAttribute from './Components/AdminApp/Attribute/CreateAttribute/CreateAttribute';
+import DetailAttribute from './Components/AdminApp/Attribute/DetailAttribute/DetailAttribute';
+/* Admin Property */
+import ListProperty from './Components/AdminApp/Property/ListProperty/ListProperty';
+import CreateProperty from './Components/AdminApp/Property/CreateProperty/CreateProperty';
+import DetailProperty from './Components/AdminApp/Property/DetailProperty/DetailProperty';
+/* Admin Product */
+import ListProduct from './Components/AdminApp/Product/ListProduct/ListProduct';
+import CreateProduct from './Components/AdminApp/Product/CreateProduct/CreateProduct';
+import DetailProduct from './Components/AdminApp/Product/DetailProduct/DetailProduct';
 
+/**
+ * This component renders the routes for the public part of the application.
+ * It includes the auth pages, the error pages, the client pages, the client auth pages, and the admin pages.
+ * The admin pages are protected by authentication.
+ * @returns {JSX.Element} The public routes.
+ */
 function Public() {
     return (
         <div>
@@ -49,8 +70,6 @@ function Public() {
                 <Route path='/about-us' element={<About/>}/>
                 <Route path='/products' element={<ProductList/>}/>
                 <Route path='/products/:id' element={<ProductDetail/>}/>
-                <Route path='/news-event' element={<NewsList/>}/>
-                <Route path='/news-event/:id' element={<NewsDetail/>}/>
                 <Route path='/products/search' element={<Result/>}/>
                 <Route path='/cart' element={<Cart/>}/>
                 <Route path='/checkout' element={<Checkout/>}/>
@@ -60,10 +79,24 @@ function Public() {
                 <Route path='/profile' element={<Profile/>}/>
                 <Route path='/my-order' element={<ListMyOrder/>}/>
                 <Route path='/my-order/:id' element={<DetailMyOrder/>}/>
-                <Route path='/product-favourites' element={<ListProductFavourite/>}/>
                 {/* Admin Page */}
                 <Route path='/admin/dashboard' element={<Dashboard/>}/>
-                <Route path='/admin/products' element={<AdminProduct/>}/>
+                {/* Admin Category */}
+                <Route path='/admin/categories/list' element={<ListCategory/>}/>
+                <Route path='/admin/categories/create' element={<CreateCategory/>}/>
+                <Route path='/admin/categories/detail/:id' element={<DetailCategory/>}/>
+                {/* Admin Aroperties */}
+                <Route path='/admin/attributes/list' element={<ListAttribute/>}/>
+                <Route path='/admin/attributes/create' element={<CreateAttribute/>}/>
+                <Route path='/admin/attributes/detail/:id' element={<DetailAttribute/>}/>
+                {/* Admin Properties */}
+                <Route path='/admin/properties/list' element={<ListProperty/>}/>
+                <Route path='/admin/properties/create' element={<CreateProperty/>}/>
+                <Route path='/admin/properties/detail/:id' element={<DetailProperty/>}/>
+                {/* Admin Products */}
+                <Route path='/admin/products/list' element={<ListProduct/>}/>
+                <Route path='/admin/products/create' element={<CreateProduct/>}/>
+                <Route path='/admin/products/detail/:id' element={<DetailProduct/>}/>
             </Routes>
         </div>
     )

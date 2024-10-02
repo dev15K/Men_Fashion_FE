@@ -6,7 +6,6 @@ import Header from "../../Shared/Client/Header/Header";
 import Footer from "../../Shared/Client/Footer/Footer";
 import productService from "../../Service/ProductService";
 import feedbackService from "../../Service/FeedbackService";
-import productFavourite from "../../Service/ProductFavouriteService";
 import $ from "jquery";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Pagination} from "swiper/modules";

@@ -38,6 +38,46 @@ function Sidebar() {
                     </li>
 
                     <li className="nav-item">
+                        <a className="nav-link collapsed" data-bs-target="#attributes-nav" data-bs-toggle="collapse"
+                           href="#">
+                            <i className="bi bi-menu-down"></i><span>Thuộc tính</span><i
+                            className="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="attributes-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="/admin/attributes/list">
+                                    <i className="bi bi-circle"></i><span>Danh sách thuộc tính</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/attributes/create">
+                                    <i className="bi bi-circle"></i><span>Thêm mới thuộc tính</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li className="nav-item">
+                        <a className="nav-link collapsed" data-bs-target="#properties-nav" data-bs-toggle="collapse"
+                           href="#">
+                            <i className="bi bi-view-list"></i><span>Biến thể</span><i
+                            className="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="properties-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="/admin/properties/list">
+                                    <i className="bi bi-circle"></i><span>Danh sách biến thể</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/properties/create">
+                                    <i className="bi bi-circle"></i><span>Thêm mới biến thể</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li className="nav-item">
                         <a className="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse"
                            href="#">
                             <i className="bi bi-journal-text"></i><span>Quản lí sản phẩm</span><i
