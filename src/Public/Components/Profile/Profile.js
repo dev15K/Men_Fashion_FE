@@ -8,13 +8,13 @@ import $ from "jquery";
 
 function Profile() {
     const navigate = useNavigate();
-    const AuthName = sessionStorage.getItem("username")
+    const email = sessionStorage.getItem("email")
     const Token = sessionStorage.getItem("accessToken")
 
     const [data, setData] = useState([]);
 
     const checkLogin = async () => {
-        if (AuthName == null || Token == null) {
+        if (email == null || Token == null) {
             navigate('/login')
         }
     };
@@ -28,13 +28,24 @@ function Profile() {
     }
 
     const getUser = async () => {
-        await accountService.findUserByUsername(AuthName)
+        await accountService.getInfo()
             .then((res) => {
-                if (res.status === 200) {
-                    console.log("find user" + AuthName, res.data)
-                    setData(res.data);
-                }
+                setData(res.data);
+                console.log("data:", JSON.parse(JSON.stringify(res.data)));
+                let user = JSON.parse(JSON.stringify(res.data.data));
+                setData(user);
             })
+            .catch((err) => {
+                console.log(err)
+                let stt = err.response.status;
+                if (stt === 444) {
+                    alert('Phiên đăng nhập đã hết hạn, đăng nhập lại...');
+                    sessionStorage.clear();
+                    navigate('/login');
+                } else {
+                    navigate('/not-found');
+                }
+            });
     };
 
     const updateInfo = async () => {

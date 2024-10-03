@@ -7,15 +7,6 @@ import Footer from "../Shared/Client/Footer/Footer";
 import $ from "jquery";
 import cartService from "../Service/CartService";
 
-/**
- * The cart page component.
- *
- * This component displays the cart page, showing all the products in the cart
- * and the total price. It also allows the user to update the cart, apply a coupon
- * and proceed to checkout.
- *
- * @returns {JSX.Element} The cart page component.
- */
 function Cart() {
     return (
         <div className="site-wrap">

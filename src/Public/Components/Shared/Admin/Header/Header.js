@@ -4,13 +4,14 @@ import accountService from "../../../Service/AccountService";
 import Css from '../Lib/StyleSheet';
 import Script from '../Lib/Script';
 import $ from 'jquery';
+import {BASE_URL_SERVER} from '../../../config/server'
 
 function IsAdmin() {
     return (
         <>
             <li>
                 <Link className="dropdown-item d-flex align-items-center" to="/admin/dashboard">
-                    <i className="bi bi-0-circle"/>
+                    <i className="bi bi-gear"/>
                     <span>Trang quản trị</span>
                 </Link>
             </li>
@@ -25,6 +26,7 @@ function Header() {
     const email = sessionStorage.getItem("email");
     const tokenUser = sessionStorage.getItem("accessToken");
     const idUser = sessionStorage.getItem("id");
+    const role = sessionStorage.getItem("role");
     const navigate = useNavigate();
 
     const login = async () => {
@@ -44,29 +46,29 @@ function Header() {
 
     const [data, setData] = useState([]);
 
-    const isUser = async () => {
-        await accountService.findUserByUsername(email)
+    const getUser = async () => {
+        await accountService.getInfo()
             .then((res) => {
                 setData(res.data);
                 console.log("data:", JSON.parse(JSON.stringify(res.data)));
-                let user = JSON.parse(JSON.stringify(res.data));
+                let user = JSON.parse(JSON.stringify(res.data.data));
                 setData(user);
-                if (user.role === "ADMIN") {
-                    localStorage.setItem('isAdmin', 1);
-                } else {
-                    // navigate('/not-found')
-                }
             })
             .catch((err) => {
-                console.log(err);
-                // navigate('/not-found');
+                console.log(err)
+                let stt = err.response.status;
+                if (stt === 444) {
+                    alert('Phiên đăng nhập đã hết hạn, đăng nhập lại...');
+                    sessionStorage.clear();
+                    navigate('/login');
+                } else {
+                    navigate('/not-found');
+                }
             });
     };
 
 
-    let admin = localStorage.getItem('isAdmin')
-
-    if (admin == null) {
+    if (role !== "ADMIN") {
         isAdmin = false;
     }
 
@@ -76,7 +78,7 @@ function Header() {
     }
 
     useEffect(() => {
-        isUser();
+        getUser();
         login();
     }, []);
 
@@ -99,14 +101,14 @@ function Header() {
                         <li className="nav-item dropdown pe-3">
                             <a className="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                                data-bs-toggle="dropdown">
-                                <img src={data.avatar} alt="Profile" className="rounded-circle"/>
-                                <span className="d-none d-md-block dropdown-toggle ps-2">{data.fullName}</span>
+                                <img src={BASE_URL_SERVER + '/' + data.avt} alt="Profile" className="rounded-circle"/>
+                                <span className="d-none d-md-block dropdown-toggle ps-2">{data.full_name}</span>
                             </a>
 
                             <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                                 <li className="dropdown-header">
-                                    <h6>{data.fullName}</h6>
-                                    <span>{data.userName}</span>
+                                    <h6>{data.full_name}</h6>
+                                    <span>{data.username}</span>
                                 </li>
                                 <li>
                                     <hr className="dropdown-divider"/>

@@ -1,10 +1,9 @@
-import { BASE_URL_SERVER } from "../config/server";
+import {BASE_URL_SERVER} from "../config/server";
 import axios from "axios";
 
 const API_ENDPOINT = {
     //
-    FIND_USER_EMAIL: "/api/find/user-by-email/",
-    FIND_USER_USERNAME: "/api/find/user-by-username/",
+    GET_USER_INFO: "/api/auth/users/get-info/",
     //
     LIST_ACCOUNT: "/api/user/list",
     DETAIL_ACCOUNT: "/api/user/detail/",
@@ -18,16 +17,19 @@ const API_ENDPOINT = {
     ADMIN_UPDATE_ACCOUNT: "/admin/api/user/update/",
     ADMIN_DELETE_ACCOUNT: "/admin/api/user/",
 }
+
 class AccountService {
-    findUserByEmail = (email) => {
-        return axios.get(BASE_URL_SERVER + API_ENDPOINT.FIND_USER_EMAIL + email)
+    getInfo = () => {
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+            }
+        };
+
+        return axios.get(BASE_URL_SERVER + API_ENDPOINT.GET_USER_INFO, config);
     }
 
-    findUserByUsername = (username) => {
-        return axios.get(BASE_URL_SERVER + API_ENDPOINT.FIND_USER_USERNAME + username)
-    }
-
-    //
     listAccount = () => {
         const config = {
             headers: {
@@ -95,7 +97,7 @@ class AccountService {
                 'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
             }
         };
-        return axios.post(BASE_URL_SERVER + API_ENDPOINT.ADMIN_CREATE_ACCOUNT ,data, config);
+        return axios.post(BASE_URL_SERVER + API_ENDPOINT.ADMIN_CREATE_ACCOUNT, data, config);
     }
 
     adminUpdateAccount = (id, data) => {
@@ -119,5 +121,6 @@ class AccountService {
     }
 
 }
+
 const accountService = new AccountService();
 export default accountService;
