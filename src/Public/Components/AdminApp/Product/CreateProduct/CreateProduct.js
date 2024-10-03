@@ -71,6 +71,101 @@ function CreateProduct() {
             })
     };
 
+    const generateTable = () => `
+    <table class="table table-bordered">
+        <colgroup>
+            <col width="x"/>
+            <col width="8%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="8%"/>
+            <col width="5%"/>
+        </colgroup>
+        <thead>
+            <tr>
+                <th class="align-middle">
+                    <div class="d-flex align-items-center gap-4">
+                        <p>Thuộc tính</p>
+                        <button type="button" class="btn btn-outline-warning btnAddProperty" onclick="addProperty(this)">Thêm</button>
+                    </div>
+                </th>
+                <th>Số lượng</th>
+                <th>Giá cũ</th>
+                <th>Giá mới</th>
+                <th>Hình ảnh</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="list_option">
+                    
+                    </div>
+                </td>
+                <td>
+                    <input type="number" class="form-control" name="option_quantity" required/>
+                </td>
+                <td>
+                    <input type="number" class="form-control" name="option_price" min="1" required/>
+                </td>
+                <td>
+                    <input type="number" class="form-control" name="option_sale_price" min="1" required/>
+                </td>
+                <td>
+                    <input type="file" class="form-control" name="option_thumbnail" required/>
+                </td>
+                <td rowSpan="3" class="text-center align-middle">
+                    <button class="btn btn-danger btnDelete" onclick="removeTableOption(this)" type="button">Xoá</button>
+                </td>
+            </tr>
+            <tr>
+                <th colSpan="5">Mô tả</th>
+            </tr>
+            <tr>
+                <td colSpan="5">
+                    <textarea name="option_description" class="form-control" rows="5"></textarea>
+                </td>
+            </tr>
+        </tbody>
+    </table>`;
+
+    const generatePropertyItem = () => `
+    <div class="row attribute_property_item_">
+        <div class="form-group col-md-5">
+            <label for="attribute_item">Thuộc tính</label>
+            <select name="attribute_item" class="form-select">
+                <option value="">-- Chọn thuộc tính --</option>
+            </select>
+        </div>
+        <div class="form-group col-md-5">
+            <label for="property_item">Biến thể</label>
+            <select name="property_item" class="form-select">
+                <option value="">-- Chọn biến thể --</option>
+            </select>
+        </div>
+        <div class="col-md-2 mt-4">
+            <button type="button" onclick="removePropertyItem(this)" class="btn btn-danger">Xoá</button>
+        </div>
+    </div>`;
+
+    function addTableOption() {
+        $('#render_table_attr').append(generateTable());
+    }
+
+    window.addProperty = function (el) {
+        $(el).closest('table').find('.list_option').append(generatePropertyItem());
+    }
+
+    window.removeTableOption = function (el) {
+        $(el).closest('table').remove();
+    };
+
+    window.removePropertyItem = function (el) {
+        $(el).closest('.attribute_property_item_').remove();
+    };
+
+
     useEffect(() => {
         getListCategory();
     }, [loading]);
@@ -133,12 +228,34 @@ function CreateProduct() {
                                                       rows="10"></textarea>
                                         </div>
                                         <div className="row">
-                                            <div className="form-group col-md-4">
+                                            <div className="form-group col-md-6">
                                                 <label htmlFor="file">Hình ảnh</label>
-                                                <input type="file" className="form-control" id="file" name="file"
+                                                <input type="file" className="form-control" id="thumbnail"
+                                                       name="thumbnail"
                                                        required/>
                                             </div>
-                                            <div className="form-group col-md-4">
+                                            <div className="form-group col-md-6">
+                                                <label htmlFor="file">Hình ảnh chi tiết</label>
+                                                <input type="file" className="form-control" id="gallery" name="gallery"
+                                                       multiple required/>
+                                            </div>
+                                        </div>
+                                        <div className="row mt-3">
+                                            <div className="d-flex align-items-center justify-content-between mb-2">
+                                                <label>
+                                                    Thông tin sản phẩm
+                                                </label>
+
+                                                <button className="btn btn-outline-primary btnAddAttribute"
+                                                        type="button" onClick={addTableOption}>Thêm biến thể
+                                                </button>
+                                            </div>
+                                            <div id="render_table_attr">
+
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="form-group col-md-6">
                                                 <label htmlFor="categoryId">Danh mục</label>
                                                 <select id="categoryId" className="form-control" name="CategoryId">
                                                     <option value="">Chọn danh mục</option>
@@ -149,7 +266,7 @@ function CreateProduct() {
                                                     }
                                                 </select>
                                             </div>
-                                            <div className="form-group col-md-4">
+                                            <div className="form-group col-md-6">
                                                 <label htmlFor="status">Trạng thái</label>
                                                 <select id="status" className="form-control" name="Status">
                                                     <option value="0">ACTIVE</option>
