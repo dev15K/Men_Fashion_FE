@@ -109,7 +109,7 @@ function CreateProduct() {
     };
 
     const generateTable = () => `
-        <table class="table table-bordered">
+    <table class="table table-bordered">
         <colgroup>
             <col width="x"/>
             <col width="8%"/>

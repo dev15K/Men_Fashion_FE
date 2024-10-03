@@ -37,21 +37,6 @@ function renderData(data, id) {
     $('#categoryId').empty().append(html);
 }
 
-/**
- * Renders a page that displays the details of a product.
- * The page provides a form for editing the product.
- * The form includes fields for the product name, price, quantity, description, image, category, and status.
- * The page uses the `productService` to fetch the details of the product from the server.
- * The page also uses the `categoryService` to fetch the list of categories from the server.
- * The page uses the `useState` hook to store the list of categories and the table parameters in the component state.
- * The page uses the `useCallback` hook to memoize the function that fetches the list of categories.
- * The page uses the `useCallback` hook to memoize the function that handles the change event of the table.
- * The page uses the `useEffect` hook to fetch the list of categories when the component mounts.
- * The page uses the `useEffect` hook to fetch the details of the product when the component mounts.
- * The page also uses the `useEffect` hook to update the component state when the user navigates to a different product.
- * @returns {ReactElement} A React element that represents the page.
- * @function
- */
 function DetailProduct() {
 
     const {id} = useParams();

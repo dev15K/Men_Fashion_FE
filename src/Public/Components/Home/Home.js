@@ -21,6 +21,13 @@ window.jQuery = $;
 window.$ = $;
 
 
+/**
+ * The Home component renders the main page of the application.
+ * It contains a hero section, a section with 3 boxes, a section with 3 images,
+ * a section with a carousel of products, a section with a big banner and a
+ * section with a footer.
+ * @return {JSX.Element}
+ */
 function Home() {
 
     return (
