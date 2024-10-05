@@ -69,27 +69,33 @@ function ListProduct() {
             title: 'Hình ảnh',
             dataIndex: 'thumbnail',
             width: '10%',
+            /**
+             * Function to render a column of table.
+             * This function is called with the text of the cell, and renders an image with the given text as the src.
+             * @param {string} text - The text to be rendered.
+             * @returns {ReactElement} The rendered React element.
+             */
             render: (text) => <img src={text} alt="image" style={{width: '150px'}}/>,
         },
         {
             title: 'Tên sản phẩm',
             dataIndex: 'name',
-            width: '30',
+            width: '35%',
         },
         {
             title: 'Số lượng',
             dataIndex: 'quantity',
-            width: '10%',
+            width: '8%',
         },
         {
             title: 'Giá cũ',
             dataIndex: 'price',
-            width: '10%',
+            width: '8%',
         },
         {
             title: 'Giá mới',
             dataIndex: 'sale_price',
-            width: '10%',
+            width: '8%',
         },
         {
             title: 'Trạng thái',

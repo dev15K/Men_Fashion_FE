@@ -4,6 +4,7 @@ import axios from "axios";
 const API_ENDPOINT = {
     //
     LIST_PROPERTY: "/api/properties/list",
+    LIST_PROPERTY_BY_ATTRIBUTE: "/api/properties/list?attribute_id=",
     DETAIL_PROPERTY: "/api/properties/detail/",
     //
     ADMIN_LIST_PROPERTY: "/api/admin/properties/list",
@@ -21,6 +22,10 @@ class PropertyService {
 
     detailProperty = (id) => {
         return axios.get(BASE_URL_SERVER + API_ENDPOINT.DETAIL_PROPERTY + id);
+    }
+
+    listPropertyByAttribute = (attribute_id) => {
+        return axios.get(BASE_URL_SERVER + API_ENDPOINT.LIST_PROPERTY_BY_ATTRIBUTE + attribute_id);
     }
 
     //

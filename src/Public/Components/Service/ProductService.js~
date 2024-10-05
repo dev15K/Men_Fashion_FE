@@ -10,7 +10,7 @@ const API_ENDPOINT = {
     ADMIN_DETAIL_PRODUCT: "/api/admin/products/detail/",
     ADMIN_POST_PRODUCT: "/api/admin/products/create",
     ADMIN_UPDATE_PRODUCT: "/api/admin/products/update/",
-    ADMIN_DELETE_PRODUCT: "/api/admin/products/delete/",
+    ADMIN_DELETE_PRODUCT: "/admin/api/products/delete/",
 }
 
 class ProductService {
