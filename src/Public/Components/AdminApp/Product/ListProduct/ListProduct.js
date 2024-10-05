@@ -80,22 +80,22 @@ function ListProduct() {
         {
             title: 'Tên sản phẩm',
             dataIndex: 'name',
-            width: '30',
+            width: '35%',
         },
         {
             title: 'Số lượng',
             dataIndex: 'quantity',
-            width: '10%',
+            width: '8%',
         },
         {
             title: 'Giá cũ',
             dataIndex: 'price',
-            width: '10%',
+            width: '8%',
         },
         {
             title: 'Giá mới',
             dataIndex: 'sale_price',
-            width: '10%',
+            width: '8%',
         },
         {
             title: 'Trạng thái',
@@ -115,14 +115,14 @@ function ListProduct() {
              * @returns {ReactElement} The JSX element to be rendered.
              */
             render: (id) =>
-                <>
+                <div className="d-flex gap-2">
                     <Link className="btn btn-primary" to={`/admin/products/detail/${id}`}>
                         Xem chi tiết
                     </Link>
                     <button type="button" id={`btnDelete_${id}`} className="btn btn-danger"
                             onClick={() => handleDelete(id)}>Xóa
                     </button>
-                </>
+                </div>
         },
     ];
 

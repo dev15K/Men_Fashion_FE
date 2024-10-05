@@ -5,12 +5,16 @@ import {Button, Form, Input, message} from 'antd'
 import {Link, useNavigate} from 'react-router-dom'
 import productService from '../../../Service/ProductService';
 import categoryService from '../../../Service/CategoryService';
+import attributeService from '../../../Service/AttributeService';
+import propertyService from '../../../Service/PropertyService';
 import $ from 'jquery';
 import tinymce from 'tinymce/tinymce';
 
 function CreateProduct() {
     const navigate = useNavigate();
     const [categories, setData] = useState([]);
+    const [attributes, setAttributes] = useState([]);
+    const [properties, setProperties] = useState([]);
     const [loading, setLoading] = useState(true);
 
     let isFeature = false;
@@ -20,7 +24,6 @@ function CreateProduct() {
         await categoryService.adminListCategory()
             .then((res) => {
                 if (res.status === 200) {
-                    console.log("list category", res.data)
                     setData(res.data.data)
                     setLoading(false)
                 }
@@ -29,6 +32,70 @@ function CreateProduct() {
                 setLoading(false)
                 console.log(err)
             })
+    }
+
+    /**
+     * Fetches the list of attributes from the server and updates the component state
+     * accordingly.
+     * @function
+     * @async
+     * @returns {Promise<void>} A Promise that resolves when the data has been fetched and
+     * the component state has been updated.
+     */
+    const getListAttribute = async () => {
+        await attributeService.adminListAttribute()
+            .then((res) => {
+                if (res.status === 200) {
+                    setAttributes(res.data.data)
+                    setLoading(false)
+                } else {
+                    setLoading(false)
+                }
+            })
+            .catch((err) => {
+                setLoading(false)
+                console.log(err)
+            })
+    }
+
+    /**
+     * Fetches the list of properties from the server and updates the component state
+     * accordingly.
+     *
+     * This function is called when the component mounts and when the user navigates to a
+     * different page. It calls the API to fetch the list of properties, and if the call is
+     * successful, it updates the component state with the new data and sets the loading
+     * state to false. If the call fails, it sets the loading state to false and logs the
+     * error to the console.
+     *
+     * @async
+     * @function
+     * @returns {Promise<void>} A Promise that resolves when the data has been fetched and
+     * the component state has been updated.
+     */
+    async function getListProperty(attribute_id, el) {
+        setLoading(true);
+        await propertyService.listPropertyByAttribute(attribute_id)
+            .then((res) => {
+                if (res.status === 200) {
+                    let data = res.data.data;
+                    setProperties(data);
+                    renderProperty(el, data);
+                    setLoading(false)
+                }
+            })
+            .catch((err) => {
+                setLoading(false)
+                console.log(err)
+            })
+    }
+
+    function renderProperty(el, data) {
+        let html = '';
+        for (let i = 0; i < data.length; i++) {
+            html += `<option value="${data[i].id}">${data[i].name}</option>`;
+        }
+        $(el).parent().next().find('select[name="property_item"]').html(html);
     }
 
     const onFinish = async () => {
@@ -45,6 +112,7 @@ function CreateProduct() {
                 return;
             }
         }
+
         if ($('#isFeature').is(":checked")) {
             isFeature = true;
         }
@@ -55,8 +123,84 @@ function CreateProduct() {
 
         const formData = new FormData($('#formCreate')[0]);
 
-        formData.append('isFeature', isFeature);
-        formData.append('isHot', isHot);
+        formData.append('is_feature', isFeature);
+        formData.append('is_hot', isHot);
+
+        let filedata = document.getElementById("gallery");
+        let i = 0, len = filedata.files.length, img, reader, file;
+
+        if (len > 0) {
+            for (i; i < len; i++) {
+                file = filedata.files[i];
+                formData.append('gallery[]', file);
+            }
+        } else {
+            $('#btnCreate').prop('disabled', false).text('Tạo mới');
+            setLoading(false);
+            return;
+        }
+
+        const photo = $('#thumbnail')[0].files[0];
+        if (!photo) {
+            $('#btnCreate').prop('disabled', false).text('Tạo mới');
+            setLoading(false);
+            return;
+        }
+        formData.append('thumbnail', photo);
+
+        let _table_attr = $('#render_table_attr').find('tbody');
+
+        let data_options = [];
+        let data_images = [];
+        _table_attr.each(function () {
+            let _this = $(this);
+            let list_option = _this.find('.list_option');
+
+            let item = [];
+            list_option.find('.attribute_property_item_').each(function () {
+                let el = $(this);
+                let attribute_item = el.find('select[name="attribute_item"]').val();
+                let property_item = el.find('select[name="property_item"]').val();
+
+                let _child = {
+                    attribute_item: attribute_item,
+                    property_item: property_item
+                }
+                item.push(_child)
+            })
+
+            let option_quantity = _this.find('input[name="option_quantity"]').val();
+            let option_price = _this.find('input[name="option_price"]').val();
+            let option_sale_price = _this.find('input[name="option_sale_price"]').val();
+            let option_description = _this.find('textarea[name="option_description"]').val();
+
+            let _data = {
+                _options: item,
+                quantity: option_quantity,
+                price: option_price,
+                sale_price: option_sale_price,
+                description: option_description,
+            }
+            data_options.push(_data)
+        })
+
+        formData.append('data_options', JSON.stringify(data_options))
+
+        let fileDataOption = document.getElementsByName("option_thumbnail");
+        let j = 0, length, imgOp, readerOp, fileOp;
+
+        for (let i = 0; i < fileDataOption.length; i++) {
+            let inputFile = fileDataOption[i];
+
+            if (inputFile.files.length > 0) {
+                length = inputFile.files.length;
+                for (j = 0; j < length; j++) {
+                    fileOp = inputFile.files[j];
+                    formData.append('data_images[]', fileOp);
+                }
+            }
+        }
+
 
         await productService.adminCreateProduct(formData)
             .then((res) => {
@@ -66,7 +210,6 @@ function CreateProduct() {
             })
             .catch((err) => {
                 setLoading(false)
-                console.log(err)
                 $('#btnCreate').prop('disabled', false).text('Tạo mới');
             })
     };
@@ -134,8 +277,11 @@ function CreateProduct() {
     <div class="row attribute_property_item_">
         <div class="form-group col-md-5">
             <label for="attribute_item">Thuộc tính</label>
-            <select name="attribute_item" class="form-select">
+            <select name="attribute_item" class="form-select" onchange="getPropertyByAttribute(this)">
                 <option value="">-- Chọn thuộc tính --</option>
+                ${attributes.map((attribute) =>
+        `<option value="${attribute.id}">${attribute.name}</option>`)
+    }
             </select>
         </div>
         <div class="form-group col-md-5">
@@ -165,9 +311,15 @@ function CreateProduct() {
         $(el).closest('.attribute_property_item_').remove();
     };
 
+    window.getPropertyByAttribute = function (el) {
+        let attr = $(el).val();
+        getListProperty(attr, el);
+    };
+
 
     useEffect(() => {
         getListCategory();
+        getListAttribute();
     }, [loading]);
 
     return (
@@ -193,19 +345,20 @@ function CreateProduct() {
                                     <h5 className="card-title">Tạo mới sản phẩm</h5>
                                     <Form onFinish={onFinish} id="formCreate">
                                         <div className="form-group">
-                                            <label htmlFor="product_name">Tên sản phẩm</label>
-                                            <input type="text" className="form-control" id="product_name" name="Name"
+                                            <label htmlFor="name">Tên sản phẩm</label>
+                                            <input type="text" className="form-control" id="name" name="name"
                                                    required/>
                                         </div>
                                         <div className="row">
                                             <div className="form-group col-md-4">
-                                                <label htmlFor="last_price">Giá cũ</label>
-                                                <input type="number" className="form-control" id="last_price"
-                                                       name="LastPrice" required/>
+                                                <label htmlFor="price">Giá cũ</label>
+                                                <input type="number" className="form-control" id="price"
+                                                       name="price" required/>
                                             </div>
                                             <div className="form-group col-md-4">
-                                                <label htmlFor="price">Giá mới</label>
-                                                <input type="number" className="form-control" id="price" name="Price"
+                                                <label htmlFor="sale_price">Giá mới</label>
+                                                <input type="number" className="form-control" id="sale_price"
+                                                       name="sale_price"
                                                        required/>
                                             </div>
                                             <div className="form-group col-md-4">
@@ -256,8 +409,8 @@ function CreateProduct() {
                                         </div>
                                         <div className="row">
                                             <div className="form-group col-md-6">
-                                                <label htmlFor="categoryId">Danh mục</label>
-                                                <select id="categoryId" className="form-control" name="CategoryId">
+                                                <label htmlFor="category_id">Danh mục</label>
+                                                <select id="category_id" className="form-control" name="category_id">
                                                     <option value="">Chọn danh mục</option>
                                                     {
                                                         categories.map((category) => (
@@ -268,9 +421,9 @@ function CreateProduct() {
                                             </div>
                                             <div className="form-group col-md-6">
                                                 <label htmlFor="status">Trạng thái</label>
-                                                <select id="status" className="form-control" name="Status">
-                                                    <option value="0">ACTIVE</option>
-                                                    <option value="1">INACTIVE</option>
+                                                <select id="status" className="form-control" name="status">
+                                                    <option value="ĐANG HOẠT ĐỘNG">ĐANG HOẠT ĐỘNG</option>
+                                                    <option value="KHÔNG HOẠT ĐỘNG">KHÔNG HOẠT ĐỘNG</option>
                                                 </select>
                                             </div>
                                         </div>
