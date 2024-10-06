@@ -111,7 +111,7 @@ function DetailAttribute() {
                                         <div className="form-group col-md-6">
                                             <label htmlFor="name">Tên thuộc tính</label>
                                             <input type="text" className="form-control" id="name"
-                                                   value={attribute.name} required/>
+                                                   defaultValue={attribute.name} required/>
                                         </div>
                                         <div className="form-group col-md-6">
                                             <label htmlFor="status">Trạng thái</label>

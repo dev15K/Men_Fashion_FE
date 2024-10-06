@@ -2,9 +2,9 @@ import {BASE_URL_SERVER} from "../config/server";
 import axios from "axios";
 
 const API_ENDPOINT = {
-    LIST_PRODUCT: "/api/auth/products/list",
-    DETAIL_PRODUCT: "/api/auth/products/detail/",
-    SEARCH_PRODUCT: "/api/auth/products/search",
+    LIST_PRODUCT: "/api/products/list",
+    DETAIL_PRODUCT: "/api/products/detail/",
+    SEARCH_PRODUCT: "/api/products/search",
     // ADMIN
     ADMIN_LIST_PRODUCT: "/api/admin/products/list",
     ADMIN_DETAIL_PRODUCT: "/api/admin/products/detail/",
@@ -67,7 +67,7 @@ class ProductService {
                 'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
             }
         };
-        return axios.put(BASE_URL_SERVER + API_ENDPOINT.ADMIN_UPDATE_PRODUCT + id, data, config)
+        return axios.post(BASE_URL_SERVER + API_ENDPOINT.ADMIN_UPDATE_PRODUCT + id, data, config)
     };
 
     adminDeleteProduct = (id) => {

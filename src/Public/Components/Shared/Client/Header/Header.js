@@ -32,19 +32,19 @@ function YesLogin() {
     }
 
     const getListCart = async () => {
-        await cartService.listCart(userId)
-            .then((res) => {
-                if (res.status === 200) {
-                    console.log("data", res.data)
-                    let count = res.data.length;
-                    $('#countCart').text(count);
-                } else {
-                    alert('Error')
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+        // await cartService.listCart(userId)
+        //     .then((res) => {
+        //         if (res.status === 200) {
+        //             console.log("data", res.data)
+        //             let count = res.data.length;
+        //             $('#countCart').text(count);
+        //         } else {
+        //             alert('Error')
+        //         }
+        //     })
+        //     .catch((err) => {
+        //         console.log(err)
+        //     })
     }
 
     useEffect(() => {
@@ -74,6 +74,7 @@ function YesLogin() {
 
 function HeaderClient() {
     const [searchParams] = useSearchParams();
+    const [categories, setCategories] = useState([]);
     const navigate = useNavigate();
     let isLogin = true;
 
@@ -100,14 +101,12 @@ function HeaderClient() {
     $('#min-price').val(minPrice_param)
     $('#max-price').val(maxPrice_param)
 
-    const [categories, setCategories] = useState([]);
-
     const getListCategory = async () => {
         await categoryService.listCategory()
             .then((res) => {
                 if (res.status === 200) {
-                    console.log("category", res.data)
-                    setCategories(res.data);
+                    console.log("category", res.data.data)
+                    setCategories(res.data.data);
                 } else {
                     alert('Error')
                 }
@@ -125,7 +124,7 @@ function HeaderClient() {
         let sort = sort_param ?? 'desc';
         let minPrice = $('#min-price').val() ?? '';
         let maxPrice = $('#max-price').val() ?? '';
-        let searchUrl = `${baseurl}?keyword=${keyword}&size=${size}&category=${category}&sort=${sort}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
+        let searchUrl = `${baseurl}?keyword=${keyword}&size=${size}&category_id=${category}&sort=${sort}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
         navigate(searchUrl);
     }
 
@@ -177,34 +176,26 @@ function HeaderClient() {
                             <li className="has-children">
                                 <a href="/products">Danh mục</a>
                                 <ul className="dropdown">
-                                    <li className="mb-1">
-                                        <a href="#" className="d-flex categoryID">
-                                            <span>Danh mục 1</span>
-                                        </a>
-                                    </li>
-                                    <li className="mb-1">
-                                        <a href="#" className="d-flex categoryID">
-                                            <span>Danh mục 2</span>
-                                        </a>
-                                    </li>
-                                    <li className="mb-1">
-                                        <a href="#" className="d-flex categoryID">
-                                            <span>Danh mục 3</span>
-                                        </a>
-                                    </li>
+                                    {
+                                        categories.map((category) => (
+                                            <li className="mb-1" key={category.id}>
+                                                <a href={'/products?category=' + category.id} data-id={category.id} className="d-flex categoryID">
+                                                    <span>{category.name}</span>
+                                                </a>
+                                            </li>
+                                        ))
+                                    }
                                 </ul>
                             </li>
                             <li className="has-children">
                                 <a href="#">Mục lục</a>
                                 <ul className="dropdown">
                                     <li><a href="/products">Cửa hàng</a></li>
-                                    <li><a href="/coming-soon">Tin tức & Sự kiện</a></li>
                                     <li><a href="/about-us">Về chúng tôi</a></li>
                                     <li><a href="/contact">Liên hệ</a></li>
                                 </ul>
                             </li>
                             <li><a href="/products">Cửa hàng</a></li>
-                            <li><a href="/coming-soon">Tin tức & Sự kiện</a></li>
                             <li><a href="/about-us">Về chúng tôi</a></li>
                             <li><a href="/contact">Liên hệ</a></li>
                         </ul>

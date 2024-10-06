@@ -104,7 +104,7 @@ function DetailCategory() {
                                         <div className="form-group">
                                             <label htmlFor="name">Tên danh mục</label>
                                             <input type="text" name="name" className="form-control" id="name"
-                                                   value={category.name} required/>
+                                                   defaultValue={category.name} required/>
                                         </div>
                                         <div className="row">
                                             <div className="form-group col-md-4">
