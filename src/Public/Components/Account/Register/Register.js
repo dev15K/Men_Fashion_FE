@@ -1,13 +1,27 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Form} from 'antd';
 import authService from '../../Service/AuthService';
 import $ from "jquery";
+import {Button, Form, Input, message} from 'antd';
 import Css from "../../Shared/Admin/Lib/StyleSheet";
 import Script from "../../Shared/Admin/Lib/Script";
 
 function Register() {
+    function checkPhone() {
+        $('.message_error').addClass('d-none');
+        let val = $('#phone').val()
+        if (!$.isNumeric(val)) {
+            val = val.replace(/\D/g, '');
+            $('#phone').val(val);
+        }
+    }
+
+    function isVietnamesePhoneNumber(number) {
+        return /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/.test(number);
+    }
+
     const onFinish = async () => {
+        $('.needs-validation').addClass('was-validated');
         let name = document.getElementById('name').value;
         let email = document.getElementById('email').value;
         let phone = document.getElementById('phone').value;
@@ -15,6 +29,14 @@ function Register() {
         let password_confirm = document.getElementById('password_confirm').value;
 
         $('#btnRegister').prop('disabled', true).text('Đang đăng ký...');
+
+        let check = isVietnamesePhoneNumber(phone);
+        if (!check) {
+            // message.error('Số điện thoại phải điền đúng định dạng')
+            $('.message_error').removeClass('d-none');
+            $('#btnRegister').prop('disabled', false).text('Đăng ký');
+            return;
+        }
 
         let data = {
             name: name,
@@ -87,8 +109,10 @@ function Register() {
                                                 <div className="col-12">
                                                     <label htmlFor="phone" className="form-label">Số điện thoại</label>
                                                     <input type="text" name="phone" className="form-control"
+                                                           onInput={checkPhone}
                                                            id="phone" required/>
-                                                    <div className="invalid-feedback">Vui lòng chọn tên đăng nhập.</div>
+                                                    <div className="invalid-feedback">Vui lòng chọn số điện thoại.</div>
+                                                    <div className="message_error text-danger d-none">Vui lòng nhập số điện thoại hợp lệ.</div>
                                                 </div>
 
                                                 <div className="col-12">
@@ -109,19 +133,20 @@ function Register() {
                                                     </div>
                                                 </div>
 
-                                                <div className="col-12">
-                                                    <div className="form-check">
-                                                        <input className="form-check-input" name="terms" type="checkbox"
-                                                               value="" id="acceptTerms" required></input>
-                                                        <label className="form-check-label" htmlFor="acceptTerms">
-                                                            Tôi đồng ý và chấp nhận <Link to="#">các điều khoản và điều
-                                                            kiện</Link>
-                                                        </label>
-                                                        <div className="invalid-feedback">
-                                                            Bạn phải đồng ý trước khi gửi.
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {/*<div className="col-12">*/}
+                                                {/*    <div className="form-check">*/}
+                                                {/*        <input className="form-check-input" name="terms" type="checkbox"*/}
+                                                {/*               value="" id="acceptTerms" required></input>*/}
+                                                {/*        <label className="form-check-label" htmlFor="acceptTerms">*/}
+                                                {/*            Tôi đồng ý và chấp nhận <Link to="#">các điều khoản và điều*/}
+                                                {/*            kiện</Link>*/}
+                                                {/*        </label>*/}
+                                                {/*        <div className="invalid-feedback">*/}
+                                                {/*            Bạn phải đồng ý trước khi gửi.*/}
+                                                {/*        </div>*/}
+                                                {/*    </div>*/}
+                                                {/*</div>*/}
+
                                                 <div className="col-12">
                                                     <button id="btnRegister" className="btn btn-primary w-100"
                                                             type="submit">Đăng ký

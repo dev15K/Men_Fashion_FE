@@ -9,6 +9,28 @@ import productService from "../../Service/ProductService";
 import $ from "jquery";
 
 function ProductList() {
+    const [loading, setLoading] = useState(true);
+    const [newProducts, setNewProducts] = useState([]);
+
+    const getListProduct = async () => {
+        await productService.listProduct('', 'desc')
+            .then((res) => {
+                if (res.status === 200) {
+                    console.log("data", res.data)
+                    setNewProducts(res.data.data)
+                    setLoading(false)
+                }
+            })
+            .catch((err) => {
+                setLoading(false)
+                console.log(err)
+            })
+    }
+
+    useEffect(() => {
+        getListProduct();
+    }, [loading]);
+
     return (
         <div className="site-wrap">
             <Header/>
@@ -62,190 +84,24 @@ function ProductList() {
                             </div>
                             <div className="row mb-5">
 
-                                <div className="col-sm-6 col-lg-4 mb-4">
-                                    <div className="block-4 text-center border">
-                                        <figure className="block-4-image">
-                                            <a href="/products/1">
-                                                <img src="/assets/clients/images/cloth_1.jpg"
-                                                                            alt="Image placeholder"
-                                                                            className="img-fluid"/></a>
-                                        </figure>
-                                        <div className="block-4-text p-4">
-                                            <h3><a href="/products/1">Tank Top</a></h3>
-                                            <p className="mb-0">Finding perfect t-shirt</p>
-                                            <p className="text-primary font-weight-bold">$50</p>
+                                {newProducts.map((product) => (
+                                    <div className="col-sm-6 col-lg-4 mb-4">
+                                        <div className="block-4 text-center border">
+                                            <figure className="block-4-image">
+                                                <a href={'/products/' + product.id}>
+                                                    <img src={product.thumbnail}
+                                                         alt={product.name}
+                                                         className="img-fluid"/></a>
+                                            </figure>
+                                            <div className="block-4-text p-4">
+                                                <h3><a href={'/products/' + product.id}>{product.name}</a></h3>
+                                                <p className="mb-0">{product.short_description}</p>
+                                                <p className="text-primary font-weight-bold">{product.price}VND</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4">
-                                    <div className="block-4 text-center border">
-                                        <figure className="block-4-image">
-                                            <a href="/products/1">
-                                                <img src="/assets/clients/images/shoe_1.jpg"
-                                                                            alt="Image placeholder"
-                                                                            className="img-fluid"/></a>
-                                        </figure>
-                                        <div className="block-4-text p-4">
-                                            <h3><a href="/products/1">Corater</a></h3>
-                                            <p className="mb-0">Finding perfect products</p>
-                                            <p className="text-primary font-weight-bold">$50</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4">
-                                    <div className="block-4 text-center border">
-                                        <figure className="block-4-image">
-                                            <a href="/products/1">
-                                                <img src="/assets/clients/images/cloth_2.jpg"
-                                                                            alt="Image placeholder"
-                                                                            className="img-fluid"/></a>
-                                        </figure>
-                                        <div className="block-4-text p-4">
-                                            <h3><a href="/products/1">Polo Shirt</a></h3>
-                                            <p className="mb-0">Finding perfect products</p>
-                                            <p className="text-primary font-weight-bold">$50</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="col-sm-6 col-lg-4 mb-4">
-                                    <div className="block-4 text-center border">
-                                        <figure className="block-4-image">
-                                            <a href="/products/1">
-                                                <img src="/assets/clients/images/cloth_3.jpg"
-                                                     alt="Image placeholder"
-                                                     className="img-fluid"/></a>
-                                        </figure>
-                                        <div className="block-4-text p-4">
-                                            <h3><a href="/products/1">T-Shirt Mockup</a></h3>
-                                            <p className="mb-0">Finding perfect products</p>
-                                            <p className="text-primary font-weight-bold">$50</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4">
-                                    <div className="block-4 text-center border">
-                                        <figure className="block-4-image">
-                                            <a href="/products/1">
-                                                <img src="/assets/clients/images/shoe_1.jpg"
-                                                                            alt="Image placeholder"
-                                                                            className="img-fluid"/></a>
-                                        </figure>
-                                        <div className="block-4-text p-4">
-                                            <h3><a href="/products/1">Corater</a></h3>
-                                            <p className="mb-0">Finding perfect products</p>
-                                            <p className="text-primary font-weight-bold">$50</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4">
-                                    <div className="block-4 text-center border">
-                                        <figure className="block-4-image">
-                                            <a href="/products/1">
-                                                <img src="/assets/clients/images/cloth_1.jpg"
-                                                                            alt="Image placeholder"
-                                                                            className="img-fluid"/></a>
-                                        </figure>
-                                        <div className="block-4-text p-4">
-                                            <h3><a href="/products/1">Tank Top</a></h3>
-                                            <p className="mb-0">Finding perfect t-shirt</p>
-                                            <p className="text-primary font-weight-bold">$50</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4">
-                                    <div className="block-4 text-center border">
-                                        <figure className="block-4-image">
-                                            <a href="/products/1">
-                                                <img src="/assets/clients/images/shoe_1.jpg"
-                                                                            alt="Image placeholder"
-                                                                            className="img-fluid"/></a>
-                                        </figure>
-                                        <div className="block-4-text p-4">
-                                            <h3><a href="/products/1">Corater</a></h3>
-                                            <p className="mb-0">Finding perfect products</p>
-                                            <p className="text-primary font-weight-bold">$50</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4">
-                                    <div className="block-4 text-center border">
-                                        <figure className="block-4-image">
-                                            <a href="/products/1">
-                                                <img src="/assets/clients/images/cloth_2.jpg"
-                                                                            alt="Image placeholder"
-                                                                            className="img-fluid"/></a>
-                                        </figure>
-                                        <div className="block-4-text p-4">
-                                            <h3><a href="/products/1">Polo Shirt</a></h3>
-                                            <p className="mb-0">Finding perfect products</p>
-                                            <p className="text-primary font-weight-bold">$50</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="col-sm-6 col-lg-4 mb-4">
-                                    <div className="block-4 text-center border">
-                                        <figure className="block-4-image">
-                                            <a href="/products/1">
-                                                <img src="/assets/clients/images/cloth_3.jpg"
-                                                                            alt="Image placeholder"
-                                                                            className="img-fluid"/></a>
-                                        </figure>
-                                        <div className="block-4-text p-4">
-                                            <h3><a href="/products/1">T-Shirt Mockup</a></h3>
-                                            <p className="mb-0">Finding perfect products</p>
-                                            <p className="text-primary font-weight-bold">$50</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4">
-                                    <div className="block-4 text-center border">
-                                        <figure className="block-4-image">
-                                            <a href="/products/1">
-                                                <img src="/assets/clients/images/shoe_1.jpg"
-                                                                            alt="Image placeholder"
-                                                                            className="img-fluid"/></a>
-                                        </figure>
-                                        <div className="block-4-text p-4">
-                                            <h3><a href="/products/1">Corater</a></h3>
-                                            <p className="mb-0">Finding perfect products</p>
-                                            <p className="text-primary font-weight-bold">$50</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4">
-                                    <div className="block-4 text-center border">
-                                        <figure className="block-4-image">
-                                            <a href="/products/1">
-                                                <img src="/assets/clients/images/cloth_1.jpg"
-                                                                            alt="Image placeholder"
-                                                                            className="img-fluid"/></a>
-                                        </figure>
-                                        <div className="block-4-text p-4">
-                                            <h3><a href="/products/1">Tank Top</a></h3>
-                                            <p className="mb-0">Finding perfect t-shirt</p>
-                                            <p className="text-primary font-weight-bold">$50</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="col-sm-6 col-lg-4 mb-4">
-                                    <div className="block-4 text-center border">
-                                        <figure className="block-4-image">
-                                            <a href="/products/1">
-                                                <img src="/assets/clients/images/cloth_2.jpg"
-                                                                            alt="Image placeholder"
-                                                                            className="img-fluid"/></a>
-                                        </figure>
-                                        <div className="block-4-text p-4">
-                                            <h3><a href="/products/1">Polo Shirt</a></h3>
-                                            <p className="mb-0">Finding perfect products</p>
-                                            <p className="text-primary font-weight-bold">$50</p>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                ))
+                                }
 
                             </div>
                             <div className="row">
@@ -338,7 +194,8 @@ function ProductList() {
                                     <div className="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
                                         <a className="block-2-item" href="#">
                                             <figure className="image">
-                                                <img src="/assets/clients/images/women.jpg" alt="" className="img-fluid"/>
+                                                <img src="/assets/clients/images/women.jpg" alt=""
+                                                     className="img-fluid"/>
                                             </figure>
                                             <div className="text">
                                                 <span className="text-uppercase">Collections</span>
@@ -349,7 +206,8 @@ function ProductList() {
                                     <div className="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0">
                                         <a className="block-2-item" href="#">
                                             <figure className="image">
-                                                <img src="/assets/clients/images/children.jpg" alt="" className="img-fluid"/>
+                                                <img src="/assets/clients/images/children.jpg" alt=""
+                                                     className="img-fluid"/>
                                             </figure>
                                             <div className="text">
                                                 <span className="text-uppercase">Collections</span>
@@ -369,7 +227,6 @@ function ProductList() {
                                         </a>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>

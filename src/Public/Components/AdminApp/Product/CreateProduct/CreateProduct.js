@@ -201,7 +201,6 @@ function CreateProduct() {
             }
         }
 
-
         await productService.adminCreateProduct(formData)
             .then((res) => {
                 setLoading(false)
@@ -210,6 +209,7 @@ function CreateProduct() {
             })
             .catch((err) => {
                 setLoading(false)
+                alert(err.data.message);
                 $('#btnCreate').prop('disabled', false).text('Tạo mới');
             })
     };

@@ -108,7 +108,6 @@ function Header() {
                             <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                                 <li className="dropdown-header">
                                     <h6>{data.full_name}</h6>
-                                    <span>{data.username}</span>
                                 </li>
                                 <li>
                                     <hr className="dropdown-divider"/>

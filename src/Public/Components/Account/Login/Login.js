@@ -90,14 +90,7 @@ function Login() {
                                                 </div>
 
                                                 <div
-                                                    className="col-12 d-flex justify-content-between align-items-center">
-                                                    <div className="form-check">
-                                                        <input className="form-check-input" type="checkbox"
-                                                               name="remember"
-                                                               value="true" id="rememberMe"></input>
-                                                        <label className="form-check-label" htmlFor="rememberMe">Ghi nhớ
-                                                            đăng nhập</label>
-                                                    </div>
+                                                    className="col-12 d-flex justify-content-end align-items-center">
                                                     <a href="/forgot-password">Quên mật khẩu?</a>
                                                 </div>
                                                 <div className="col-12">
