@@ -105,7 +105,7 @@ function DetailProperty() {
                                         <div className="form-group">
                                             <label htmlFor="name">Tên biến thể</label>
                                             <input type="text" name="name" className="form-control" id="name"
-                                                   value={property.name} required/>
+                                                   defaultValue={property.name} required/>
                                         </div>
                                         <div className="row">
                                             <div className="form-group col-md-4">
