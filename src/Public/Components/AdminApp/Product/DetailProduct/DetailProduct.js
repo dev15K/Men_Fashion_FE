@@ -109,18 +109,15 @@ function DetailProduct() {
      * the component state has been updated.
      */
     async function getListProperty(attribute_id, el) {
-        setLoading(true);
         await propertyService.listPropertyByAttribute(attribute_id)
             .then((res) => {
                 if (res.status === 200) {
                     let data = res.data.data;
                     setProperties(data);
                     renderProperty(el, data);
-                    setLoading(false)
                 }
             })
             .catch((err) => {
-                setLoading(false)
                 console.log(err)
             })
     }
@@ -149,12 +146,12 @@ function DetailProduct() {
         setLoading(true)
         $('#btnSave').prop('disabled', true).text('Đang lưu...');
 
-        let inputs = $('#formCreate input, #formCreate textarea, #formCreate select');
+        let inputs = $('#formUpdate input, #formUpdate textarea, #formUpdate select');
         for (let i = 0; i < inputs.length; i++) {
-            if (!$(inputs[i]).val()) {
+            if (!$(inputs[i]).val() && $(inputs[i]).attr('type') !== 'file') {
                 let text = $(inputs[i]).prev().text();
                 alert(text + ' không được bỏ trống!');
-                $('#btnSave').prop('disabled', false).text('Lưu');
+                $('#btnSave').prop('disabled', false).text('Lưu thay đổi');
                 setLoading(false);
                 return;
             }
@@ -168,7 +165,7 @@ function DetailProduct() {
             isHot = true;
         }
 
-        const formData = new FormData($('#formCreate')[0]);
+        const formData = new FormData($('#formUpdate')[0]);
 
         formData.append('is_feature', isFeature);
         formData.append('is_hot', isHot);
@@ -181,18 +178,9 @@ function DetailProduct() {
                 file = filedata.files[i];
                 formData.append('gallery[]', file);
             }
-        } else {
-            $('#btnSave').prop('disabled', false).text('Lưu');
-            setLoading(false);
-            return;
         }
 
         const photo = $('#thumbnail')[0].files[0];
-        if (!photo) {
-            $('#btnSave').prop('disabled', false).text('Lưu');
-            setLoading(false);
-            return;
-        }
         formData.append('thumbnail', photo);
 
         let _table_attr = $('#render_table_attr').find('tbody');
@@ -220,6 +208,7 @@ function DetailProduct() {
             let option_price = _this.find('input[name="option_price"]').val();
             let option_sale_price = _this.find('input[name="option_sale_price"]').val();
             let option_description = _this.find('textarea[name="option_description"]').val();
+            let option_thumbnail_uploaded = _this.find('input[name="option_thumbnail_uploaded"]').val();
 
             let _data = {
                 _options: item,
@@ -227,6 +216,7 @@ function DetailProduct() {
                 price: option_price,
                 sale_price: option_sale_price,
                 description: option_description,
+                thumbnail_uploaded: option_thumbnail_uploaded,
             }
             data_options.push(_data)
         })
@@ -248,16 +238,16 @@ function DetailProduct() {
             }
         }
 
-        await productService.adminCreateProduct(formData)
+        await productService.adminUpdateProduct(id, formData)
             .then((res) => {
                 setLoading(false)
                 message.success("Thay đổi thành công")
                 navigate("/admin/products/list")
             })
             .catch((err) => {
-                setLoading(false)
-                alert(err.data.message);
-                $('#btnSave').prop('disabled', false).text('Lưu');
+                setLoading(false);
+                console.log(err)
+                $('#btnSave').prop('disabled', false).text('Lưu thay đổi');
             })
     };
 
@@ -349,6 +339,7 @@ function DetailProduct() {
                 <td>
                     <input type="file" class="form-control" name="option_thumbnail" />
                     <img src="${_this.thumbnail}" alt="" class="mt-3" width="200px">
+                    <input type="text" class="d-none" name="option_thumbnail_uploaded" value="${_this.thumbnail}">
                 </td>
                 <td rowSpan="3" class="text-center align-middle">
                     <button class="btn btn-danger btnDelete" onclick="removeTableOption(this)" type="button">Xoá</button>
@@ -364,9 +355,9 @@ function DetailProduct() {
             </tr>
         </tbody>
     </table>`;
-
-            $('#render_table_attr').empty().append(html);
         }
+
+        $('#render_table_attr').empty().append(html);
     }
 
     const generateTable = () => `
@@ -499,7 +490,7 @@ function DetailProduct() {
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title">Tạo mới sản phẩm</h5>
-                                    <Form onFinish={onFinish} id="formCreate">
+                                    <Form onFinish={onFinish} id="formUpdate">
                                         <div className="form-group">
                                             <label htmlFor="name">Tên sản phẩm</label>
                                             <input type="text" className="form-control" id="name" name="name"
@@ -576,7 +567,8 @@ function DetailProduct() {
                                                     <option value="">Chọn danh mục</option>
                                                     {
                                                         categories.map((category) => (
-                                                            <option value={category.id}>{category.name}</option>
+                                                            <option selected={category.id === product.category_id}
+                                                                    value={category.id}>{category.name}</option>
                                                         ))
                                                     }
                                                 </select>
@@ -589,8 +581,8 @@ function DetailProduct() {
                                                 </select>
                                             </div>
                                         </div>
-                                        <button type="submit" id="btnCreate" className="btn btn-primary mt-3">
-                                            Tạo mới
+                                        <button type="submit" id="btnSave" className="btn btn-primary mt-3">
+                                            Lưu thay đổi
                                         </button>
                                     </Form>
                                 </div>

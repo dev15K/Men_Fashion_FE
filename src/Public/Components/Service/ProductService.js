@@ -67,7 +67,7 @@ class ProductService {
                 'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
             }
         };
-        return axios.put(BASE_URL_SERVER + API_ENDPOINT.ADMIN_UPDATE_PRODUCT + id, data, config)
+        return axios.post(BASE_URL_SERVER + API_ENDPOINT.ADMIN_UPDATE_PRODUCT + id, data, config)
     };
 
     adminDeleteProduct = (id) => {
