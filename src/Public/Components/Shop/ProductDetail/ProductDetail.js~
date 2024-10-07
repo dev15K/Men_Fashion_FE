@@ -110,7 +110,7 @@ function ProductDetail() {
                                                             const inputId = `option-${optionIndex}-property-${propertyIndex}`;
                                                             return (
                                                                 <label htmlFor={inputId} className="d-flex mr-3 mb-3" key={propertyIndex}>
-                                                                    <span className="d-inline-block mr-2" style={{top: '0px', position: 'relative'}}>
+                                                                    <span className="d-inline-block mr-2" style={{top: '-2px', position: 'relative'}}>
                                                                         <input type="radio" value={option.attribute.id + '-' + property.id} id={inputId} name={`option-${optionIndex}`}/>
                                                                     </span>
                                                                     <span className="d-inline-block text-black">{property.name}</span>

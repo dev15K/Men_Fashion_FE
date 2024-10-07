@@ -235,6 +235,8 @@ function DetailProduct() {
                     fileOp = inputFile.files[j];
                     formData.append('data_images[]', fileOp);
                 }
+            } else {
+                formData.append('data_images[]', '')
             }
         }
 
@@ -403,6 +405,7 @@ function DetailProduct() {
                 </td>
                 <td>
                     <input type="file" class="form-control" name="option_thumbnail" required/>
+                    <input type="text" class="d-none" name="option_thumbnail_uploaded" value="no_image">
                 </td>
                 <td rowSpan="3" class="text-center align-middle">
                     <button class="btn btn-danger btnDelete" onclick="removeTableOption(this)" type="button">Xoá</button>

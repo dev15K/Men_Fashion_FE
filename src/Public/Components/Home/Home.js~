@@ -280,7 +280,7 @@ function Home() {
                                                         />
                                                     </figure>
                                                     <div className="block-4-text p-4">
-                                                        <h3><a className="text_truncate_"
+                                                        <h3><a className="text_truncate_2_"
                                                             href={'/products/' + product.id}>{product.name || "Product Name"}</a>
                                                         </h3>
                                                         <p className="mb-0 text_truncate_2_">{product.short_description || "Finding perfect t-shirt"}</p>
