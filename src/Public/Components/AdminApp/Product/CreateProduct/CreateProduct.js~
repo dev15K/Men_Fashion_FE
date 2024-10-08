@@ -189,7 +189,7 @@ function CreateProduct() {
             let option_quantity = _this.find('input[name="option_quantity"]').val();
             let option_price = _this.find('input[name="option_price"]').val();
             let option_sale_price = _this.find('input[name="option_sale_price"]').val();
-            let option_description = _this.find('textarea[name="option_description"]').val() ?? '';
+            let option_description = _this.find('textarea[name="option_description"]').val();
 
             let _data = {
                 _options: item,
@@ -277,6 +277,14 @@ function CreateProduct() {
                 </td>
                 <td rowSpan="3" class="text-center align-middle">
                     <button class="btn btn-danger btnDelete" onclick="removeTableOption(this)" type="button">Xoá</button>
+                </td>
+            </tr>
+            <tr>
+                <th colSpan="5">Mô tả</th>
+            </tr>
+            <tr>
+                <td colSpan="5">
+                    <textarea name="option_description" class="form-control" rows="5"></textarea>
                 </td>
             </tr>
         </tbody>
