@@ -152,7 +152,7 @@ function ProductDetail() {
 
                         </div>
                         <div className="col-md-12" id="product_description_area_">
-                            <p className="product_description_">{product.description}</p>
+                            <p className="product_description_" dangerouslySetInnerHTML={{__html: product.description}}></p>
                             <button id="btnReadmore" onClick={handleShowDescription} type="button"
                                     className="btn btn-outline-info">Xem thêm
                             </button>

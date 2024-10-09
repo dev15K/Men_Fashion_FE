@@ -1,5 +1,5 @@
 import {Form, message} from 'antd';
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {Link, useNavigate, useParams} from 'react-router-dom'
 import Header from '../../../Shared/Admin/Header/Header';
 import Sidebar from '../../../Shared/Admin/Sidebar/Sidebar';
@@ -8,6 +8,8 @@ import categoryService from '../../../Service/CategoryService';
 import attributeService from '../../../Service/AttributeService';
 import propertyService from '../../../Service/PropertyService';
 import $ from "jquery";
+import {API_KEY_TINYMCE} from "../../../config/Constants";
+import {Editor} from "@tinymce/tinymce-react";
 
 /**
  * Renders a page that displays the details of a product.
@@ -33,6 +35,7 @@ function DetailProduct() {
     const [attributes, setAttributes] = useState([]);
     const [properties, setProperties] = useState([]);
     const [loading, setLoading] = useState(true);
+    const editorRef = useRef(null);
 
     let isFeature = false;
     let isHot = false;
@@ -165,7 +168,22 @@ function DetailProduct() {
             isHot = true;
         }
 
-        const formData = new FormData($('#formUpdate')[0]);
+        const formData = new FormData($('#formCreate')[0]);
+
+        if (editorRef.current) {
+            const content = editorRef.current.getContent();
+            if (!content) {
+                alert('Mô tả sản phẩm không được bỏ trống!');
+                $('#btnCreate').prop('disabled', false).text('Tạo mới');
+                setLoading(false);
+                return;
+            }
+
+            formData.append('description', content);
+        } else {
+            formData.append('description', $('#description').val() ?? '');
+        }
+
 
         formData.append('is_feature', isFeature);
         formData.append('is_hot', isHot);
@@ -207,7 +225,7 @@ function DetailProduct() {
             let option_quantity = _this.find('input[name="option_quantity"]').val();
             let option_price = _this.find('input[name="option_price"]').val();
             let option_sale_price = _this.find('input[name="option_sale_price"]').val();
-            let option_description = _this.find('textarea[name="option_description"]').val();
+            let option_description = _this.find('textarea[name="option_description"]').val() ?? '';
             let option_thumbnail_uploaded = _this.find('input[name="option_thumbnail_uploaded"]').val();
 
             let _data = {
@@ -281,7 +299,7 @@ function DetailProduct() {
                 sup_html_ += `  <div class="row attribute_property_item_">
         <div class="form-group col-md-5">
             <label for="attribute_item">Thuộc tính</label>
-            <select name="attribute_item" class="form-select" onchange="getPropertyByAttribute(this)">
+            <select name="attribute_item" class="form-select form_input_" onchange="getPropertyByAttribute(this)">
                 <option value="${el.attribute_item.id}">-- Chọn thuộc tính --</option>
                 ${attributes_option.map((attribute) =>
                     `<option value="${attribute.id}">${attribute.name}</option>`)
@@ -290,7 +308,7 @@ function DetailProduct() {
         </div>
         <div class="form-group col-md-5">
             <label for="property_item">Biến thể</label>
-            <select name="property_item" class="form-select" data-sl="">
+            <select name="property_item" class="form-select form_input_" data-sl="">
                 <option value="${el.property_item.id}">${el.property_item.name}</option>
             </select>
         </div>
@@ -330,13 +348,13 @@ function DetailProduct() {
                     <div class="list_option">` + sup_html_ + `</div>
                 </td>
                 <td>
-                    <input type="number" class="form-control" name="option_quantity" value="${_this.quantity}" required/>
+                    <input type="number" class="form-control form_input_" name="option_quantity" value="${_this.quantity}" required/>
                 </td>
                 <td>
-                    <input type="number" class="form-control" name="option_price" value="${_this.price}" min="1" required/>
+                    <input type="number" class="form-control form_input_" name="option_price" value="${_this.price}" min="1" required/>
                 </td>
                 <td>
-                    <input type="number" class="form-control" name="option_sale_price" value="${_this.sale_price}" min="1" required/>
+                    <input type="number" class="form-control form_input_" name="option_sale_price" value="${_this.sale_price}" min="1" required/>
                 </td>
                 <td>
                     <input type="file" class="form-control" name="option_thumbnail" />
@@ -345,14 +363,6 @@ function DetailProduct() {
                 </td>
                 <td rowSpan="3" class="text-center align-middle">
                     <button class="btn btn-danger btnDelete" onclick="removeTableOption(this)" type="button">Xoá</button>
-                </td>
-            </tr>
-            <tr>
-                <th colSpan="5">Mô tả</th>
-            </tr>
-            <tr>
-                <td colSpan="5">
-                    <textarea name="option_description" class="form-control" rows="5">${_this.description}</textarea>
                 </td>
             </tr>
         </tbody>
@@ -395,28 +405,20 @@ function DetailProduct() {
                     </div>
                 </td>
                 <td>
-                    <input type="number" class="form-control" name="option_quantity" required/>
+                    <input type="number" class="form-control form_input_" name="option_quantity" required/>
                 </td>
                 <td>
-                    <input type="number" class="form-control" name="option_price" min="1" required/>
+                    <input type="number" class="form-control form_input_" name="option_price" min="1" required/>
                 </td>
                 <td>
-                    <input type="number" class="form-control" name="option_sale_price" min="1" required/>
+                    <input type="number" class="form-control form_input_" name="option_sale_price" min="1" required/>
                 </td>
                 <td>
-                    <input type="file" class="form-control" name="option_thumbnail" required/>
+                    <input type="file" class="form-control form_input_" name="option_thumbnail" required/>
                     <input type="text" class="d-none" name="option_thumbnail_uploaded" value="no_image">
                 </td>
                 <td rowSpan="3" class="text-center align-middle">
                     <button class="btn btn-danger btnDelete" onclick="removeTableOption(this)" type="button">Xoá</button>
-                </td>
-            </tr>
-            <tr>
-                <th colSpan="5">Mô tả</th>
-            </tr>
-            <tr>
-                <td colSpan="5">
-                    <textarea name="option_description" class="form-control" rows="5"></textarea>
                 </td>
             </tr>
         </tbody>
@@ -426,7 +428,7 @@ function DetailProduct() {
     <div class="row attribute_property_item_">
         <div class="form-group col-md-5">
             <label for="attribute_item">Thuộc tính</label>
-            <select name="attribute_item" class="form-select" onchange="getPropertyByAttribute(this)">
+            <select name="attribute_item" class="form-select form_input_" onchange="getPropertyByAttribute(this)">
                 <option value="">-- Chọn thuộc tính --</option>
                 ${attributes.map((attribute) =>
         `<option value="${attribute.id}">${attribute.name}</option>`)
@@ -435,7 +437,7 @@ function DetailProduct() {
         </div>
         <div class="form-group col-md-5">
             <label for="property_item">Biến thể</label>
-            <select name="property_item" class="form-select">
+            <select name="property_item" class="form-select form_input_">
                 <option value="">-- Chọn biến thể --</option>
             </select>
         </div>
@@ -496,39 +498,69 @@ function DetailProduct() {
                                     <Form onFinish={onFinish} id="formUpdate">
                                         <div className="form-group">
                                             <label htmlFor="name">Tên sản phẩm</label>
-                                            <input type="text" className="form-control" id="name" name="name"
+                                            <input type="text" className="form-control form_input_" id="name" name="name"
                                                    defaultValue={product.name} required/>
                                         </div>
                                         <div className="row">
                                             <div className="form-group col-md-4">
                                                 <label htmlFor="price">Giá cũ</label>
-                                                <input type="number" className="form-control" id="price"
+                                                <input type="number" className="form-control form_input_" id="price"
                                                        defaultValue={product.price} name="price" required/>
                                             </div>
                                             <div className="form-group col-md-4">
                                                 <label htmlFor="sale_price">Giá mới</label>
-                                                <input type="number" className="form-control" id="sale_price"
+                                                <input type="number" className="form-control form_input_" id="sale_price"
                                                        name="sale_price" defaultValue={product.sale_price}
                                                        required/>
                                             </div>
                                             <div className="form-group col-md-4">
                                                 <label htmlFor="quantity">Số lượng</label>
-                                                <input type="number" className="form-control" id="quantity"
+                                                <input type="number" className="form-control form_input_" id="quantity"
                                                        name="quantity" defaultValue={product.quantity}
                                                        required/>
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="short_description">Mô tả ngắn</label>
-                                            <textarea className="form-control tinymce-editor" name="short_description"
+                                            <textarea className="form-control tinymce-editor form_input_" name="short_description"
                                                       id="short_description" defaultValue={product.short_description}
                                                       rows="10"></textarea>
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="description">Mô tả</label>
-                                            <textarea className="form-control tinymce-editor" name="description"
-                                                      id="description" defaultValue={product.description}
-                                                      rows="10"></textarea>
+                                            <Editor
+                                                apiKey={API_KEY_TINYMCE}
+                                                init={{
+                                                    plugins: [
+                                                        'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+                                                        'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown',
+                                                    ],
+                                                    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                                                    tinycomments_mode: 'embedded',
+                                                    tinycomments_author: 'Author name',
+                                                    /**
+                                                     * The AI request function. This function is called when the AI button in the toolbar is clicked.
+                                                     * It should return a promise that resolves with a string containing the AI response.
+                                                     * The string should be a valid HTML string.
+                                                     * The function takes two parameters, `request` and `respondWith`. `request` is an object containing information about the request,
+                                                     * and `respondWith` is a function that should be called with the response string.
+                                                     * The `respondWith` function takes one parameter, a string containing the response.
+                                                     * The `respondWith` function should be called with a string containing the AI response.
+                                                     * The AI response should be a valid HTML string.
+                                                     * The function should return a promise.
+                                                     * The promise should resolve with a string containing the AI response.
+                                                     * The AI response should be a valid HTML string.
+                                                     * The AI request function should be a function.
+                                                     * @param {object} request - The request object.
+                                                     * @param {function} respondWith - The respondWith function.
+                                                     * @returns {Promise<string>} - A promise that resolves with a string containing the AI response.
+                                                     */
+                                                    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+                                                }}
+                                                id="description"
+                                                name="description"
+                                                initialValue={product.description}
+                                            />
                                         </div>
                                         <div className="row">
                                             <div className="form-group col-md-6">
@@ -566,7 +598,7 @@ function DetailProduct() {
                                         <div className="row">
                                             <div className="form-group col-md-6">
                                                 <label htmlFor="category_id">Danh mục</label>
-                                                <select id="category_id" className="form-control" name="category_id">
+                                                <select id="category_id" className="form-control form_input_" name="category_id">
                                                     <option value="">Chọn danh mục</option>
                                                     {
                                                         categories.map((category) => (
@@ -578,7 +610,7 @@ function DetailProduct() {
                                             </div>
                                             <div className="form-group col-md-6">
                                                 <label htmlFor="status">Trạng thái</label>
-                                                <select id="status" className="form-control" name="status">
+                                                <select id="status" className="form-control form_input_" name="status">
                                                     <option value="ĐANG HOẠT ĐỘNG">ĐANG HOẠT ĐỘNG</option>
                                                     <option value="KHÔNG HOẠT ĐỘNG">KHÔNG HOẠT ĐỘNG</option>
                                                 </select>
