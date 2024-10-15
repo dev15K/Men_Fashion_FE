@@ -341,7 +341,7 @@ function DetailProduct() {
             <col width="8%"/>
             <col width="10%"/>
             <col width="10%"/>
-            <col width="8%"/>
+<!--            <col width="8%"/>-->
             <col width="5%"/>
         </colgroup>
         <thead>
@@ -355,7 +355,7 @@ function DetailProduct() {
                 <th>Số lượng</th>
                 <th>Giá cũ</th>
                 <th>Giá mới</th>
-                <th>Hình ảnh</th>
+                <th class="d-none">Hình ảnh</th>
                 <th></th>
             </tr>
         </thead>
@@ -373,7 +373,7 @@ function DetailProduct() {
                 <td>
                     <input type="number" class="form-control form_input_" name="option_sale_price" value="${_this.sale_price}" min="1" required/>
                 </td>
-                <td>
+                <td class="d-none">
                     <input type="file" class="form-control" name="option_thumbnail" />
                     <img src="${_this.thumbnail}" alt="" class="mt-3" width="200px">
                     <input type="text" class="d-none" name="option_thumbnail_uploaded" value="${_this.thumbnail}">
@@ -396,7 +396,7 @@ function DetailProduct() {
             <col width="8%"/>
             <col width="10%"/>
             <col width="10%"/>
-            <col width="8%"/>
+<!--            <col width="8%"/>-->
             <col width="5%"/>
         </colgroup>
         <thead>
@@ -410,7 +410,7 @@ function DetailProduct() {
                 <th>Số lượng</th>
                 <th>Giá cũ</th>
                 <th>Giá mới</th>
-                <th>Hình ảnh</th>
+               <th class="d-none">Hình ảnh</th>
                 <th></th>
             </tr>
         </thead>
@@ -430,8 +430,8 @@ function DetailProduct() {
                 <td>
                     <input type="number" class="form-control form_input_" name="option_sale_price" min="1" required/>
                 </td>
-                <td>
-                    <input type="file" class="form-control form_input_" name="option_thumbnail" required/>
+                <td class="d-none">
+                    <input type="file" class="form-control form_input_" name="option_thumbnail"/>
                     <input type="text" class="d-none" name="option_thumbnail_uploaded" value="no_image">
                 </td>
                 <td rowSpan="3" class="text-center align-middle">

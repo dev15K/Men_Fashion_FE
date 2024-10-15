@@ -269,7 +269,7 @@ function CreateProduct() {
             <col width="8%"/>
             <col width="10%"/>
             <col width="10%"/>
-            <col width="8%"/>
+<!--            <col width="8%"/>-->
             <col width="5%"/>
         </colgroup>
         <thead>
@@ -283,7 +283,7 @@ function CreateProduct() {
                 <th>Số lượng</th>
                 <th>Giá cũ</th>
                 <th>Giá mới</th>
-                <th>Hình ảnh</th>
+                <th class="d-none">Hình ảnh</th>
                 <th></th>
             </tr>
         </thead>
@@ -303,8 +303,8 @@ function CreateProduct() {
                 <td>
                     <input type="number" class="form-control form_input_" name="option_sale_price" min="1" required/>
                 </td>
-                <td>
-                    <input type="file" class="form-control form_input_" name="option_thumbnail" required/>
+                 <td class="d-none">
+                    <input type="file" class="form-control" name="option_thumbnail"/>
                 </td>
                 <td rowSpan="3" class="text-center align-middle">
                     <button class="btn btn-danger btnDelete" onclick="removeTableOption(this)" type="button">Xoá</button>
