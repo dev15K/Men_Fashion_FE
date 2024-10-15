@@ -294,9 +294,9 @@ function CreateProduct() {
             </select>
         </div>
         <div class="form-group col-md-5">
-            <label for="property_item">Biến thể</label>
+            <label for="property_item">Giá trị thuộc tính</label>
             <select name="property_item" class="form-select form_input_">
-                <option value="">-- Chọn biến thể --</option>
+                <option value="">-- Chọn giá trị thuộc tính --</option>
             </select>
         </div>
         <div class="col-md-2 mt-4">
@@ -439,7 +439,7 @@ function CreateProduct() {
                                                 </label>
 
                                                 <button className="btn btn-outline-primary btnAddAttribute"
-                                                        type="button" onClick={addTableOption}>Thêm biến thể
+                                                        type="button" onClick={addTableOption}>Thêm giá trị thuộc tính
                                                 </button>
                                             </div>
                                             <div id="render_table_attr">

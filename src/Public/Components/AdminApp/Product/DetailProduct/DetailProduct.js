@@ -168,7 +168,7 @@ function DetailProduct() {
             isHot = true;
         }
 
-        const formData = new FormData($('#formCreate')[0]);
+        const formData = new FormData($('#formUpdate')[0]);
 
         if (editorRef.current) {
             const content = editorRef.current.getContent();
@@ -307,7 +307,7 @@ function DetailProduct() {
             </select>
         </div>
         <div class="form-group col-md-5">
-            <label for="property_item">Biến thể</label>
+            <label for="property_item">Giá trị thuộc tính</label>
             <select name="property_item" class="form-select form_input_" data-sl="">
                 <option value="${el.property_item.id}">${el.property_item.name}</option>
             </select>
@@ -436,9 +436,9 @@ function DetailProduct() {
             </select>
         </div>
         <div class="form-group col-md-5">
-            <label for="property_item">Biến thể</label>
+            <label for="property_item">Giá trị thuộc tính</label>
             <select name="property_item" class="form-select form_input_">
-                <option value="">-- Chọn biến thể --</option>
+                <option value="">-- Chọn giá trị thuộc tính --</option>
             </select>
         </div>
         <div class="col-md-2 mt-4">
@@ -588,7 +588,7 @@ function DetailProduct() {
                                                 </label>
 
                                                 <button className="btn btn-outline-primary btnAddAttribute"
-                                                        type="button" onClick={addTableOption}>Thêm biến thể
+                                                        type="button" onClick={addTableOption}>Thêm giá trị thuộc tính
                                                 </button>
                                             </div>
                                             <div id="render_table_attr" className="">
