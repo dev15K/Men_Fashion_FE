@@ -257,7 +257,7 @@ function DetailProduct() {
             data_options.push(_data)
         })
 
-        formData.append('data_options', JSON.stringify(data_options))
+        formData.append('data_options', JSON.stringify(data_options));
 
         let fileDataOption = document.getElementsByName("option_thumbnail");
         let j = 0, length, imgOp, readerOp, fileOp;
@@ -318,10 +318,9 @@ function DetailProduct() {
         <div class="form-group col-md-5">
             <label for="attribute_item">Thuộc tính</label>
             <select name="attribute_item" class="form-select form_input_" onchange="getPropertyByAttribute(this)">
-                <option value="${el.attribute_item.id}">-- Chọn thuộc tính --</option>
                 ${attributes_option.map((attribute) =>
-                    `<option value="${attribute.id}">${attribute.name}</option>`)
-                }
+                    `<option value="${attribute.id}" ${attribute.id === el.attribute_item.id ? 'selected' : ''}>${attribute.name}</option>`
+                ).join('')}
             </select>
         </div>
         <div class="form-group col-md-5">
@@ -442,15 +441,16 @@ function DetailProduct() {
         </tbody>
     </table>`;
 
-    const generatePropertyItem = () => `
+    const generatePropertyItem = (array_attr) => `
     <div class="row attribute_property_item_">
         <div class="form-group col-md-5">
             <label for="attribute_item">Thuộc tính</label>
             <select name="attribute_item" class="form-select form_input_" onchange="getPropertyByAttribute(this)">
                 <option value="">-- Chọn thuộc tính --</option>
-                ${attributes.map((attribute) =>
-        `<option value="${attribute.id}">${attribute.name}</option>`)
-    }
+                ${attributes
+        .filter((attribute) => !array_attr.includes(attribute.id))
+        .map((attribute) => `<option value="${attribute.id}">${attribute.name}</option>`)
+        .join('')}
             </select>
         </div>
         <div class="form-group col-md-5">
@@ -469,7 +469,21 @@ function DetailProduct() {
     }
 
     window.addProperty = function (el) {
-        $(el).closest('table').find('.list_option').append(generatePropertyItem());
+        let array_attr = [];
+        $(el).closest('table').find('.list_option .attribute_property_item_').each(function () {
+            let attr = $(this).find('select[name="attribute_item"]').val();
+            attr = parseInt(attr);
+            array_attr.push(attr)
+        })
+
+        array_attr = array_attr.filter(onlyUnique);
+
+        console.log(array_attr);
+        $(el).closest('table').find('.list_option').append(generatePropertyItem(array_attr));
+    }
+
+    function onlyUnique(value, index, array) {
+        return array.indexOf(value) === index;
     }
 
     window.removeTableOption = function (el) {
