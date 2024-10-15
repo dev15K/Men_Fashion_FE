@@ -35,7 +35,8 @@ function DetailProduct() {
     const [attributes, setAttributes] = useState([]);
     const [properties, setProperties] = useState([]);
     const [loading, setLoading] = useState(true);
-    const editorRef = useRef(null);
+    const shortDescriptionRef = useRef(null);
+    const descriptionRef = useRef(null);
 
     let isFeature = false;
     let isHot = false;
@@ -170,19 +171,36 @@ function DetailProduct() {
 
         const formData = new FormData($('#formUpdate')[0]);
 
-        if (editorRef.current) {
-            const content = editorRef.current.getContent();
-            if (!content) {
-                alert('Mô tả sản phẩm không được bỏ trống!');
-                $('#btnCreate').prop('disabled', false).text('Tạo mới');
-                setLoading(false);
-                return;
-            }
+        // if (editorRef.current) {
+        //     const content = editorRef.current.getContent();
+        //     if (!content) {
+        //         alert('Mô tả sản phẩm không được bỏ trống!');
+        //         $('#btnCreate').prop('disabled', false).text('Tạo mới');
+        //         setLoading(false);
+        //         return;
+        //     }
+        //
+        //     formData.append('description', content);
+        // } else {
+        //     formData.append('description', $('#description').val() ?? '');
+        // }
 
-            formData.append('description', content);
-        } else {
-            formData.append('description', $('#description').val() ?? '');
+        const shortDescriptionContent = shortDescriptionRef.current.getContent();
+        const descriptionContent = descriptionRef.current.getContent();
+
+        if (!shortDescriptionContent) {
+            alert('Mô tả ngắn không được bỏ trống!');
+            setLoading(false);
+            return;
         }
+        if (!descriptionContent) {
+            alert('Mô tả không được bỏ trống!');
+            setLoading(false);
+            return;
+        }
+
+        formData.append('short_description', shortDescriptionContent);
+        formData.append('description', descriptionContent);
 
 
         formData.append('is_feature', isFeature);
@@ -524,14 +542,49 @@ function DetailProduct() {
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="short_description">Mô tả ngắn</label>
-                                            <textarea className="form-control tinymce-editor form_input_" name="short_description"
-                                                      id="short_description" defaultValue={product.short_description}
-                                                      rows="10"></textarea>
+                                            {/*<textarea className="form-control tinymce-editor form_input_" name="short_description"*/}
+                                            {/*          id="short_description" defaultValue={product.short_description}*/}
+                                            {/*          rows="10"></textarea>*/}
+                                            <Editor
+                                                apiKey={API_KEY_TINYMCE}
+                                                onInit={(evt, editor) => shortDescriptionRef.current = editor}
+                                                init={{
+                                                    plugins: [
+                                                        'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+                                                        'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown',
+                                                    ],
+                                                    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                                                    tinycomments_mode: 'embedded',
+                                                    tinycomments_author: 'Author name',
+                                                    /**
+                                                     * The AI request function. This function is called when the AI button in the toolbar is clicked.
+                                                     * It should return a promise that resolves with a string containing the AI response.
+                                                     * The string should be a valid HTML string.
+                                                     * The function takes two parameters, `request` and `respondWith`. `request` is an object containing information about the request,
+                                                     * and `respondWith` is a function that should be called with the response string.
+                                                     * The `respondWith` function takes one parameter, a string containing the response.
+                                                     * The `respondWith` function should be called with a string containing the AI response.
+                                                     * The AI response should be a valid HTML string.
+                                                     * The function should return a promise.
+                                                     * The promise should resolve with a string containing the AI response.
+                                                     * The AI response should be a valid HTML string.
+                                                     * The AI request function should be a function.
+                                                     * @param {object} request - The request object.
+                                                     * @param {function} respondWith - The respondWith function.
+                                                     * @returns {Promise<string>} - A promise that resolves with a string containing the AI response.
+                                                     */
+                                                    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+                                                }}
+                                                id="short_description"
+                                                name="short_description"
+                                                initialValue={product.short_description}
+                                            />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="description">Mô tả</label>
                                             <Editor
                                                 apiKey={API_KEY_TINYMCE}
+                                                onInit={(evt, editor) => descriptionRef.current = editor}
                                                 init={{
                                                     plugins: [
                                                         'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
