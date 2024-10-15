@@ -37,6 +37,7 @@ function Result() {
         window.location.href = searchUrl;
     }
 
+    // Lọc sản phẩm theo size và sort
     const filterProduct = () => {
         setLoading(true);
         searchMainProduct(null, null, $('#size').val(), $('#sort').val(), null, null);
@@ -55,6 +56,7 @@ function Result() {
             })
     }
 
+    // Lấy gía trị thuộc tính
     const getListAttribute = async () => {
         await attributeService.listAttribute()
             .then((res) => {
@@ -68,17 +70,20 @@ function Result() {
             })
     }
 
+    // Gọi hàm tìm kiếm
     const handleClick = (event) => {
         event.preventDefault();
         const categoryId = event.currentTarget.getAttribute('data-id');
         searchMainProduct(categoryId, null, null, null, null, null);
     }
 
+    /* Gọi hàm search */
     const searchProduct = (event) => {
         event.preventDefault();
         searchMainProduct(null, null, null, null, null, null);
     }
 
+    // Gọi api search product với các giá trị từ tham số
     const getListProduct = async () => {
         await productService.searchProduct(category_param, keyword_param, size_param, sort_param, minPrice_param, maxPrice_param)
             .then((res) => {
@@ -127,9 +132,9 @@ function Result() {
                                         <div className="btn-group ms-3">
                                             <select name="sort" id="sort" className="form-select"
                                                     onChange={filterProduct}>
-                                                <option selected={sort_param === 'desc'} value="desc">From High to Low
+                                                <option selected={sort_param === 'desc'} value="desc">Từ cao đến thấp
                                                 </option>
-                                                <option selected={sort_param === 'asc'} value="asc">From Low to High
+                                                <option selected={sort_param === 'asc'} value="asc">Từ thấp đến cao
                                                 </option>
                                             </select>
                                         </div>
