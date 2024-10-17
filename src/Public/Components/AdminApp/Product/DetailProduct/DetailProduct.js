@@ -45,7 +45,6 @@ function DetailProduct() {
         await productService.adminDetailProduct(id)
             .then((res) => {
                 if (res.status === 200) {
-                    console.log("product", res.data.data)
                     setProduct(res.data.data)
                     setLoading(false)
                     renderImage(res.data.data.gallery, res.data.data.name)
@@ -478,7 +477,6 @@ function DetailProduct() {
 
         array_attr = array_attr.filter(onlyUnique);
 
-        console.log(array_attr);
         $(el).closest('table').find('.list_option').append(generatePropertyItem(array_attr));
     }
 

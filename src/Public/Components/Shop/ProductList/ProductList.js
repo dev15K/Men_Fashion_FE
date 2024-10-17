@@ -17,21 +17,8 @@ function ProductList() {
         await productService.listProduct('', sort_param)
             .then((res) => {
                 if (res.status === 200) {
-                    console.log("data", res.data)
                     setNewProducts(res.data.data)
                     setLoading(false)
-
-                    // const productsPerPage = size_param ?? 12;
-                    // const totalPages = Math.ceil(newProducts.length / productsPerPage);
-                    // const indexOfLastProduct = currentPage * productsPerPage;
-                    // const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-                    // const currentProducts = newProducts.slice(indexOfFirstProduct, indexOfLastProduct);
-
-                    // setProductsPerPage(size_param ?? 12);
-                    // setTotalPages(Math.ceil(newProducts.length / productsPerPage));
-                    // setIndexOfLastProduct(currentPage * productsPerPage);
-                    // setIndexOfFirstProduct(indexOfLastProduct - productsPerPage);
-                    // setCurrentProducts(newProducts.slice(indexOfFirstProduct, indexOfLastProduct));
                 }
             })
             .catch((err) => {
@@ -71,8 +58,6 @@ function ProductList() {
     let indexOfFirstProduct = indexOfLastProduct - productsPerPage;
     let currentProducts = newProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
-    console.log(newProducts.length, totalPages);
-
     const handleClick = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
@@ -86,7 +71,6 @@ function ProductList() {
         let minPrice = minPriceID ?? $('#min-price').val() ?? '';
         let maxPrice = maxPriceID ?? $('#max-price').val() ?? '';
         let searchUrl = `${baseurl}?keyword=${keyword}&size=${size}&category=${category}&sort=${sort}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
-        console.log(searchUrl);
         window.location.href = searchUrl;
     }
 
@@ -94,7 +78,6 @@ function ProductList() {
         await attributeService.listAttribute()
             .then((res) => {
                 if (res.status === 200) {
-                    console.log("attribute", res.data.data)
                     setAttributes(res.data.data);
                 }
             })

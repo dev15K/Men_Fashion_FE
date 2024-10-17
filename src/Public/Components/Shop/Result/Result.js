@@ -34,7 +34,6 @@ function Result() {
         let minPrice = minPriceID ?? $('#min-price').val() ?? '';
         let maxPrice = maxPriceID ?? $('#max-price').val() ?? '';
         let searchUrl = `${baseurl}?keyword=${keyword}&size=${size}&category=${category}&sort=${sort}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
-        console.log(searchUrl);
         window.location.href = searchUrl;
     }
 
@@ -48,7 +47,6 @@ function Result() {
         await categoryService.listCategory()
             .then((res) => {
                 if (res.status === 200) {
-                    console.log("category", res.data.data)
                     setCategories(res.data.data);
                 }
             })
@@ -62,7 +60,6 @@ function Result() {
         await attributeService.listAttribute()
             .then((res) => {
                 if (res.status === 200) {
-                    console.log("attribute", res.data.data)
                     setAttributes(res.data.data);
                 }
             })

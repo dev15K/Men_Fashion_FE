@@ -111,7 +111,6 @@ function CreateProduct() {
             if (!$(inputs[i]).val()) {
                 let text = $(inputs[i]).prev().text();
                 alert(text + ' không được bỏ trống!');
-                console.log($(inputs[i]));
                 $('#btnCreate').prop('disabled', false).text('Tạo mới');
                 setLoading(false);
                 return;
@@ -350,7 +349,6 @@ function CreateProduct() {
 
         array_attr = array_attr.filter(onlyUnique);
 
-        console.log(array_attr);
         $(el).closest('table').find('.list_option').append(generatePropertyItem(array_attr));
     }
 

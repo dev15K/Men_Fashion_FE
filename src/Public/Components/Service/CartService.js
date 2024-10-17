@@ -3,7 +3,7 @@ import axios from "axios";
 
 const API_ENDPOINT = {
     LIST_CART: "/api/carts/list",
-    CREATE_CART: "/api/carts/create",
+    CREATE_CART: "/api/carts/add",
     UPDATE_CART: "/api/carts/update",
     DELETE_CART: "/api/carts/delete/",
     CLEAR_CART: "/api/carts/clear/",

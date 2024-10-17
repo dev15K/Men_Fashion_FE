@@ -2,7 +2,7 @@ import {BASE_URL_SERVER} from "../config/server";
 import axios from "axios";
 
 const API_ENDPOINT = {
-    LIST_CART: "/api/carts/list?userId=",
+    LIST_CART: "/api/carts/list",
     CREATE_CART: "/api/carts/create",
     UPDATE_CART: "/api/carts/update",
     DELETE_CART: "/api/carts/delete/",

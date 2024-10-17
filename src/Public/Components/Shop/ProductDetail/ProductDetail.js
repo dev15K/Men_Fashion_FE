@@ -23,7 +23,6 @@ function ProductDetail() {
         await productService.detailProduct(id)
             .then((res) => {
                 if (res.status === 200) {
-                    console.log("product", res.data.data)
                     setProduct(res.data.data.product)
                     setProductOthers(res.data.data.other_products)
                     setOptionsProduct(res.data.data.product.options)
@@ -32,6 +31,69 @@ function ProductDetail() {
             })
             .catch((err) => {
                 setLoading(false)
+                console.log(err)
+            })
+    }
+
+    const selectOption = async () => {
+        LoadingPage();
+        let list_option;
+        let arr_option = [];
+        $('.input_option_').each(function () {
+            if ($(this).is(':checked')) {
+                arr_option.push($(this).val());
+            }
+        })
+
+        list_option = arr_option.join(',');
+        await productService.optionProduct(list_option, id)
+            .then((res) => {
+                LoadingPage();
+                if (res.status === 200) {
+                    let pro_op = res.data.data;
+
+                    let product_sale_price = ConvertNumber(pro_op.sale_price);
+                    let product_price = ConvertNumber(pro_op.price);
+                    let product_quantity = pro_op.quantity;
+                    let product_option = pro_op.id;
+
+                    $('#product_sale_price').html(product_sale_price);
+                    $('#product_price').html(product_price);
+                    $('#product_quantity').html(product_quantity);
+                    $('#product_option').val(product_option);
+                }
+            })
+            .catch((err) => {
+                LoadingPage();
+                console.log(err)
+            })
+    }
+
+    const addToCart = async () => {
+        LoadingPage();
+
+        let data = [];
+
+        let product_id = id;
+        let product_option = $('#product_option').val();
+        let quantity = $('#inputQuantity').val();
+        data = {
+            product_id: product_id,
+            values: product_option,
+            quantity: quantity
+        }
+
+        await cartService.createCart(data)
+            .then((res) => {
+                LoadingPage();
+                if (res.status === 200) {
+                    if (window.confirm('Thêm sản phẩm vào giỏ hàng thành công! Thanh toán ngay?')) {
+                        window.location.href = '/cart';
+                    }
+                }
+            })
+            .catch((err) => {
+                LoadingPage();
                 console.log(err)
             })
     }
@@ -73,42 +135,6 @@ function ProductDetail() {
         }
     }
 
-    const selectOption = async () => {
-        LoadingPage();
-        let list_option;
-        let arr_option = [];
-        $('.input_option_').each(function () {
-            if ($(this).is(':checked')) {
-                arr_option.push($(this).val());
-            }
-        })
-
-        list_option = arr_option.join(',');
-        await productService.optionProduct(list_option, id)
-            .then((res) => {
-                LoadingPage();
-                if (res.status === 200) {
-                    console.log("product option", res.data.data)
-
-                    let pro_op = res.data.data;
-
-                    let product_sale_price = ConvertNumber(pro_op.sale_price);
-                    let product_price = ConvertNumber(pro_op.price);
-                    let product_quantity = pro_op.quantity;
-                    let product_option = pro_op.id;
-
-                    $('#product_sale_price').html(product_sale_price);
-                    $('#product_price').html(product_price);
-                    $('#product_quantity').html(product_quantity);
-                    $('#product_option').val(product_option);
-                }
-            })
-            .catch((err) => {
-                LoadingPage();
-                console.log(err)
-            })
-    }
-
     useEffect(() => {
         getProduct();
     }, [loading]);
@@ -128,7 +154,7 @@ function ProductDetail() {
 
             <div className="site-section">
                 <div className="container">
-                    <Form className="row">
+                    <Form className="row" id="formCreate" onFinish={addToCart}>
                         <input type="text" className="d-none" id="product_option"/>
                         <div className="col-md-6">
                             <img src={product.thumbnail} alt="Image" className="img-fluid"/>
@@ -188,7 +214,9 @@ function ProductDetail() {
                                 </div>
 
                             </div>
-                            <p><a href="/cart" className="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
+                            <p>
+                                <button type="submit" className="buy-now btn btn-sm btn-primary">Add To Cart</button>
+                            </p>
 
                         </div>
                         <div className="col-md-12" id="product_description_area_">
