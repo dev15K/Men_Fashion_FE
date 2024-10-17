@@ -5,6 +5,7 @@ import Header from "../../Shared/Client/Header/Header";
 import Footer from "../../Shared/Client/Footer/Footer";
 import productService from "../../Service/ProductService";
 import $ from "jquery";
+import ConvertNumber from "../../Shared/Utils/ConvertNumber";
 
 function ProductList() {
     const [loading, setLoading] = useState(true);
@@ -190,7 +191,7 @@ function ProductList() {
                                                        href={'/products/' + product.id}>{product.name}</a></h3>
                                                 <p className="mb-0 text_truncate_2_"
                                                    dangerouslySetInnerHTML={{__html: product.short_description}}></p>
-                                                <p className="text-primary font-weight-bold">{product.price}VND</p>
+                                                <p className="text-primary font-weight-bold">{ConvertNumber(product.sale_price)}</p>
                                             </div>
                                         </div>
                                     </div>

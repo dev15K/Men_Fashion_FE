@@ -92,15 +92,10 @@ function ProductDetail() {
 
                     let pro_op = res.data.data;
 
-                    let product_sale_price = ConvertNumber(pro_op.sale_price);
-                    let product_price = ConvertNumber(pro_op.price);
+                    let product_sale_price = pro_op.sale_price;
+                    let product_price = pro_op.sale_price;
                     let product_quantity = pro_op.quantity;
                     let product_option = pro_op.id;
-
-                    $('#product_sale_price').html(product_sale_price);
-                    $('#product_price').html(product_price);
-                    $('#product_quantity').html(product_quantity);
-                    $('#product_option').val(product_option);
                 }
             })
             .catch((err) => {
