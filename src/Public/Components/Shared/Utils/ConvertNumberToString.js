@@ -1,4 +1,4 @@
-function ConvertNumber(num) {
+function ConvertNumberToString(num) {
     num = parseInt(num);
     if (num >= 1000000) {
         return (num / 1000000) + ' triệu';
@@ -13,4 +13,4 @@ function ConvertNumber(num) {
     }
 }
 
-export default ConvertNumber
+export default ConvertNumberToString

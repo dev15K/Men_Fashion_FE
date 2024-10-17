@@ -4,20 +4,20 @@ import axios from "axios";
 const API_ENDPOINT = {
     LIST_CART: "/api/carts/list",
     CREATE_CART: "/api/carts/add",
-    UPDATE_CART: "/api/carts/update",
-    DELETE_CART: "/api/carts/delete/",
-    CLEAR_CART: "/api/carts/clear/",
+    UPDATE_CART: "/api/carts/change-quantity/",
+    DELETE_CART: "/api/carts/remove/",
+    CLEAR_CART: "/api/carts/clear",
 }
 
 class CartService {
-    listCart = (userId) => {
+    listCart = () => {
         const config = {
             headers: {
                 'content-type': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
             }
         };
-        return axios.get(BASE_URL_SERVER + API_ENDPOINT.LIST_CART + userId, config);
+        return axios.get(BASE_URL_SERVER + API_ENDPOINT.LIST_CART, config);
     }
 
     createCart = (data) => {
@@ -37,7 +37,7 @@ class CartService {
                 'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
             }
         };
-        return axios.put(BASE_URL_SERVER + API_ENDPOINT.UPDATE_CART + id, data, config);
+        return axios.post(BASE_URL_SERVER + API_ENDPOINT.UPDATE_CART + id, data, config);
     }
 
     deleteCart = (id) => {
@@ -47,17 +47,17 @@ class CartService {
                 'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
             }
         };
-        return axios.delete(BASE_URL_SERVER + API_ENDPOINT.DELETE_CART + id, config);
+        return axios.post(BASE_URL_SERVER + API_ENDPOINT.DELETE_CART + id, '', config);
     }
 
-    clearCart = (userId) => {
+    clearCart = () => {
         const config = {
             headers: {
                 'content-type': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
             }
         };
-        return axios.delete(BASE_URL_SERVER + API_ENDPOINT.CLEAR_CART + userId, config);
+        return axios.post(BASE_URL_SERVER + API_ENDPOINT.CLEAR_CART, '', config);
     }
 }
 
