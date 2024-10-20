@@ -188,10 +188,10 @@ function Result() {
                                 <div className="mb-4">
                                     <h3 className="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
                                     <div className="form-group d-flex align-items-center justify-content-between gap-3">
-                                        <input type="number" name="min-price" id="min-price"
+                                        <input type="number" name="min-price" id="min-price" min="1"
                                                className="form-control border"/>
                                         <span>-</span>
-                                        <input type="number" name="max-price" id="max-price"
+                                        <input type="number" min="1" name="max-price" id="max-price"
                                                className="form-control border"/>
                                     </div>
                                 </div>

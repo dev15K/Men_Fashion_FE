@@ -48,7 +48,9 @@ function ProductDetail() {
         list_option = arr_option.join(',');
         await productService.optionProduct(list_option, id)
             .then((res) => {
-                LoadingPage();
+                setTimeout(function () {
+                    LoadingPage();
+                }, 300);
                 if (res.status === 200) {
                     let pro_op = res.data.data;
 
@@ -64,8 +66,8 @@ function ProductDetail() {
                 }
             })
             .catch((err) => {
-                LoadingPage();
                 console.log(err)
+                alert('Không tìm thấy thuộc tính hợp lệ!')
             })
     }
 
@@ -157,7 +159,7 @@ function ProductDetail() {
                     <Form className="row" id="formCreate" onFinish={addToCart}>
                         <input type="text" className="d-none" id="product_option"/>
                         <div className="col-md-6">
-                            <img src={product.thumbnail} alt="Image" className="img-fluid"/>
+                            <img src={product.thumbnail} alt="Image" className="img-fluid" style={{ width: '100%', height: 'auto',}}/>
                         </div>
                         <div className="col-md-6">
                             <h2 className="text-black">{product.name}</h2>

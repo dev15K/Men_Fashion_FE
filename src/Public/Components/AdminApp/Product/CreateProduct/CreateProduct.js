@@ -294,7 +294,7 @@ function CreateProduct() {
                     </div>
                 </td>
                 <td>
-                    <input type="number" class="form-control form_input_" name="option_quantity" required/>
+                    <input type="number" min="1" class="form-control form_input_" name="option_quantity" required/>
                 </td>
                 <td>
                     <input type="number" class="form-control form_input_" name="option_price" min="1" required/>
@@ -406,19 +406,21 @@ function CreateProduct() {
                                         <div className="row">
                                             <div className="form-group col-md-4">
                                                 <label htmlFor="price">Giá cũ</label>
-                                                <input type="number" className="form-control form_input_" id="price"
+                                                <input type="number" min="1" className="form-control form_input_"
+                                                       id="price"
                                                        name="price" required/>
                                             </div>
                                             <div className="form-group col-md-4">
                                                 <label htmlFor="sale_price">Giá mới</label>
-                                                <input type="number" className="form-control form_input_"
+                                                <input type="number" min="1" className="form-control form_input_"
                                                        id="sale_price"
                                                        name="sale_price"
                                                        required/>
                                             </div>
                                             <div className="form-group col-md-4">
                                                 <label htmlFor="quantity">Số lượng</label>
-                                                <input type="number" className="form-control form_input_" id="quantity"
+                                                <input type="number" min="1" className="form-control form_input_"
+                                                       id="quantity"
                                                        name="quantity"
                                                        required/>
                                             </div>
