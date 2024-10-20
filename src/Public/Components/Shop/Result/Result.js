@@ -9,6 +9,7 @@ import Header from "../../Shared/Client/Header/Header";
 import Footer from "../../Shared/Client/Footer/Footer";
 import productService from "../../Service/ProductService";
 import $ from "jquery";
+import ConvertNumber from "../../Shared/Utils/ConvertNumber";
 
 function Result() {
     const [loading, setLoading] = useState(true);
@@ -33,7 +34,6 @@ function Result() {
         let minPrice = minPriceID ?? $('#min-price').val() ?? '';
         let maxPrice = maxPriceID ?? $('#max-price').val() ?? '';
         let searchUrl = `${baseurl}?keyword=${keyword}&size=${size}&category=${category}&sort=${sort}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
-        console.log(searchUrl);
         window.location.href = searchUrl;
     }
 
@@ -47,7 +47,6 @@ function Result() {
         await categoryService.listCategory()
             .then((res) => {
                 if (res.status === 200) {
-                    console.log("category", res.data.data)
                     setCategories(res.data.data);
                 }
             })
@@ -61,7 +60,6 @@ function Result() {
         await attributeService.listAttribute()
             .then((res) => {
                 if (res.status === 200) {
-                    console.log("attribute", res.data.data)
                     setAttributes(res.data.data);
                 }
             })
@@ -158,7 +156,7 @@ function Result() {
                                                            href={`/products/${product.id}`}>{product.name}</a></h3>
                                                     <p className="mb-0 text_truncate_2_"
                                                        dangerouslySetInnerHTML={{__html: product.short_description}}></p>
-                                                    <p className="text-primary font-weight-bold">{product.sale_price} VND</p>
+                                                    <p className="text-primary font-weight-bold">{ConvertNumber(product.sale_price)}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -190,10 +188,10 @@ function Result() {
                                 <div className="mb-4">
                                     <h3 className="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
                                     <div className="form-group d-flex align-items-center justify-content-between gap-3">
-                                        <input type="number" name="min-price" id="min-price"
+                                        <input type="number" name="min-price" id="min-price" min="1"
                                                className="form-control border"/>
                                         <span>-</span>
-                                        <input type="number" name="max-price" id="max-price"
+                                        <input type="number" min="1" name="max-price" id="max-price"
                                                className="form-control border"/>
                                     </div>
                                 </div>
