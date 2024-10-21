@@ -2,7 +2,7 @@ import {BASE_URL_SERVER} from "../config/server";
 import axios from "axios";
 
 const API_ENDPOINT = {
-    LIST_ORDER: "/api/orders/list/",
+    LIST_ORDER: "/api/orders/list",
     DETAIL_ORDER: "/api/orders/detail/",
     CREATE_ORDER: "/api/checkout/create",
     CREATE_ORDER_VNPAY: "/api/checkout/checkout_vnpay",
@@ -18,14 +18,14 @@ const API_ENDPOINT = {
 
 class OrderService {
     // USER
-    listOrder = (id) => {
+    listOrder = (status) => {
         const config = {
             headers: {
                 'content-type': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
             }
         };
-        return axios.get(BASE_URL_SERVER + API_ENDPOINT.LIST_ORDER + id, config);
+        return axios.get(BASE_URL_SERVER + API_ENDPOINT.LIST_ORDER + '?status=' + status, config);
     }
 
     detailOrder = (id) => {
@@ -83,7 +83,7 @@ class OrderService {
                 'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
             }
         };
-        return axios.put(BASE_URL_SERVER + API_ENDPOINT.CANCEL_ORDER + id, config);
+        return axios.post(BASE_URL_SERVER + API_ENDPOINT.CANCEL_ORDER + id, '', config);
     }
 
 
