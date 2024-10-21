@@ -12,6 +12,11 @@ import {Pagination} from "swiper/modules";
 import LoadingPage from "../../Shared/Utils/LoadingPage";
 import ConvertNumber from "../../Shared/Utils/ConvertNumber";
 
+/**
+ * This component renders a page with details of a single product.
+ * @function ProductDetail
+ * @returns {JSX.Element} The component to be rendered.
+ */
 function ProductDetail() {
     const {id} = useParams();
     const [loading, setLoading] = useState(true);
@@ -110,7 +115,17 @@ function ProductDetail() {
             })
             .catch((err) => {
                 LoadingPage();
-                console.log(err)
+                let message = err.response.data.message;
+                if (!message){
+                    message = err.response.data.status;
+                    alert(message);
+                    window.location.href = '/login';
+                } else {
+                    alert(message)
+                    if (err.response.status === 444 || err.response.status === 401) {
+                        window.location.href = '/login'
+                    }
+                }
             })
     }
 
