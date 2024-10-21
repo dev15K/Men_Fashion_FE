@@ -21,6 +21,12 @@ function Cart() {
     const [loading, setLoading] = useState(true);
     const [carts, setCarts] = useState([]);
 
+    /**
+     * Retrieves the list of products in the cart from the server and updates the
+     * component state accordingly.
+     *
+     * @returns {Promise<void>}
+     */
     const getListProductCart = async () => {
         await cartService.listCart()
             .then((res) => {
@@ -32,10 +38,28 @@ function Cart() {
             })
             .catch((err) => {
                 setLoading(false)
-                console.log(err)
+                let message = err.response.data.message;
+                if (!message) {
+                    message = err.response.data.status;
+                    alert(message);
+                    window.location.href = '/login';
+                } else {
+                    alert(message)
+                    if (err.response.status === 444 || err.response.status === 401) {
+                        window.location.href = '/login'
+                    }
+                }
             })
     }
 
+    /**
+     * Updates the quantity of a product in the cart.
+     *
+     * @param {number} id - product id
+     * @param {number} qty - new quantity
+     *
+     * @returns {Promise<void>}
+     */
     const handleQuantityChange = async (id, qty) => {
         let data = {
             quantity: qty
@@ -58,27 +82,48 @@ function Cart() {
                 }
             })
             .catch((err) => {
-                console.log(err)
+                console.log(err.response.data.message)
+                alert(err.response.data.message)
+                if (err.response.status === 444 || err.response.status === 401) {
+                    window.location.href = '/login'
+                }
             })
     }
 
+    /**
+     * Removes a product from cart.
+     * @param {number} id - product id
+     * @return {Promise<void>}
+     */
     const removeFromCart = async (id) => {
-        LoadingPage();
-        await cartService.deleteCart(id)
-            .then((res) => {
-                LoadingPage();
-                if (res.status === 200) {
-                    console.log("remove cart success")
-                    // getListProductCart();
-                    // calcTotal();
-                    window.location.reload();
-                }
-            })
-            .catch((err) => {
-                LoadingPage();
-                console.log(err)
-            })
+        if (window.confirm('Bạn chắc chắn muốn xoá sản phẩm khỏi giỏ hàng?')) {
+            LoadingPage();
+            await cartService.deleteCart(id)
+                .then((res) => {
+                    LoadingPage();
+                    if (res.status === 200) {
+                        console.log("remove cart success")
+                        // getListProductCart();
+                        // calcTotal();
+                        alert('Xóa sản phẩm khỏi giỏ hàng thành công!');
+                        window.location.reload();
+                    }
+                })
+                .catch((err) => {
+                    LoadingPage();
+                    console.log(err)
+                })
+        }
     }
+
+    /**
+     * Removes all products from the cart.
+     *
+     * This function clears the cart by making a call to the server and then
+     * reloads the page.
+     *
+     * @returns {Promise<void>}
+     */
     const clearCart = async () => {
         if (window.confirm('Bạn chắc chắn muốn làm trống giỏ hàng?')) {
             LoadingPage();
@@ -87,6 +132,7 @@ function Cart() {
                     LoadingPage();
                     if (res.status === 200) {
                         console.log("clear cart success")
+                        alert('Xóa toàn bộ sản phẩm khỏi giỏ hàng thành công!');
                         window.location.reload();
                     }
                     // getListProductCart();
@@ -99,6 +145,17 @@ function Cart() {
         }
     }
 
+    /**
+     * Handles changes to a product's quantity in the cart.
+     *
+     * This function is called whenever the user changes the quantity of a
+     * product in the cart. It first checks if the input is numeric and if not,
+     * it removes all non-numeric characters from the input. It then makes a call
+     * to the server to update the quantity of the product in the cart.
+     *
+     * @param {object} el - The input element that triggered this function.
+     * @returns {Promise<void>}
+     */
     const checkInput = async (el) => {
         let val = $(el).val();
         if (!$.isNumeric(val)) {
@@ -110,6 +167,16 @@ function Cart() {
         await handleQuantityChange(cart_id, val);
     };
 
+    /**
+     * Decreases the quantity of a product in the cart by one.
+     *
+     * If the quantity of the product is greater than one, this function
+     * decreases the quantity by one and makes a call to the server to
+     * update the quantity in the cart.
+     *
+     * @param {object} el - The minus button element that triggered this function.
+     * @returns {Promise<void>}
+     */
     const minusQuantity = async (el) => {
         let qty = $(el).parent().next().val();
         qty = parseInt(qty);
@@ -122,6 +189,16 @@ function Cart() {
         await handleQuantityChange(cart_id, qty);
     }
 
+    /**
+     * Increases the quantity of a product in the cart by one.
+     *
+     * If the quantity of the product is greater than zero, this function
+     * increases the quantity by one and makes a call to the server to
+     * update the quantity in the cart.
+     *
+     * @param {object} el - The plus button element that triggered this function.
+     * @returns {Promise<void>}
+     */
     const plusQuantity = async (el) => {
         let qty = $(el).parent().prev().val();
         qty = parseInt(qty);
@@ -132,6 +209,13 @@ function Cart() {
         await handleQuantityChange(cart_id, qty);
     }
 
+    /**
+     * Calculates the total price of all items in the cart.
+     *
+     * This function loops through all elements with the class `totalCartItem`
+     * and adds up their values. It then sets the total cart price to the
+     * calculated total.
+     */
     const calcTotal = () => {
         let total = 0;
         let totalCartItems = $('.totalCartItem');
