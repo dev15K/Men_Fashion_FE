@@ -4,8 +4,8 @@ import axios from "axios";
 const API_ENDPOINT = {
     LIST_ORDER: "/api/orders/list/",
     DETAIL_ORDER: "/api/orders/detail/",
-    CREATE_ORDER: "/api/orders",
-    CREATE_ORDER_VNPAY: "/api/orders/vnpay",
+    CREATE_ORDER: "/api/checkout/create",
+    CREATE_ORDER_VNPAY: "/api/checkout/checkout_vnpay",
     CREATE_ORDER_VNPAY_V2: "/api/orders/vnpay-v2",
     CREATE_ORDER_VNPAY_RETURN: "/api/orders/vnpay-return",
     CANCEL_ORDER: "/api/orders/cancel/",
