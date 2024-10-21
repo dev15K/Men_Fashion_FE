@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useNavigate, useParams} from 'react-router-dom';
 import {useSearchParams} from 'react-router-dom';
-import {Form, message} from 'antd';
 import categoryService from '../../Service/CategoryService';
-import propertyService from '../../Service/PropertyService';
 import attributeService from '../../Service/AttributeService';
 import Header from "../../Shared/Client/Header/Header";
 import Footer from "../../Shared/Client/Footer/Footer";
@@ -11,6 +8,18 @@ import productService from "../../Service/ProductService";
 import $ from "jquery";
 import ConvertNumber from "../../Shared/Utils/ConvertNumber";
 
+/**
+ * Component này dùng để hiển thị kết quả tìm kiếm sản phẩm.
+ * Nó sẽ nhận các tham số từ URL và gọi API search product.
+ * Sau đó, nó sẽ hiển thị các sản phẩm tìm được.
+ * @param {string} category_param - Tham số category
+ * @param {string} keyword_param - Tham số keyword
+ * @param {string} size_param - Tham số size
+ * @param {string} sort_param - Tham số sort
+ * @param {string} minPrice_param - Tham số minPrice
+ * @param {string} maxPrice_param - Tham số maxPrice
+ * @return {JSX.Element}
+ */
 function Result() {
     const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState([]);

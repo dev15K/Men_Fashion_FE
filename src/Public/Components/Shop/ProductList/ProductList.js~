@@ -8,11 +8,6 @@ import $ from "jquery";
 import ConvertNumber from "../../Shared/Utils/ConvertNumber";
 import categoryService from "../../Service/CategoryService";
 
-/**
- * The main component for the product list page.
- * It renders a list of products with pagination, filtering by category, price range, and product properties.
- * @returns {ReactElement} The rendered component.
- */
 function ProductList() {
     const [loading, setLoading] = useState(true);
     const [searchParams] = useSearchParams();
