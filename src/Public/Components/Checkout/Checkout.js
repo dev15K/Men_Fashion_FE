@@ -74,6 +74,7 @@ function Checkout() {
                         setLoading(false)
                         console.log(res.data)
                         localStorage.setItem('order_info', JSON.stringify(data))
+                        // Chuyển qua trang thanh toán của VNPAY
                         window.location.href = res.data.data;
                     }
                 })
