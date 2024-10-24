@@ -47,6 +47,11 @@ import ListProduct from './Components/AdminApp/Product/ListProduct/ListProduct';
 import CreateProduct from './Components/AdminApp/Product/CreateProduct/CreateProduct';
 import DetailProduct from './Components/AdminApp/Product/DetailProduct/DetailProduct';
 import UpdateProduct from "./Components/AdminApp/Product/UpdateProduct/UpdateProduct";
+/* Admin Order */
+import DetailOrder from './Components/AdminApp/Orders/DetailOrder/DetailOrder';
+import ListOrder from './Components/AdminApp/Orders/ListOrder/ListOrder';
+/* Admin Revenues */
+import ListRevenue from './Components/AdminApp/Revenues/ListRevenue/ListRevenue';
 
 /**
  * This component renders the routes for the public part of the application.
@@ -101,6 +106,11 @@ function Public() {
                 <Route path='/admin/products/create' element={<CreateProduct/>}/>
                 <Route path='/admin/products/detail/:id' element={<DetailProduct/>}/>
                 <Route path='/admin/products/update/:id' element={<UpdateProduct/>}/>
+                {/* Admin Orders */}
+                <Route path='/admin/orders/detail/:id' element={<DetailOrder/>}/>
+                <Route path='/admin/orders/list' element={<ListOrder/>}/>
+                {/* Admin Revenue */}
+                <Route path='/admin/revenues/list' element={<ListRevenue/>}/>
             </Routes>
         </div>
     )
