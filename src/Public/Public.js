@@ -52,6 +52,10 @@ import DetailOrder from './Components/AdminApp/Orders/DetailOrder/DetailOrder';
 import ListOrder from './Components/AdminApp/Orders/ListOrder/ListOrder';
 /* Admin Revenues */
 import ListRevenue from './Components/AdminApp/Revenues/ListRevenue/ListRevenue';
+/* Admin User */
+import ListUser from './Components/AdminApp/Users/ListUser/ListUser';
+import CreateUser from './Components/AdminApp/Users/CreateUser/CreateUser';
+import UpdateUser from './Components/AdminApp/Users/UpdateUser/UpdateUser';
 
 /**
  * This component renders the routes for the public part of the application.
@@ -93,7 +97,7 @@ function Public() {
                 <Route path='/admin/categories/create' element={<CreateCategory/>}/>
                 <Route path='/admin/categories/detail/:id' element={<DetailCategory/>}/>
                 <Route path='/admin/categories/update/:id' element={<UpdateCategory/>}/>
-                {/* Admin Aroperties */}
+                {/* Admin Attributes */}
                 <Route path='/admin/attributes/list' element={<ListAttribute/>}/>
                 <Route path='/admin/attributes/create' element={<CreateAttribute/>}/>
                 <Route path='/admin/attributes/detail/:id' element={<DetailAttribute/>}/>
@@ -111,6 +115,10 @@ function Public() {
                 <Route path='/admin/orders/list' element={<ListOrder/>}/>
                 {/* Admin Revenue */}
                 <Route path='/admin/revenues/list' element={<ListRevenue/>}/>
+                {/* Admin Users */}
+                <Route path='/admin/users/list' element={<ListUser/>}/>
+                <Route path='/admin/users/create' element={<CreateUser/>}/>
+                <Route path='/admin/users/update/:id' element={<UpdateUser/>}/>
             </Routes>
         </div>
     )

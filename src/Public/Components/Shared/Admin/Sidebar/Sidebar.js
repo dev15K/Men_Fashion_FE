@@ -129,15 +129,35 @@ function Sidebar() {
 
 
                     <li className="nav-item">
-                        <a className="nav-link collapsed" data-bs-target="#feedback-nav" data-bs-toggle="collapse"
+                        <a className="nav-link collapsed" data-bs-target="#reviews-nav" data-bs-toggle="collapse"
                            href="#">
                             <i className="bi bi-gem"></i><span>Quản lí đánh giá</span><i
                             className="bi bi-chevron-down ms-auto"></i>
                         </a>
-                        <ul id="feedback-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <ul id="reviews-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
                             <li>
-                                <a href="/admin/feedbacks/list">
+                                <a href="/admin/reviews/list">
                                     <i className="bi bi-circle"></i><span>Danh sách đánh giá</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li className="nav-item">
+                        <a className="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse"
+                           href="#">
+                            <i className="bi bi-people"></i><span>Quản lí tài khoản</span><i
+                            className="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="users-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="/admin/users/list">
+                                    <i className="bi bi-circle"></i><span>Danh sách tài khoản</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/users/create">
+                                    <i className="bi bi-circle"></i><span>Thêm mới tài khoản</span>
                                 </a>
                             </li>
                         </ul>
@@ -147,7 +167,7 @@ function Sidebar() {
 
                     <li className="nav-item">
                         <a className="nav-link collapsed" href="/profile">
-                            <i className="bi bi-person"></i>
+                        <i className="bi bi-person"></i>
                             <span>Trang cá nhân</span>
                         </a>
                     </li>
