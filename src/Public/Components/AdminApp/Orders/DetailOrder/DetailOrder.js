@@ -2,19 +2,44 @@ import {Button, Form, Input, message} from 'antd';
 import React, {useEffect, useState} from 'react'
 import {Link, useNavigate, useParams} from 'react-router-dom'
 import orderService from '../../../Service/OrderService';
-import Header from '../../Header/Header'
-import Sidebar from '../../Sidebar/Sidebar'
+import Header from '../../../Shared/Admin/Header/Header'
+import Sidebar from '../../../Shared/Admin/Sidebar/Sidebar'
 import $ from 'jquery';
 import ConvertNumber from "../../../Shared/Utils/ConvertNumber";
 
 function DetailOrder() {
-
     const {id} = useParams();
     const [form] = Form.useForm();
     const navigate = useNavigate();
+    const [selectedValue, setSelectedValue] = useState('');
 
     const [order, setData] = useState([]);
     const [orderItems, setOrderItems] = useState([]);
+
+    const handleChange = (event) => {
+        setSelectedValue(event.target.value);
+    };
+
+    const updateOrder = async (id) => {
+        let status = $('#status').val();
+        let data = {
+            status: status,
+        };
+        if (window.confirm('Bạn có chắc chắn muốn thay đổi trạng thái đơn hàng?')) {
+            await orderService.adminUpdateOrder(id, data)
+                .then((res) => {
+                    console.log("cancel", res.data.data)
+                    alert(`Thay đổi trạng thái thành công!`)
+                    detailOrder();
+                })
+                .catch((err) => {
+                    console.log(err)
+                    let res = err.response;
+                    let mess = res.data.message;
+                    alert('Thất bại ' + mess);
+                })
+        }
+    }
 
     const handleCancel = async (id) => {
         let reason_cancel = $('#reason_cancel').val();
@@ -22,7 +47,7 @@ function DetailOrder() {
             reason_cancel: reason_cancel,
         };
         if (window.confirm('Bạn có chắc chắn muốn hủy đơn hàng?')) {
-            await orderService.cancelOrder(id, data)
+            await orderService.adminUpdateOrder(id, data)
                 .then((res) => {
                     console.log("cancel", res.data.data)
                     alert(`Hủy đơn hàng thành công!`)
@@ -38,11 +63,12 @@ function DetailOrder() {
     }
 
     const detailOrder = async () => {
-        await orderService.detailOrder(id)
+        await orderService.adminDetailOrder(id)
             .then((res) => {
                 console.log('order: ' + res.data);
                 setData(res.data.data);
                 setOrderItems(res.data.data.order_items);
+                setSelectedValue(res.data.data.status);
             })
             .catch((err) => {
                 console.log(err)
@@ -62,7 +88,7 @@ function DetailOrder() {
                     <h1>Chi tiết đơn hàng</h1>
                     <nav>
                         <ol className="breadcrumb">
-                            <li className="breadcrumb-item"><Link to="/profile">Người dùng</Link></li>
+                            <li className="breadcrumb-item"><Link to="/admin/dashboard">Trang quản trị</Link></li>
                             <li className="breadcrumb-item">Đơn hàng</li>
                             <li className="breadcrumb-item active">Chi tiết đơn hàng</li>
                         </ol>
@@ -206,16 +232,30 @@ function DetailOrder() {
                                             </div>
                                             <div className="form-group col-md-6">
                                                 <label htmlFor="status">Trạng thái</label>
-                                                <select id="status" className="form-select" disabled>
-                                                    <option value="">{order.status}</option>
+                                                <select id="status" className="form-select" value={selectedValue}
+                                                        onChange={handleChange}>
+                                                    <option defaultValue="ĐANG XỬ LÝ">ĐANG XỬ LÝ</option>
+                                                    <option defaultValue="ĐANG CHỜ THANH TOÁN">ĐANG CHỜ THANH TOÁN
+                                                    </option>
+                                                    <option defaultValue="ĐANG VẬN CHUYỂN">ĐANG VẬN CHUYỂN</option>
+                                                    <option defaultValue="ĐÃ GIAO HÀNG">ĐÃ GIAO HÀNG</option>
+                                                    <option defaultValue="ĐÃ HOÀN THÀNH">ĐÃ HOÀN THÀNH</option>
+                                                    <option defaultValue="ĐÃ HỦY">ĐÃ HỦY</option>
                                                 </select>
                                             </div>
                                             {order.status === 'ĐANG XỬ LÝ' && (
-                                                <button type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#exampleModal"
-                                                        className="btn btn-danger mt-3">
-                                                    Hủy đơn hàng
-                                                </button>
+                                                <div className="d-flex gap-3 align-items-center justify-content-start">
+                                                    <button type="button" className="btn btn-primary mt-3"
+                                                            onClick={() => updateOrder(order.id)}>
+                                                        Lưu trạng thái
+                                                    </button>
+
+                                                    <button type="button" data-bs-toggle="modal"
+                                                            data-bs-target="#exampleModal"
+                                                            className="btn btn-danger mt-3">
+                                                        Hủy đơn hàng
+                                                    </button>
+                                                </div>
                                             )}
                                             {order.reason_cancel && (
                                                 <>

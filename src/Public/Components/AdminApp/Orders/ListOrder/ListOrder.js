@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
-import Header from '../../Header/Header'
-import Sidebar from '../../Sidebar/Sidebar'
+import Header from '../../../Shared/Admin/Header/Header'
+import Sidebar from '../../../Shared/Admin/Sidebar/Sidebar'
 import {Table} from 'antd';
 import orderService from '../../../Service/OrderService';
 import {Link} from 'react-router-dom';
@@ -15,23 +15,6 @@ function ListOrder() {
             pageSize: 10,
         },
     });
-
-    const handleCancel = async (id) => {
-        if (window.confirm('Bạn có chắc chắn muốn hủy đơn hàng?')) {
-            await orderService.cancelOrder(id)
-                .then((res) => {
-                    console.log("cancel", res.data.data)
-                    alert(`Hủy đơn hàng thành công!`)
-                    getListOrder();
-                })
-                .catch((err) => {
-                    console.log(err)
-                    let res = err.response;
-                    let mess = res.data.message;
-                    alert('Thất bại ' + mess);
-                })
-        }
-    }
 
     const loadFn = async () => {
         $(document).ready(function () {
@@ -90,7 +73,7 @@ function ListOrder() {
                 const {id} = data[index];
                 return (
                     <>
-                        <Link to={`/my-order/${id}`} className="btn btn-primary">
+                        <Link to={`/admin/orders/detail/${id}`} className="btn btn-primary">
                             Xem chi tiết
                         </Link>
                     </>
@@ -100,7 +83,7 @@ function ListOrder() {
     ];
 
     const getListOrder = async () => {
-        await orderService.listOrder('')
+        await orderService.adminListOrder('')
             .then((res) => {
                 if (res.status === 200) {
                     console.log("data", res.data)
@@ -144,7 +127,7 @@ function ListOrder() {
                 break;
         }
 
-        await orderService.listOrder(statusName)
+        await orderService.adminListOrder(statusName)
             .then((res) => {
                 if (res.status === 200) {
                     console.log("data", res.data)
@@ -184,7 +167,7 @@ function ListOrder() {
                     <h1>Danh sách đơn hàng</h1>
                     <nav>
                         <ol className="breadcrumb">
-                            <li className="breadcrumb-item"><Link to="/profile">Người dùng</Link></li>
+                            <li className="breadcrumb-item"><Link to="/admin/dashboard">Trang quản trị</Link></li>
                             <li className="breadcrumb-item">Đơn hàng</li>
                             <li className="breadcrumb-item active">Danh sách đơn hàng</li>
                         </ol>
