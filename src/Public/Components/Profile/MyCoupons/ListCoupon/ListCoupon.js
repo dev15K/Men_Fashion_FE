@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Header from '../../../Shared/Admin/Header/Header'
 import Sidebar from '../../../Shared/Admin/Sidebar/Sidebar'
 import {Button, Form, Table} from 'antd';
-import propertyService from '../../../Service/PropertyService';
+import couponService from '../../../Service/CouponService';
 import {Link} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -12,7 +12,7 @@ function ListCoupon() {
     const handleDelete = async (id) => {
         setLoading(true)
         if (window.confirm('Bạn có chắc chắn muốn xóa?')) {
-            await propertyService.adminDeleteProperty(id)
+            await couponService.adminDeleteCoupon(id)
                 .then((res) => {
                     alert(`Xóa thành công!`)
                     getListProperty();
@@ -24,69 +24,11 @@ function ListCoupon() {
         }
     }
 
-    const loadFn = async () => {
-        $(document).ready(function () {
-            $("#inputSearchProperty").on("input", function () {
-                var value = $(this).val().toLowerCase();
-                $(".ant-table-content table tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
-    }
-
-    const columns = [
-        {
-            title: 'STT',
-            dataIndex: 'key',
-            width: '10%',
-            render: (text, record, index) => index + 1,
-        },
-        {
-            title: 'Tên giá trị thuộc tính',
-            dataIndex: 'name',
-            width: 'x',
-        },
-        {
-            title: 'Thuộc tính',
-            dataIndex: 'attribute_name',
-            width: '25%',
-        },
-        {
-            title: 'Trạng thái',
-            dataIndex: 'status',
-            width: '15%',
-        },
-        {
-            title: 'Hành động',
-            dataIndex: 'id',
-            key: 'x',
-            width: '15%',
-            render: (id) =>
-                <div className="d-flex gap-2 align-items-center justify-content-center">
-                    <Link to={`/admin/properties/detail/${id}`} className="btn btn-primary">
-                        Xem chi tiết
-                    </Link>
-
-                    <button type="button" id={`btnDelete_${id}`} className="btn btn-danger"
-                            onClick={() => handleDelete(id)}>Xóa
-                    </button>
-                </div>
-        },
-    ];
-
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const [tableParams, setTableParams] = useState({
-        pagination: {
-            current: 1,
-            pageSize: 10,
-        },
-    });
-
     const getListProperty = async () => {
-        await propertyService.adminListProperty()
+        await couponService.adminListCoupon()
             .then((res) => {
                 if (res.status === 200) {
                     setData(res.data.data)
@@ -105,16 +47,7 @@ function ListCoupon() {
 
     useEffect(() => {
         getListProperty();
-        loadFn();
-
-    }, []);
-    const handleTableChange = (pagination, filters, sorter) => {
-        setTableParams({
-            pagination,
-            filters,
-            ...sorter,
-        });
-    };
+    }, [loading]);
 
     return (
         <>
@@ -123,33 +56,17 @@ function ListCoupon() {
 
             <main id="main" className="main">
                 <div className="pagetitle">
-                    <h1>Danh sách giá trị thuộc tính</h1>
+                    <h1>Danh sách mã giảm giá</h1>
                     <nav>
                         <ol className="breadcrumb">
                             <li className="breadcrumb-item"><Link to="/admin/dashboard">Trang quản trị</Link></li>
                             <li className="breadcrumb-item">Giá trị thuộc tính</li>
-                            <li className="breadcrumb-item active">Danh sách giá trị thuộc tính</li>
+                            <li className="breadcrumb-item active">Danh sách mã giảm giá</li>
                         </ol>
                     </nav>
                 </div>
                 {/* End Page Title */}
                 <div className="row">
-                    <div className="mb-3 col-md-3">
-                        <h5>Tìm kiếm giá trị thuộc tính</h5>
-                        <input className="form-control" id="inputSearchProperty" type="text"
-                               placeholder="Nhập từ khóa..."/>
-                        <br/>
-                    </div>
-
-                    <Table
-                        style={{margin: "auto"}}
-                        columns={columns}
-                        dataSource={data}
-                        pagination={tableParams.pagination}
-                        loading={loading}
-                        onChange={handleTableChange}
-                        locale={{emptyText: "No data available"}}
-                    />
 
                 </div>
             </main>

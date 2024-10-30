@@ -74,7 +74,7 @@ function DetailCoupon() {
             })
             .catch((err) => {
                 console.log(err)
-                message.error(err.response.data.message)
+                alert(err.response.data.message)
                 $('#btnUpdate').prop('disabled', false).text('Lưu thay đổi');
             })
     };
@@ -85,12 +85,12 @@ function DetailCoupon() {
             <Sidebar/>
             <main id="main" className="main">
                 <div className="pagetitle">
-                    <h1>Chỉnh sửa giá trị thuộc tính</h1>
+                    <h1>Chỉnh sửa mã giảm giá</h1>
                     <nav>
                         <ol className="breadcrumb">
                             <li className="breadcrumb-item"><Link to="/admin/dashboard">Trang quản trị</Link></li>
                             <li className="breadcrumb-item">Danh mục</li>
-                            <li className="breadcrumb-item active">Chỉnh sửa giá trị thuộc tính</li>
+                            <li className="breadcrumb-item active">Chỉnh sửa mã giảm giá</li>
                         </ol>
                     </nav>
                 </div>
@@ -100,10 +100,10 @@ function DetailCoupon() {
                         <div className="col-lg-12">
                             <div className="card">
                                 <div className="card-body">
-                                    <h5 className="card-title">Chỉnh sửa giá trị thuộc tính</h5>
+                                    <h5 className="card-title">Chỉnh sửa mã giảm giá</h5>
                                     <Form onFinish={onFinish} id="formUpdate">
                                         <div className="form-group">
-                                            <label htmlFor="name">Tên giá trị thuộc tính</label>
+                                            <label htmlFor="name">Tên mã giảm giá</label>
                                             <input type="text" name="name" className="form-control" id="name"
                                                    defaultValue={property.name} required/>
                                         </div>

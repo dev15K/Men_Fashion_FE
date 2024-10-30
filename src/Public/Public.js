@@ -23,6 +23,8 @@ import Profile from './Components/Profile/Profile';
 /* My Order */
 import ListMyOrder from './Components/Profile/MyOrder/ListOrder/ListOrder';
 import DetailMyOrder from './Components/Profile/MyOrder/DetailOrder/DetailOrder';
+/* My Coupon */
+import ListMyCoupon from './Components/Profile/MyCoupons/ListCoupon/ListCoupon';
 /* Error Page */
 import NotFound from "./Components/Shared/Error/Error404";
 import ComingSoon from "./Components/Shared/ComingSoon/ComingSoon";
@@ -94,6 +96,7 @@ function Public() {
                 <Route path='/profile' element={<Profile/>}/>
                 <Route path='/my-order' element={<ListMyOrder/>}/>
                 <Route path='/my-order/:id' element={<DetailMyOrder/>}/>
+                <Route path='/my-coupon' element={<ListMyCoupon/>}/>
                 {/* Admin Page */}
                 <Route path='/admin/dashboard' element={<Dashboard/>}/>
                 {/* Admin Category */}

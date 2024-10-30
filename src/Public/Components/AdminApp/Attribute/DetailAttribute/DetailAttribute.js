@@ -81,7 +81,7 @@ function DetailAttribute() {
             .catch((err) => {
                 setLoading(false)
                 console.log(err)
-                message.error("Thay đổi thất bại")
+                alert("Thay đổi thất bại")
             })
     };
 

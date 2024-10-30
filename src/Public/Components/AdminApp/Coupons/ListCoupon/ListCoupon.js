@@ -133,19 +133,19 @@ function ListCoupon() {
 
             <main id="main" className="main">
                 <div className="pagetitle">
-                    <h1>Danh sách giá trị thuộc tính</h1>
+                    <h1>Danh sách mã giảm giá</h1>
                     <nav>
                         <ol className="breadcrumb">
                             <li className="breadcrumb-item"><Link to="/admin/dashboard">Trang quản trị</Link></li>
                             <li className="breadcrumb-item">Giá trị thuộc tính</li>
-                            <li className="breadcrumb-item active">Danh sách giá trị thuộc tính</li>
+                            <li className="breadcrumb-item active">Danh sách mã giảm giá</li>
                         </ol>
                     </nav>
                 </div>
                 {/* End Page Title */}
                 <div className="row">
                     <div className="mb-3 col-md-3">
-                        <h5>Tìm kiếm giá trị thuộc tính</h5>
+                        <h5>Tìm kiếm mã giảm giá</h5>
                         <input className="form-control" id="inputSearchProperty" type="text"
                                placeholder="Nhập từ khóa..."/>
                         <br/>
