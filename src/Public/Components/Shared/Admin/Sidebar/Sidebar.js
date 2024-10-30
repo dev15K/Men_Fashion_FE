@@ -144,6 +144,26 @@ function Sidebar() {
                     </li>
 
                     <li className="nav-item">
+                        <a className="nav-link collapsed" data-bs-target="#coupons-nav" data-bs-toggle="collapse"
+                           href="#">
+                            <i className="bi bi-code"></i><span>Quản lí giảm giá</span><i
+                            className="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="coupons-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="/admin/coupons/list">
+                                    <i className="bi bi-circle"></i><span>Danh sách mã giảm giá</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/coupons/create">
+                                    <i className="bi bi-circle"></i><span>Thêm mới mã giảm giá</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li className="nav-item">
                         <a className="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse"
                            href="#">
                             <i className="bi bi-people"></i><span>Quản lí tài khoản</span><i
@@ -167,7 +187,7 @@ function Sidebar() {
 
                     <li className="nav-item">
                         <a className="nav-link collapsed" href="/profile">
-                        <i className="bi bi-person"></i>
+                            <i className="bi bi-person"></i>
                             <span>Trang cá nhân</span>
                         </a>
                     </li>

@@ -56,6 +56,10 @@ import ListRevenue from './Components/AdminApp/Revenues/ListRevenue/ListRevenue'
 import ListUser from './Components/AdminApp/Users/ListUser/ListUser';
 import CreateUser from './Components/AdminApp/Users/CreateUser/CreateUser';
 import UpdateUser from './Components/AdminApp/Users/UpdateUser/UpdateUser';
+/* Admin Coupons */
+import ListCoupon from './Components/AdminApp/Coupons/ListCoupon/ListCoupon';
+import CreateCoupon from './Components/AdminApp/Coupons/CreateCoupon/CreateCoupon';
+import DetailCoupon from './Components/AdminApp/Coupons/DetailCoupon/DetailCoupon';
 
 /**
  * This component renders the routes for the public part of the application.
@@ -119,6 +123,10 @@ function Public() {
                 <Route path='/admin/users/list' element={<ListUser/>}/>
                 <Route path='/admin/users/create' element={<CreateUser/>}/>
                 <Route path='/admin/users/update/:id' element={<UpdateUser/>}/>
+                {/* Admin Coupons */}
+                <Route path='/admin/coupons/list' element={<ListCoupon/>}/>
+                <Route path='/admin/coupons/create' element={<CreateCoupon/>}/>
+                <Route path='/admin/coupons/detail/:id' element={<DetailCoupon/>}/>
             </Routes>
         </div>
     )
