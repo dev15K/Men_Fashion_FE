@@ -115,7 +115,7 @@ function CreateCoupon() {
                                             <div className="form-group col-md-4">
                                                 <label htmlFor="number_used">Số lượng người đã sử dụng</label>
                                                 <input type="number" name="number_used" className="form-control"
-                                                       id="number_used" min="0"
+                                                       id="number_used" min="0" value="0"
                                                        required/>
                                             </div>
                                         </div>

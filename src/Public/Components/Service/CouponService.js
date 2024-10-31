@@ -2,11 +2,16 @@ import {BASE_URL_SERVER} from "../config/server";
 import axios from "axios";
 
 const API_ENDPOINT = {
+    /* My coupon*/
+    LIST_MY_COUPON: "/api/my-coupons/list",
+    SEARCH_MY_COUPON: "/api/my-coupons/search",
+    DETAIL_MY_COUPON: "/api/my-coupons/detail/",
     //
     LIST_COUPON: "/api/coupons/list",
     SEARCH_COUPON: "/api/coupons/search",
     DETAIL_COUPON: "/api/coupons/detail/",
-    SAVE_COUPON: "/api/coupons/save/",
+    /* Save coupon */
+    SAVE_COUPON: "/api/my-coupons/save/",
     //
     ADMIN_LIST_COUPON: "/api/admin/coupons/list",
     ADMIN_DETAIL_COUPON: "/api/admin/coupons/detail/",
@@ -16,6 +21,46 @@ const API_ENDPOINT = {
 }
 
 class CouponService {
+    //
+    listMyCoupon = () => {
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+            }
+        };
+        return axios.get(BASE_URL_SERVER + API_ENDPOINT.LIST_MY_COUPON, config);
+    }
+
+    searchMyCoupon = (code) => {
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+            }
+        };
+        return axios.get(BASE_URL_SERVER + API_ENDPOINT.SEARCH_MY_COUPON + '?name=&code=' + code, config);
+    }
+
+    detailMyCoupon = (id) => {
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+            }
+        };
+        return axios.get(BASE_URL_SERVER + API_ENDPOINT.DETAIL_MY_COUPON + id, config);
+    }
+
+    saveCoupon = (data) => {
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+            }
+        };
+        return axios.post(BASE_URL_SERVER + API_ENDPOINT.SAVE_COUPON, data, config);
+    }
     //
     listCoupon = () => {
         const config = {
@@ -45,16 +90,6 @@ class CouponService {
             }
         };
         return axios.get(BASE_URL_SERVER + API_ENDPOINT.DETAIL_COUPON + id, config);
-    }
-
-    saveCoupon = (data) => {
-        const config = {
-            headers: {
-                'content-type': 'application/json',
-                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
-            }
-        };
-        return axios.post(BASE_URL_SERVER + API_ENDPOINT.SAVE_COUPON, data, config);
     }
     //
     adminListCoupon = () => {

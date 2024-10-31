@@ -1,25 +1,23 @@
 import {Form, message} from 'antd';
 import React, {useEffect, useState} from 'react';
 import {Link, useNavigate, useParams} from 'react-router-dom';
-import propertyService from '../../../Service/PropertyService';
+import couponService from '../../../Service/CouponService';
 import Header from '../../../Shared/Admin/Header/Header';
 import Sidebar from '../../../Shared/Admin/Sidebar/Sidebar';
 import $ from 'jquery';
-import attributeService from "../../../Service/AttributeService";
 
 function DetailCoupon() {
-    const [property, setProperty] = useState([]);
-    const [attributes, setAttribute] = useState([]);
+    const [coupon, setCoupon] = useState([]);
     const [loading, setLoading] = useState(true);
     const {id} = useParams();
     const [form] = Form.useForm();
     const navigate = useNavigate();
 
-    const detailProperty = async () => {
-        await propertyService.adminDetailProperty(id)
+    const detailCoupon = async () => {
+        await couponService.adminDetailCoupon(id)
             .then((res) => {
-                console.log("detail property", res.data);
-                setProperty(res.data.data)
+                console.log("detail coupon", res.data);
+                setCoupon(res.data.data)
                 setLoading(false)
             })
             .catch((err) => {
@@ -28,27 +26,8 @@ function DetailCoupon() {
             })
     };
 
-    const getListAttribute = async () => {
-        await attributeService.adminListAttribute()
-            .then((res) => {
-                if (res.status === 200) {
-                    console.log("list attribute", res.data)
-                    setAttribute(res.data.data)
-                    setLoading(false)
-                } else {
-                    alert('Error')
-                    setLoading(false)
-                }
-            })
-            .catch((err) => {
-                setLoading(false)
-                console.log(err)
-            })
-    }
-
     useEffect(() => {
-        detailProperty();
-        getListAttribute();
+        detailCoupon();
     }, [form, id, loading])
 
 
@@ -67,10 +46,10 @@ function DetailCoupon() {
 
         const formData = new FormData($('#formUpdate')[0]);
 
-        await propertyService.adminUpdateProperty(id, formData)
+        await couponService.adminUpdateCoupon(id, formData)
             .then((res) => {
                 message.success("Thay đổi thành công")
-                navigate("/admin/properties/list")
+                navigate("/admin/coupons/list")
             })
             .catch((err) => {
                 console.log(err)
@@ -89,7 +68,7 @@ function DetailCoupon() {
                     <nav>
                         <ol className="breadcrumb">
                             <li className="breadcrumb-item"><Link to="/admin/dashboard">Trang quản trị</Link></li>
-                            <li className="breadcrumb-item">Danh mục</li>
+                            <li className="breadcrumb-item">Mã giảm giá</li>
                             <li className="breadcrumb-item active">Chỉnh sửa mã giảm giá</li>
                         </ol>
                     </nav>
@@ -105,7 +84,62 @@ function DetailCoupon() {
                                         <div className="form-group">
                                             <label htmlFor="name">Tên mã giảm giá</label>
                                             <input type="text" name="name" className="form-control" id="name"
-                                                   defaultValue={property.name} required/>
+                                                   defaultValue={coupon.name} required/>
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label htmlFor="description">Mô tả mã giảm giá</label>
+                                            <textarea name="description" id="description" className="form-control"
+                                                      defaultValue={coupon.description}
+                                                      rows="10"></textarea>
+                                        </div>
+
+                                        <div className="row">
+                                            <div className="form-group col-md-3">
+                                                <label htmlFor="discount_percent">Phần trăm giảm giá</label>
+                                                <input type="number" name="discount_percent" className="form-control"
+                                                       id="discount_percent" min="0" defaultValue={coupon.discount_percent}
+                                                       required/>
+                                            </div>
+                                            <div className="form-group col-md-3">
+                                                <label htmlFor="max_discount">Số tiền giảm giá tối đa</label>
+                                                <input type="number" name="max_discount" className="form-control"
+                                                       id="max_discount" min="0" defaultValue={coupon.max_discount}
+                                                       required/>
+                                            </div>
+                                            <div className="form-group col-md-3">
+                                                <label htmlFor="quantity">Tổng số lượng</label>
+                                                <input type="number" name="quantity" className="form-control"
+                                                       id="quantity" min="1" defaultValue={coupon.quantity}
+                                                       required/>
+                                            </div>
+                                            <div className="form-group col-md-3">
+                                                <label htmlFor="max_set">Số lượng tối đa có thể lưu trong tài
+                                                    khoản</label>
+                                                <input type="number" name="max_set" className="form-control"
+                                                       id="max_set" min="1" defaultValue={coupon.max_set}
+                                                       required/>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="form-group col-md-4">
+                                                <label htmlFor="start_time">Ngày bắt đầu</label>
+                                                <input type="datetime-local" name="start_time" className="form-control"
+                                                       defaultValue={coupon.start_time}
+                                                       id="start_time" required/>
+                                            </div>
+                                            <div className="form-group col-md-4">
+                                                <label htmlFor="end_time">Ngày kết thúc</label>
+                                                <input type="datetime-local" name="end_time" className="form-control"
+                                                       defaultValue={coupon.end_time}
+                                                       id="end_time" required/>
+                                            </div>
+                                            <div className="form-group col-md-4">
+                                                <label htmlFor="number_used">Số lượng người đã sử dụng</label>
+                                                <input type="number" name="number_used" className="form-control"
+                                                       id="number_used" min="0" defaultValue={coupon.number_used}
+                                                       required/>
+                                            </div>
                                         </div>
                                         <div className="row">
                                             <div className="form-group col-md-4">
@@ -113,36 +147,22 @@ function DetailCoupon() {
                                                 <input type="file" name="thumbnail" className="form-control"
                                                        id="thumbnail"/>
 
-                                                <img src={property.thumbnail} alt={property.name} width="200px"
+                                                <img src={coupon.thumbnail} alt={coupon.name} width="200px"
                                                      className="mt-2"/>
                                             </div>
                                             <div className="form-group col-md-4">
-                                                <label htmlFor="attribute_id">Thuộc tính cha</label>
-                                                <select id="attribute_id" name="attribute_id" className="form-select">
-                                                    <option value="">Chọn thuộc tính cha</option>
-                                                    {
-                                                        attributes.map((item, index) => {
-                                                            if (item.id === property.attribute_id) {
-                                                                return (
-                                                                    <option selected
-                                                                            value={item.id}>{item.name}</option>
-                                                                )
-                                                            } else {
-                                                                return (
-                                                                    <option value={item.id}>{item.name}</option>
-                                                                )
-                                                            }
-                                                        })
-                                                    }
-                                                </select>
+                                                <label htmlFor="type">Loại mã giảm giá</label>
+                                                <input type="text" name="type" className="form-control"
+                                                       id="type" defaultValue={coupon.type}
+                                                       required/>
                                             </div>
                                             <div className="form-group col-md-4">
                                                 <label htmlFor="status">Trạng thái</label>
                                                 <select id="status" name="status" className="form-select">
-                                                    <option selected={property.status === "ĐANG HOẠT ĐỘNG"}
+                                                    <option selected={coupon.status === "ĐANG HOẠT ĐỘNG"}
                                                             value="ĐANG HOẠT ĐỘNG">ĐANG HOẠT ĐỘNG
                                                     </option>
-                                                    <option selected={property.status === "KHÔNG HOẠT ĐỘNG"}
+                                                    <option selected={coupon.status === "KHÔNG HOẠT ĐỘNG"}
                                                             value="KHÔNG HOẠT ĐỘNG">KHÔNG HOẠT ĐỘNG
                                                     </option>
                                                 </select>

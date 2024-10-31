@@ -26,7 +26,7 @@ function Sidebar() {
                     <li className="nav-item">
                         <a className="nav-link collapsed" href="/my-coupon">
                             <i className="bi bi-magnet"></i>
-                            <span>Đơn hàng của tôi</span>
+                            <span>Mã giảm giá của tôi</span>
                         </a>
                     </li>
 

@@ -18,6 +18,7 @@ import Cart from './Components/Cart/Cart';
 import Checkout from './Components/Checkout/Checkout';
 import ConfirmCheckout from './Components/Checkout/ConfirmCheckout';
 import ThanksYou from './Components/ThanksYou/ThanksYou';
+import Coupons from './Components/Coupons/Coupons';
 /* User Page */
 import Profile from './Components/Profile/Profile';
 /* My Order */
@@ -92,6 +93,7 @@ function Public() {
                 <Route path='/checkout' element={<Checkout/>}/>
                 <Route path='/checkout_success' element={<ConfirmCheckout/>}/>
                 <Route path='/thanks-you' element={<ThanksYou/>}/>
+                <Route path='/coupons' element={<Coupons/>}/>
                 {/* Client Auth Page */}
                 <Route path='/profile' element={<Profile/>}/>
                 <Route path='/my-order' element={<ListMyOrder/>}/>
