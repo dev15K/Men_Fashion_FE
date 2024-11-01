@@ -30,12 +30,12 @@ function Sidebar() {
                         </a>
                     </li>
 
-                    <li className="nav-item">
-                        <a className="nav-link collapsed" href="/product-favourites">
-                            <i className="bi bi-heart"></i>
-                            <span>Sản phẩm yêu thích</span>
-                        </a>
-                    </li>
+                    {/*<li className="nav-item">*/}
+                    {/*    <a className="nav-link collapsed" href="/product-favourites">*/}
+                    {/*        <i className="bi bi-heart"></i>*/}
+                    {/*        <span>Sản phẩm yêu thích</span>*/}
+                    {/*    </a>*/}
+                    {/*</li>*/}
                 </ul>
             </aside>
         </>

@@ -1107,11 +1107,14 @@ ul, li {
 
 #product_review_area_ .image_review i {
     font-size: 16px;
-    color: gold;
     margin-left: 0;
     margin-right: 2px;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+#product_review_area_ .image_review i.filled {
+    color: gold;
 }
 
 
@@ -1164,6 +1167,7 @@ ul, li {
 #formReviewProduct i.fa-star {
     color: gold;
 }
+
 
 #formReviewProduct i.fa-star.none_active {
     color: gray;

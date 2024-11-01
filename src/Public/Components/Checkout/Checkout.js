@@ -85,7 +85,7 @@ function Checkout() {
 
         let inputs = $('#formCheckout input, #formCheckout select, #formCheckout textarea');
         for (let i = 0; i < inputs.length; i++) {
-            if (!$(inputs[i]).val() && $(inputs[i]).attr('type') !== 'hidden') {
+            if (!$(inputs[i]).val() && $(inputs[i]).attr('type') !== 'hidden' && $(inputs[i]).attr('id') !== 'coupon_code') {
                 let text = $(inputs[i]).prev().text();
                 alert(text + ' không được bỏ trống!');
                 $('#btnCreate').prop('disabled', false).text('Đặt hàng');
