@@ -130,7 +130,7 @@ function Public() {
                 {/* Admin Users */}
                 <Route path='/admin/users/list' element={<ListUser/>}/>
                 <Route path='/admin/users/create' element={<CreateUser/>}/>
-                <Route path='/admin/users/update/:id' element={<UpdateUser/>}/>
+                <Route path='/admin/users/detail/:id' element={<UpdateUser/>}/>
                 {/* Admin Coupons */}
                 <Route path='/admin/coupons/list' element={<ListCoupon/>}/>
                 <Route path='/admin/coupons/create' element={<CreateCoupon/>}/>
