@@ -243,7 +243,7 @@ function DetailOrder() {
                                                     <option defaultValue="ĐÃ HỦY">ĐÃ HỦY</option>
                                                 </select>
                                             </div>
-                                            {order.status === 'ĐANG XỬ LÝ' && (
+                                            {(order.status !== 'ĐÃ HỦY' && order.status !== 'ĐÃ HOÀN THÀNH') && (
                                                 <div className="d-flex gap-3 align-items-center justify-content-start">
                                                     <button type="button" className="btn btn-primary mt-3"
                                                             onClick={() => updateOrder(order.id)}>

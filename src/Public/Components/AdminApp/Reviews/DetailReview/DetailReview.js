@@ -1,7 +1,7 @@
 import {Form, message} from 'antd';
 import React, {useEffect, useState} from 'react';
 import {Link, useNavigate, useParams} from 'react-router-dom';
-import attributeService from '../../../Service/AttributeService';
+import reviewService from '../../../Service/ReviewService';
 import Header from '../../../Shared/Admin/Header/Header';
 import Sidebar from '../../../Shared/Admin/Sidebar/Sidebar';
 import $ from 'jquery';
@@ -9,30 +9,29 @@ import $ from 'jquery';
 /**
  * DetailReview component
  *
- * @description Component for update attribute
- * @param {string} id - Id of attribute
+ * @description Component for update review
+ * @param {string} id - Id of review
  * @returns {ReactElement} DetailReview component
  */
-function DetailAttribute() {
+function DetailReview() {
     const {id} = useParams();
     const [form] = Form.useForm();
     const navigate = useNavigate();
-    const [attribute, setAttribute] = useState([]);
+    const [review, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
 
     /**
-     * Fetches the attribute detail from the server and updates the component state
+     * Fetches the review detail from the server and updates the component state
      * accordingly.
      * @function
      * @async
      * @returns {Promise<void>} A Promise that resolves when the data has been fetched and
      * the component state has been updated.
      */
-    const detailAttribute = async () => {
-        await attributeService.adminDetailAttribute(id)
+    const detailReviews = async () => {
+        await reviewService.detailReview(id)
             .then((res) => {
-                console.log("details category", res.data);
-                setAttribute(res.data.data)
+                setReviews(res.data.data)
                 setLoading(false)
             })
             .catch((err) => {
@@ -42,18 +41,18 @@ function DetailAttribute() {
     };
 
     useEffect(() => {
-        detailAttribute();
+        detailReviews();
     }, [form, id, loading])
 
 
     /**
-     * Handles the form submission of the detail attribute form.
+     * Handles the form submission of the detail review form.
      *
      * This function retrieves the values of the form fields, creates an update data object,
-     * and sends a request to the server to update the attribute.
+     * and sends a request to the server to update the review.
      *
      * If the request is successful, the component shows a success message and navigates to the
-     * list of attributes.
+     * list of reviews.
      *
      * If the request fails, the component shows an error message.
      *
@@ -65,18 +64,17 @@ function DetailAttribute() {
     const onFinish = async () => {
         setLoading(true)
         var status = document.getElementById("status").value;
-        var name = document.getElementById("name").value;
 
         let updateData = {
-            name: name, status: status
+            status: status
         }
 
-        await attributeService.adminUpdateAttribute(id, updateData)
+        await reviewService.updateReview(id, updateData)
             .then((res) => {
                 setLoading(false)
                 console.log("data", res.data)
                 alert("Thay đổi thành công")
-                navigate("/admin/attributes/list")
+                navigate("/admin/reviews/list")
             })
             .catch((err) => {
                 setLoading(false)
@@ -90,12 +88,12 @@ function DetailAttribute() {
         <Sidebar/>
         <main id="main" className="main">
             <div className="pagetitle">
-                <h1>Chỉnh sửa thuộc tính</h1>
+                <h1>Chỉnh sửa đánh giá</h1>
                 <nav>
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item"><Link to="/admin/dashboard">Trang quản trị</Link></li>
-                        <li className="breadcrumb-item">Thuộc tính</li>
-                        <li className="breadcrumb-item active">Chỉnh sửa thuộc tính</li>
+                        <li className="breadcrumb-item">Đánh giá</li>
+                        <li className="breadcrumb-item active">Chỉnh sửa đánh giá</li>
                     </ol>
                 </nav>
             </div>
@@ -105,22 +103,37 @@ function DetailAttribute() {
                     <div className="col-lg-12">
                         <div className="card">
                             <div className="card-body">
-                                <h5 className="card-title">Chỉnh sửa thuộc tính</h5>
+                                <h5 className="card-title">Chỉnh sửa đánh giá</h5>
                                 <Form onFinish={onFinish}>
+                                    <div className="form-group">
+                                        <label htmlFor="title">Tiêu đề</label>
+                                        <input type="text" className="form-control" defaultValue={review.title}
+                                               id="title" name="title"/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="content">Nội dung</label>
+                                        <textarea className="form-control" id="content" name="content"
+                                                  defaultValue={review.content}
+                                                  rows="5"></textarea>
+                                    </div>
                                     <div className="row">
                                         <div className="form-group col-md-6">
-                                            <label htmlFor="name">Tên thuộc tính</label>
-                                            <input type="text" className="form-control" id="name"
-                                                   defaultValue={attribute.name} required/>
+                                            <label htmlFor="stars">Số sao</label>
+                                            <input type="number" min="1" className="form-control"
+                                                   defaultValue={review.stars}
+                                                   id="stars" name="stars"/>
                                         </div>
                                         <div className="form-group col-md-6">
                                             <label htmlFor="status">Trạng thái</label>
                                             <select id="status" name="status" className="form-select">
-                                                <option selected={attribute.status === "ĐANG HOẠT ĐỘNG"}
-                                                        value="ĐANG HOẠT ĐỘNG">ĐANG HOẠT ĐỘNG
+                                                <option selected={review.status === "CHỜ PHÊ DUYỆT"}
+                                                        value="CHỜ PHÊ DUYỆT">CHỜ PHÊ DUYỆT
                                                 </option>
-                                                <option selected={attribute.status === "KHÔNG HOẠT ĐỘNG"}
-                                                        value="KHÔNG HOẠT ĐỘNG">KHÔNG HOẠT ĐỘNG
+                                                <option selected={review.status === "ĐƯỢC CHẤP NHẬN"}
+                                                        value="ĐƯỢC CHẤP NHẬN">ĐƯỢC CHẤP NHẬN
+                                                </option>
+                                                <option selected={review.status === "ĐÃ TỪ CHỐI"}
+                                                        value="ĐÃ TỪ CHỐI">ĐÃ TỪ CHỐI
                                                 </option>
                                             </select>
                                         </div>
@@ -136,4 +149,4 @@ function DetailAttribute() {
     </>)
 }
 
-export default DetailAttribute
+export default DetailReview
