@@ -22,6 +22,7 @@ function ProductDetail() {
     const [product, setProduct] = useState([]);
     const [reviews, setReviews] = useState([]);
     const [isReview, setIsReview] = useState(false);
+    const [order, setOrder] = useState('');
     const [optionsProduct, setOptionsProduct] = useState([]);
     const [product_others, setProductOthers] = useState([]);
 
@@ -62,7 +63,7 @@ function ProductDetail() {
                     console.log(check);
                     if (check.valid == true) {
                         setIsReview(true);
-                        $('#order_id').val(check.order)
+                        setOrder(check.order)
                     }
                 }
             })
@@ -460,7 +461,7 @@ function ProductDetail() {
                                     </div>
 
                                     <div className="d-none">
-                                        <input type="hidden" id="order_id" name="order_id"/>
+                                        <input type="hidden" id="order_id" name="order_id" defaultValue={order}/>
                                         <input type="hidden" id="product_id" name="product_id" defaultValue={id}/>
                                     </div>
 
