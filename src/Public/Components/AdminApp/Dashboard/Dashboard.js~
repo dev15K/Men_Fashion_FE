@@ -146,7 +146,7 @@ function Dashboard() {
                                                     <i className="bi bi-people"/>
                                                 </div>
                                                 <div className="ps-3">
-                                                    <h6>{data.member_action ? data.member_action.current_member : 0}</h6>
+                                                    <h6>{data.member_action ? data.member_action.total : 0}</h6>
                                                     <>
                                                         <span className={`${changeClassMember} small pt-1 fw-bold`}>
                                                             {data.member_action ? data.member_action.percent_change : 0}%
