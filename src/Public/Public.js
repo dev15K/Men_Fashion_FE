@@ -66,6 +66,9 @@ import DetailCoupon from './Components/AdminApp/Coupons/DetailCoupon/DetailCoupo
 /* Admin Reviews */
 import ListReview from './Components/AdminApp/Reviews/ListReview/ListReview';
 import DetailReview from './Components/AdminApp/Reviews/DetailReview/DetailReview';
+/* Admin Contacts */
+import ListContact from './Components/AdminApp/Contacts/ListContact/ListContact';
+import DetailContact from './Components/AdminApp/Contacts/DetailContact/DetailContact';
 
 /**
  * This component renders the routes for the public part of the application.
@@ -138,6 +141,9 @@ function Public() {
                 {/* Admin Reviews */}
                 <Route path='/admin/reviews/list' element={<ListReview/>}/>
                 <Route path='/admin/reviews/detail/:id' element={<DetailReview/>}/>
+                {/* Admin Coupons */}
+                <Route path='/admin/contacts/list' element={<ListContact/>}/>
+                <Route path='/admin/contacts/detail/:id' element={<DetailContact/>}/>
             </Routes>
         </div>
     )
