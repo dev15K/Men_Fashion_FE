@@ -104,15 +104,16 @@ function About() {
                                 <div className="block-38-header">
                                     <img src="/assets/clients/images/person_1.jpg" alt="Image placeholder"
                                          className="mb-4"/>
-                                    <h3 className="block-38-heading h4">Elizabeth Graham</h3>
-                                    <p className="block-38-subheading">CEO/Co-Founder</p>
+                                    <h3 className="block-38-heading h4">Tạ Quốc Phương</h3>
+                                    <p className="block-38-subheading">Trưởng nhóm</p>
                                 </div>
                                 <div className="block-38-body">
                                     <p>
-                                        Với vai trò là CEO kiêm Nhà đồng sáng lập, tôi dẫn dắt công ty với tầm nhìn
-                                        chiến lược và tinh thần đổi mới không ngừng. Mục tiêu của tôi là xây dựng một
-                                        môi trường làm việc sáng tạo, mang lại giá trị bền vững cho khách hàng và cộng
-                                        đồng.
+                                        Là Trưởng nhóm, tôi chịu trách nhiệm định hướng và hỗ trợ các thành viên nhằm
+                                        đạt được mục tiêu chung. Với tinh thần làm việc đội nhóm và sự thấu hiểu từng cá
+                                        nhân, tôi xây dựng môi trường khuyến khích sáng tạo, chia sẻ kiến thức và phát
+                                        triển kỹ năng, đảm bảo mỗi thành viên đều đóng góp giá trị vào sự thành công của
+                                        dự án.
                                     </p>
                                 </div>
                             </div>
@@ -124,15 +125,15 @@ function About() {
                                 <div className="block-38-header">
                                     <img src="/assets/clients/images/person_2.jpg" alt="Image placeholder"
                                          className="mb-4"/>
-                                    <h3 className="block-38-heading h4">Jennifer Greive</h3>
-                                    <p className="block-38-subheading">Co-Founder</p>
+                                    <h3 className="block-38-heading h4">Nguyễn Ngọc Hùng</h3>
+                                    <p className="block-38-subheading">Thành viên chính</p>
                                 </div>
                                 <div className="block-38-body">
                                     <p>
-                                        Là Nhà đồng sáng lập, tôi cùng đội ngũ xây dựng nền tảng vững chắc và phát triển
-                                        sản phẩm nhằm mang lại những giải pháp tiên tiến đáp ứng nhu cầu của khách hàng.
-                                        Sự cam kết về chất lượng và đổi mới luôn là động lực cho những gì chúng tôi tạo
-                                        ra.
+                                        Với niềm đam mê công nghệ và sự kiên trì, tôi đảm nhận các nhiệm vụ kỹ thuật
+                                        nhằm đảm bảo tính ổn định và hiệu suất của dự án. Từng dòng mã và giải pháp đều
+                                        được tôi thực hiện với sự cẩn trọng, luôn sẵn sàng học hỏi và chia sẻ để phát
+                                        triển bản thân và đội ngũ.
                                     </p>
                                 </div>
                             </div>
@@ -144,15 +145,15 @@ function About() {
                                 <div className="block-38-header">
                                     <img src="/assets/clients/images/person_3.jpg" alt="Image placeholder"
                                          className="mb-4"/>
-                                    <h3 className="block-38-heading h4">Patrick Marx</h3>
-                                    <p className="block-38-subheading">Marketing</p>
+                                    <h3 className="block-38-heading h4">Nguyễn Tiến Hùng</h3>
+                                    <p className="block-38-subheading">Thành viên chính</p>
                                 </div>
                                 <div className="block-38-body">
                                     <p>
-                                        Với kinh nghiệm dày dặn trong lĩnh vực Marketing, tôi luôn hướng đến việc xây
-                                        dựng thương hiệu mạnh mẽ và tạo sự kết nối sâu sắc với khách hàng. Sáng tạo và
-                                        chiến lược là chìa khóa giúp tôi tạo ra những chiến dịch hiệu quả và mang lại
-                                        giá trị cho doanh nghiệp.
+                                        Tôi chịu trách nhiệm về mặt sáng tạo trong nhóm, mang lại các ý tưởng mới mẻ và
+                                        độc đáo để làm nổi bật dự án. Tôi yêu thích việc kết hợp giữa thẩm mỹ và hiệu
+                                        quả, góp phần tạo nên những sản phẩm vừa cuốn hút vừa đáp ứng nhu cầu người
+                                        dùng.
                                     </p>
                                 </div>
                             </div>
@@ -162,17 +163,17 @@ function About() {
                         <div className="block-38 text-center">
                             <div className="block-38-img">
                                 <div className="block-38-header">
-                                    <img src="/assets/clients/images/person_4.jpg" alt="Image placeholder"
+                                    <img src="/assets/clients/images/profile/dungdm.jpg" alt="Image placeholder"
                                          className="mb-4"/>
-                                    <h3 className="block-38-heading h4">Mike Coolbert</h3>
-                                    <p className="block-38-subheading">Sales Manager</p>
+                                    <h3 className="block-38-heading h4">Đào Mạnh Dũng</h3>
+                                    <p className="block-38-subheading">Thành viên chính</p>
                                 </div>
                                 <div className="block-38-body">
                                     <p className="">
-                                        Là Quản lý Bán hàng, tôi tập trung vào việc tối ưu hóa doanh số và mở rộng thị
-                                        trường bằng cách xây dựng các mối quan hệ đối tác vững chắc. Khả năng phân tích
-                                        và hiểu rõ nhu cầu khách hàng giúp tôi đưa ra các giải pháp bán hàng hiệu quả và
-                                        bền vững.
+                                        à người phụ trách phân tích, tôi tập trung vào việc thu thập và đánh giá dữ liệu
+                                        để đưa ra những thông tin có giá trị giúp định hướng chiến lược của dự án. Khả
+                                        năng nhìn nhận vấn đề từ nhiều góc độ và kỹ năng phân tích chuyên sâu giúp tôi
+                                        hỗ trợ đội ngũ đưa ra các quyết định sáng suốt.
                                     </p>
                                 </div>
                             </div>
