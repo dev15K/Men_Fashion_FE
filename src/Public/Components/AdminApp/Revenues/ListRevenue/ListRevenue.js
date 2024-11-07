@@ -10,8 +10,7 @@ import * as echarts from 'echarts';
 
 function ListRevenue() {
     const [data, setData] = useState([]);
-    const [xData, setXData] = useState([]);
-    const [yData, setYData] = useState([]);
+    const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(false);
     const [tableParams, setTableParams] = useState({
         pagination: {
@@ -64,7 +63,7 @@ function ListRevenue() {
             ],
             series: [
                 {
-                    name: 'Trực tiếp',
+                    name: 'Tổng số tiền',
                     type: 'bar',
                     barWidth: '60%',
                     data: yData
@@ -131,9 +130,6 @@ function ListRevenue() {
     }
 
     const getListRevenueChart = async () => {
-        let xDataTest = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        let yDataTest = [10, 15, 30, 10, 50, 20, 60, 80, 25, 90, 45, 80];
-
         await revenueService.adminDataChartRevenue('')
             .then((res) => {
                 if (res.status === 200) {
@@ -142,6 +138,7 @@ function ListRevenue() {
                     let xData = result.x_data;
                     let yData = result.y_data;
                     charts(xData, yData);
+                    setTotal(result.total);
                 }
             })
             .catch((err) => {
@@ -184,7 +181,8 @@ function ListRevenue() {
                 <div className="row">
                     <div className="col-12 sale_details_ mb-5">
                         <div className="card">
-                            <div className="card-body">
+                            <div className="card-body p-3">
+                                <h6 className="text-start mb-2">Tổng doanh thu: {ConvertNumber(total)}</h6>
                                 <div id="reportsChart" style={{height: '400px'}}/>
                             </div>
                         </div>
