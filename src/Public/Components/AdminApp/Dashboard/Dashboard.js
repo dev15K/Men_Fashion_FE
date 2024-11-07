@@ -177,6 +177,12 @@ function Dashboard() {
                                         <div className="card-body pb-0">
                                             <h5 className="card-title">Bán chạy nhất <span>| Hôm nay</span></h5>
                                             <table className="table table-borderless">
+                                                <colgroup>
+                                                    <col style={{width: "10%"}}/>
+                                                    <col style={{width: "x"}}/>
+                                                    <col style={{width: "10%"}}/>
+                                                    <col style={{width: "10%"}}/>
+                                                </colgroup>
                                                 <thead>
                                                 <tr>
                                                     <th scope="col">Hình ảnh</th>

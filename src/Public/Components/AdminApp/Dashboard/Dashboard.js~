@@ -177,6 +177,12 @@ function Dashboard() {
                                         <div className="card-body pb-0">
                                             <h5 className="card-title">Bán chạy nhất <span>| Hôm nay</span></h5>
                                             <table className="table table-borderless">
+                                                <colgroup>
+                                                    <col style={{width: "10%"}}/>
+                                                    <col style={{width: "x"}}/>
+                                                    <col style={{width: "15%"}}/>
+                                                    <col style={{width: "10%"}}/>
+                                                </colgroup>
                                                 <thead>
                                                 <tr>
                                                     <th scope="col">Hình ảnh</th>
@@ -186,7 +192,7 @@ function Dashboard() {
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                {data.product_action ? data.product_action.current_product.map((item, index) => {
+                                                {data.product_action ? data.product_action.top_products.map((item, index) => {
                                                     return (
                                                         <tr key={index}>
                                                             <th scope="row"><img

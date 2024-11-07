@@ -50,7 +50,7 @@ function ListRevenue() {
             },
             xAxis: [
                 {
-                    type: 'category',
+                    type: 'Doanh thu',
                     data: xData,
                     axisTick: {
                         alignWithLabel: true
@@ -64,7 +64,7 @@ function ListRevenue() {
             ],
             series: [
                 {
-                    name: 'Trực tiếp',
+                    name: 'Direct',
                     type: 'bar',
                     barWidth: '60%',
                     data: yData
