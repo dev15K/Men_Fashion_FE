@@ -170,10 +170,7 @@ function About() {
                                 </div>
                                 <div className="block-38-body">
                                     <p className="">
-                                        à người phụ trách phân tích, tôi tập trung vào việc thu thập và đánh giá dữ liệu
-                                        để đưa ra những thông tin có giá trị giúp định hướng chiến lược của dự án. Khả
-                                        năng nhìn nhận vấn đề từ nhiều góc độ và kỹ năng phân tích chuyên sâu giúp tôi
-                                        hỗ trợ đội ngũ đưa ra các quyết định sáng suốt.
+
                                     </p>
                                 </div>
                             </div>

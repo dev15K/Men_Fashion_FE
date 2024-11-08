@@ -71,8 +71,8 @@ function Footer() {
                     <div className="col-md-12">
                         <p>
                             Bản quyền &copy;2024
-                            Bảo lưu mọi quyền | Mẫu này được tạo bằng <i className="icon-heart"
-                                                                         aria-hidden="true"></i> của <Link
+                            Đã đăng ký bản quyền | Mẫu này được tạo bằng <i className="icon-heart"
+                                                                            aria-hidden="true"></i> của <Link
                             to="#" target="_blank" className="text-primary">Nhóm phát triển thời trang nam</Link>
                         </p>
                     </div>

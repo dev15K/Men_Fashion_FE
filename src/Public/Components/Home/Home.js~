@@ -183,7 +183,7 @@ function Home() {
             {
                 categories.map((category, index) => (
                     category.count > 0 &&
-                    <div className={'site-section block-3 mt-3 site-blocks-2 ' + (index % 2 === 0 ? 'bg-light' : '')}
+                    <div className={'site-section block-3 mt-3 site-blocks-2 ' + index % 2 === 0 ? 'bg-light' : ''}
                          key={index}>
                         <div className="container">
                             <div className="row justify-content-center">

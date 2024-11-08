@@ -95,7 +95,6 @@ function ProductDetail() {
                     LoadingPage();
                     getReviewProduct();
                     checkReviewProduct();
-                    $('#reviewProductArea').remove();
                 }
             })
             .catch((err) => {
@@ -369,7 +368,7 @@ function ProductDetail() {
                                         <div className="customer_name_review_status">
                                             <div className="customer_name">{review.user.email}</div>
                                             <div className="customer_review">
-                                                {Array.from({length: 5}).map((_, i) => (
+                                                {Array.from({ length: 5 }).map((_, i) => (
                                                     <i
                                                         key={i}
                                                         className={`fa-solid fa-star ${i < review.stars ? 'filled' : ''}`}
@@ -390,7 +389,7 @@ function ProductDetail() {
                         </div>
 
                         {isReview && (
-                            <div className="" id="reviewProductArea">
+                            <div className="">
                                 <h5 className="text-start text-success mt-3">Đánh giá của bạn...</h5>
 
                                 <Form id="formReviewProduct" onFinish={reviewProduct}>

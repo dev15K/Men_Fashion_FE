@@ -166,7 +166,7 @@ function Sidebar() {
                     <li className="nav-item">
                         <a className="nav-link collapsed" data-bs-target="#contacts-nav" data-bs-toggle="collapse"
                            href="#">
-                            <i className="bi bi-controller"></i><span>Quản lí liên hệ</span><i
+                            <i className="bi bi-gem"></i><span>Quản lí liên hệ</span><i
                             className="bi bi-chevron-down ms-auto"></i>
                         </a>
                         <ul id="contacts-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">

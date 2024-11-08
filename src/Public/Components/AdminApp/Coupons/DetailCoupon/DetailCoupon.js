@@ -135,9 +135,9 @@ function DetailCoupon() {
                                                        id="end_time" required/>
                                             </div>
                                             <div className="form-group col-md-4">
-                                                <label htmlFor="number_used">Số lượng người đã sử dụng</label>
-                                                <input type="number" name="number_used" className="form-control"
-                                                       id="number_used" min="0" defaultValue={coupon.number_used}
+                                                <label htmlFor="min_total">Giá trị đơn hàng tối thiểu</label>
+                                                <input type="number" name="min_total" className="form-control"
+                                                       id="min_total" min="0" defaultValue={coupon.min_total}
                                                        required/>
                                             </div>
                                         </div>

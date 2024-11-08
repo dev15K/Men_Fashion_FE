@@ -85,58 +85,58 @@ function DetailOrder() {
                                                     </colgroup>
                                                     <thead>
                                                     <tr>
-                                                        <th className="text-black font-weight-bold">
+                                                        <td className="text-black ">
                                                             Tên đầy đủ
-                                                        </th>
-                                                        <th className="text-black FullName">
+                                                        </td>
+                                                        <td className="text-black FullName">
                                                             {order.full_name}
-                                                        </th>
+                                                        </td>
                                                     </tr>
                                                     <tr>
-                                                        <th className="text-black font-weight-bold">
+                                                        <td className="text-black ">
                                                             Email
-                                                        </th>
-                                                        <th className="text-black Email">
+                                                        </td>
+                                                        <td className="text-black Email">
                                                             {order.email}
-                                                        </th>
+                                                        </td>
                                                     </tr>
                                                     <tr>
-                                                        <th className="text-black font-weight-bold">
+                                                        <td className="text-black ">
                                                             Số điện thoại
-                                                        </th>
-                                                        <th className="text-black Phone">
+                                                        </td>
+                                                        <td className="text-black Phone">
                                                             {order.phone}
-                                                        </th>
+                                                        </td>
                                                     </tr>
                                                     <tr>
-                                                        <th className="text-black font-weight-bold">
+                                                        <td className="text-black ">
                                                             Địa chỉ
-                                                        </th>
-                                                        <th className="text-black Address">
+                                                        </td>
+                                                        <td className="text-black Address">
                                                             {order.address}
-                                                        </th>
+                                                        </td>
                                                     </tr>
                                                     <tr>
-                                                        <th className="text-black font-weight-bold">
+                                                        <td className="text-black ">
                                                             Phương thức thanh toán
-                                                        </th>
-                                                        <th className="text-black Address">
+                                                        </td>
+                                                        <td className="text-black Address">
                                                             {order.order_method}
-                                                        </th>
+                                                        </td>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td className="text-black font-weight-bold">
-                                                            <strong>Tổng tiền của sản phẩm</strong></td>
+                                                        <td className="text-black ">
+                                                            <p>Tổng tiền của sản phẩm</p></td>
                                                         <td className="text-black">
                                                             <span
                                                                 id="allProductPrice">{ConvertNumber(order.products_price)}</span>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="text-black font-weight-bold">
-                                                            <strong>Phí vận chuyển</strong>
+                                                        <td className="text-black ">
+                                                            <p>Phí vận chuyển</p>
                                                         </td>
                                                         <td className="text-black">
                                                             <span
@@ -144,8 +144,8 @@ function DetailOrder() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="text-black font-weight-bold">
-                                                            <strong>Miễn giảm giá</strong>
+                                                        <td className="text-black ">
+                                                            <p>Miễn giảm giá</p>
                                                         </td>
                                                         <td className="text-black">
                                                             <span
@@ -153,15 +153,15 @@ function DetailOrder() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="text-black font-weight-bold">
-                                                            <strong>Tổng tiền
-                                                            </strong>
+                                                        <td className="text-black ">
+                                                            <p>Tổng tiền
+                                                            </p>
                                                         </td>
-                                                        <td className="text-black font-weight-bold">
-                                                            <strong>
+                                                        <td className="text-black ">
+                                                            <p>
                                                                 <span
                                                                     id="order_total">{ConvertNumber(order.total_price)}</span>
-                                                            </strong>
+                                                            </p>
                                                         </td>
                                                     </tr>
                                                     </tbody>
@@ -219,7 +219,7 @@ function DetailOrder() {
                                             )}
                                             {order.reason_cancel && (
                                                 <>
-                                                    <h5 className="mt-2 font-weight-bold">Lý do huỷ đơn hàng:</h5>
+                                                    <h5 className="mt-2 ">Lý do huỷ đơn hàng:</h5>
                                                     <div className="text-danger">
                                                         {order.reason_cancel}
                                                     </div>

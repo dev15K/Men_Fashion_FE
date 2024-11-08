@@ -142,7 +142,7 @@ function Checkout() {
 
         console.log(priceMain, min_total)
 
-        if (Number(priceMain) < Number(min_total)) {
+        if (priceMain < min_total) {
             alert('Đơn hàng chưa đạt giá trị tối thiểu để sử dụng mã giảm giá: ' + ConvertNumber(min_total));
             return;
         }

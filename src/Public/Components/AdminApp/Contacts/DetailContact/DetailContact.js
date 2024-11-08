@@ -1,23 +1,16 @@
 import {Form, message} from 'antd';
 import React, {useEffect, useState} from 'react';
 import {Link, useNavigate, useParams} from 'react-router-dom';
-import reviewService from '../../../Service/ReviewService';
+import contactService from '../../../Service/ContactService';
 import Header from '../../../Shared/Admin/Header/Header';
 import Sidebar from '../../../Shared/Admin/Sidebar/Sidebar';
 import $ from 'jquery';
 
-/**
- * DetailContact component
- *
- * @description Component for update review
- * @param {string} id - Id of review
- * @returns {ReactElement} DetailContact component
- */
-function DetailReview() {
+function DetailContact() {
     const {id} = useParams();
     const [form] = Form.useForm();
     const navigate = useNavigate();
-    const [review, setReviews] = useState([]);
+    const [contact, setContact] = useState([]);
     const [loading, setLoading] = useState(true);
 
     /**
@@ -29,9 +22,9 @@ function DetailReview() {
      * the component state has been updated.
      */
     const detailReviews = async () => {
-        await reviewService.detailReview(id)
+        await contactService.detailContact(id)
             .then((res) => {
-                setReviews(res.data.data)
+                setContact(res.data.data)
                 setLoading(false)
             })
             .catch((err) => {
@@ -69,12 +62,12 @@ function DetailReview() {
             status: status
         }
 
-        await reviewService.updateReview(id, updateData)
+        await contactService.updateContact(id, updateData)
             .then((res) => {
                 setLoading(false)
                 console.log("data", res.data)
                 alert("Thay đổi thành công")
-                navigate("/admin/reviews/list")
+                navigate("/admin/contacts/list")
             })
             .catch((err) => {
                 setLoading(false)
@@ -105,38 +98,44 @@ function DetailReview() {
                             <div className="card-body">
                                 <h5 className="card-title">Chỉnh sửa đánh giá</h5>
                                 <Form onFinish={onFinish}>
-                                    <div className="form-group">
-                                        <label htmlFor="title">Tiêu đề</label>
-                                        <input type="text" className="form-control" defaultValue={review.title}
-                                               id="title" name="title"/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="content">Nội dung</label>
-                                        <textarea className="form-control" id="content" name="content"
-                                                  defaultValue={review.content}
-                                                  rows="5"></textarea>
-                                    </div>
                                     <div className="row">
-                                        <div className="form-group col-md-6">
-                                            <label htmlFor="stars">Số sao</label>
-                                            <input type="number" min="1" className="form-control"
-                                                   defaultValue={review.stars}
-                                                   id="stars" name="stars"/>
+                                        <div className="form-group col-md-4">
+                                            <label htmlFor="first_name">Họ</label>
+                                            <input type="text" className="form-control"
+                                                   defaultValue={contact.first_name}
+                                                   id="first_name" name="first_name"/>
                                         </div>
-                                        <div className="form-group col-md-6">
+                                        <div className="form-group col-md-4">
+                                            <label htmlFor="last_name">Tên</label>
+                                            <input type="text" className="form-control" defaultValue={contact.last_name}
+                                                   id="last_name" name="last_name"/>
+                                        </div>
+                                        <div className="form-group col-md-4">
                                             <label htmlFor="status">Trạng thái</label>
                                             <select id="status" name="status" className="form-select">
-                                                <option selected={review.status === "CHỜ PHÊ DUYỆT"}
+                                                <option selected={contact.status === "CHỜ PHÊ DUYỆT"}
                                                         value="CHỜ PHÊ DUYỆT">CHỜ PHÊ DUYỆT
                                                 </option>
-                                                <option selected={review.status === "ĐƯỢC CHẤP NHẬN"}
+                                                <option selected={contact.status === "ĐƯỢC CHẤP NHẬN"}
                                                         value="ĐƯỢC CHẤP NHẬN">ĐƯỢC CHẤP NHẬN
                                                 </option>
-                                                <option selected={review.status === "ĐÃ TỪ CHỐI"}
+                                                <option selected={contact.status === "ĐÃ TỪ CHỐI"}
                                                         value="ĐÃ TỪ CHỐI">ĐÃ TỪ CHỐI
                                                 </option>
                                             </select>
                                         </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="subject">Chủ đề</label>
+                                        <input type="text" className="form-control"
+                                               defaultValue={contact.subject}
+                                               id="subject" name="subject"/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="message">Nội dung</label>
+                                        <textarea className="form-control" id="message" name="message"
+                                                  defaultValue={contact.message}
+                                                  rows="5"></textarea>
                                     </div>
                                     <button type="submit" className="btn btn-primary mt-3">Lưu lại</button>
                                 </Form>
@@ -149,4 +148,4 @@ function DetailReview() {
     </>)
 }
 
-export default DetailReview
+export default DetailContact

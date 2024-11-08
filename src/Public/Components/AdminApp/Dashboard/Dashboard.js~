@@ -180,7 +180,7 @@ function Dashboard() {
                                                 <colgroup>
                                                     <col style={{width: "10%"}}/>
                                                     <col style={{width: "x"}}/>
-                                                    <col style={{width: "10%"}}/>
+                                                    <col style={{width: "15%"}}/>
                                                     <col style={{width: "10%"}}/>
                                                 </colgroup>
                                                 <thead>
