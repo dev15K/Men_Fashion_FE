@@ -43,6 +43,12 @@ function DetailOrder() {
 
     const handleCancel = async (id) => {
         let reason_cancel = $('#reason_cancel').val();
+
+        if (!reason_cancel) {
+            alert('Vui lòng nhập lý do hủy đơn hàng');
+            return;
+        }
+
         let data = {
             reason_cancel: reason_cancel,
         };
