@@ -118,16 +118,6 @@ class OrderService {
         };
         return axios.post(BASE_URL_SERVER + API_ENDPOINT.ADMIN_UPDATE_ORDER + id, data, config)
     }
-    // HISTORY
-    listOrderHistories = (order_id) => {
-        const config = {
-            headers: {
-                'content-type': 'application/json',
-                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
-            }
-        };
-        return axios.get(BASE_URL_SERVER + API_ENDPOINT.HISTORY_ORDER + '?order_id=' + order_id, config);
-    }
 }
 
 const orderService = new OrderService();

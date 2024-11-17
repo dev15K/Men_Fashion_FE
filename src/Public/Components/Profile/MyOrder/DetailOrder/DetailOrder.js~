@@ -271,9 +271,6 @@ function DetailOrder() {
                                                     </tbody>
                                                 </table>
 
-                                                <div className="">
-                                                    Lịch sử đơn hàng
-                                                </div>
                                                 <Table
                                                     style={{margin: "auto"}}
                                                     columns={columns}
