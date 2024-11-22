@@ -283,11 +283,24 @@ function DetailOrder() {
                                                     onChange={handleTableChange}
                                                 />
                                             </div>
-                                            <div className="form-group col-md-6">
-                                                <label htmlFor="status">Trạng thái</label>
-                                                <select id="status" className="form-select" disabled>
-                                                    <option value="">{order.status}</option>
-                                                </select>
+                                            <div className="row">
+                                                <div className="form-group col-md-6">
+                                                    <label htmlFor="totalStatus">Các trạng thái đơn hàng:</label>
+                                                    <select id="totalStatus" className="form-select">
+                                                        <option value="1">ĐANG XỬ LÝ</option>
+                                                        <option value="2">ĐANG CHỜ THANH TOÁN</option>
+                                                        <option value="3">ĐANG VẬN CHUYỂN</option>
+                                                        <option value="4">ĐÃ GIAO HÀNG</option>
+                                                        <option value="5">ĐÃ HOÀN THÀNH</option>
+                                                        <option value="6">ĐÃ HỦY</option>
+                                                    </select>
+                                                </div>
+                                                <div className="form-group col-md-6">
+                                                    <label htmlFor="status">Trạng thái hiện tại</label>
+                                                    <select id="status" className="form-select" disabled>
+                                                        <option value="">{order.status}</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                             {order.status === 'ĐANG XỬ LÝ' && (
                                                 <button type="button" data-bs-toggle="modal"
@@ -316,7 +329,7 @@ function DetailOrder() {
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div className="modal-dialog">
-                    <div className="modal-content">
+                <div className="modal-content">
                         <div className="modal-header">
                             <h1 className="modal-title fs-5" id="exampleModalLabel">Huỷ đơn hàng</h1>
                             <button type="button" className="btn-close" data-bs-dismiss="modal"
