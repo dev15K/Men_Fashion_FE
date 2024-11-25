@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import {Pagination} from 'swiper/modules';
+import {Autoplay, Pagination, Navigation} from 'swiper/modules';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -68,22 +68,80 @@ function Home() {
     return (
         <div className="site-wrap">
             <Header/>
-            <div className="site-blocks-cover" style={{backgroundImage: `url('/assets/clients/images/bg-image2.jpg')`}}>
-                <div className="container">
-                    <div className="row align-items-start align-items-md-center justify-content-end">
-                        <div className="col-md-5 text-center text-md-left pt-5 pt-md-0">
-                            <h1 className="mb-2">Phong cách lịch lãm, khẳng định bản lĩnh phái mạnh</h1>
-                            <div className="intro-text text-center text-md-left">
-                                <p className="mb-4">Trang web thời trang nam hàng đầu, mang đến cho phái mạnh những xu
-                                    hướng mới nhất và phong cách ấn tượng. </p>
-                                <p>
-                                    <a href="/products" className="btn btn-sm btn-primary">Mua sắm ngay</a>
-                                </p>
+            <Swiper
+                slidesPerView={1}
+                autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                }}
+                pagination={{
+                    clickable: true,
+                }}
+                navigation={true}
+                modules={[Autoplay, Pagination, Navigation]}
+                className="mySwiper2"
+            >
+                <SwiperSlide >
+                    <div className="site-blocks-cover"
+                         style={{backgroundImage: `url('/assets/clients/images/anhbanner2.avif')`}}>
+                        <div className="container">
+                            <div className="row align-items-start align-items-md-center justify-content-end">
+                                <div className="col-md-5 text-center text-md-left pt-5 pt-md-0">
+                                    <h1 className="mb-2">Phong cách lịch lãm, khẳng định bản lĩnh phái mạnh</h1>
+                                    <div className="intro-text text-center text-md-left">
+                                        <p className="mb-4">Trang web thời trang nam hàng đầu, mang đến cho phái
+                                            mạnh những xu
+                                            hướng mới nhất và phong cách ấn tượng. </p>
+                                        <p>
+                                            <a href="/products" className="btn btn-sm btn-primary">Mua sắm ngay</a>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                    <div className="site-blocks-cover"
+                         style={{backgroundImage: `url('/assets/clients/images/anhbanner1.jpg')`}}>
+                        <div className="container">
+                            <div className="row align-items-start align-items-md-center justify-content-start">
+                                <div className="col-md-5 text-center text-md-left pt-5 pt-md-0">
+                                    <h1 className="mb-2">Phong cách lịch lãm, khẳng định bản lĩnh phái mạnh</h1>
+                                    <div className="intro-text text-center text-md-left">
+                                        <p className="mb-4">Trang web thời trang nam hàng đầu, mang đến cho phái
+                                            mạnh những xu
+                                            hướng mới nhất và phong cách ấn tượng. </p>
+                                        <p>
+                                            <a href="/products" className="btn btn-sm btn-primary">Mua sắm ngay</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide >
+                    <div className="site-blocks-cover"
+                         style={{backgroundImage: `url('/assets/clients/images/banner3.avif')`}}>
+                        <div className="container">
+                            <div className="row align-items-start align-items-md-center justify-content-end">
+                                <div className="col-md-5 text-center text-md-left pt-5 pt-md-0">
+                                    <h1 className="mb-2">Phong cách lịch lãm, khẳng định bản lĩnh phái mạnh</h1>
+                                    <div className="intro-text text-center text-md-left">
+                                        <p className="mb-4">Trang web thời trang nam hàng đầu, mang đến cho phái
+                                            mạnh những xu
+                                            hướng mới nhất và phong cách ấn tượng. </p>
+                                        <p>
+                                            <a href="/products" className="btn btn-sm btn-primary">Mua sắm ngay</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </SwiperSlide>
+            </Swiper>
 
             <div className="site-section site-section-sm site-blocks-1">
                 <div className="container">
