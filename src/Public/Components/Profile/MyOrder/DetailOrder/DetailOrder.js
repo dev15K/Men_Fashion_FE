@@ -84,6 +84,11 @@ function DetailOrder() {
             width: 'x',
         },
         {
+            title: 'Ghi chú',
+            dataIndex: 'notes',
+            width: '20%',
+        },
+        {
             title: 'Trạng thái',
             dataIndex: 'status',
             width: '20%',
@@ -91,7 +96,7 @@ function DetailOrder() {
         {
             title: 'Thời gian',
             dataIndex: 'created_at',
-            width: '20%',
+            width: '10%',
             render: (text) => {
                 const date = new Date(text);
                 return date.toLocaleString('vi-VN', {
@@ -143,7 +148,7 @@ function DetailOrder() {
                                 <div className="card-body">
                                     <h5 className="card-title">Chi tiết đơn hàng</h5>
                                     <div className="row mb-5">
-                                        <div className="col-md-6">
+                                        <div className="col-md-5">
                                             <div className="p-3 border">
                                                 <table className="table site-block-order-table mb-5">
                                                     <colgroup>
@@ -239,9 +244,17 @@ function DetailOrder() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-md-6">
+                                        <div className="col-md-7">
                                             <div className="p-3 p-lg-5 border">
                                                 <table className="table mb-3">
+                                                    <colgroup>
+                                                        <col width="10%"/>
+                                                        <col width="32%"/>
+                                                        <col width="5%"/>
+                                                        <col width="10%"/>
+                                                        <col width="15%"/>
+                                                        <col width="x"/>
+                                                    </colgroup>
                                                     <thead>
                                                     <tr>
                                                         <th scope="col">Hình ảnh</th>
@@ -249,6 +262,7 @@ function DetailOrder() {
                                                         <th scope="col">Số lượng</th>
                                                         <th scope="col">Đơn giá</th>
                                                         <th scope="col">Thành tiền</th>
+                                                        <th scope="col">Hành động</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody id="tableOrderItem">
@@ -262,8 +276,15 @@ function DetailOrder() {
                                                                     </td>
                                                                     <td>{orderItem.product.name}</td>
                                                                     <td>{orderItem.quantity}</td>
-                                                                    <td>{orderItem.price}</td>
+                                                                    <td>{ConvertNumber(orderItem.price)}</td>
                                                                     <td>{ConvertNumber(orderItem.price * orderItem.quantity)}</td>
+                                                                    <td>
+                                                                        {order.status === 'ĐÃ HOÀN THÀNH' && (
+                                                                            <a className="btn btn-primary"
+                                                                               href={"/reviews/products?pro=" + orderItem.product_id + "&order=" + id}>Đánh
+                                                                                giá</a>
+                                                                        )}
+                                                                    </td>
                                                                 </tr>
                                                             )
                                                         })
@@ -284,17 +305,6 @@ function DetailOrder() {
                                                 />
                                             </div>
                                             <div className="row">
-                                                <div className="form-group col-md-6">
-                                                    <label htmlFor="totalStatus">Các trạng thái đơn hàng:</label>
-                                                    <select id="totalStatus" className="form-select">
-                                                        <option value="1">ĐANG XỬ LÝ</option>
-                                                        <option value="2">ĐANG CHỜ THANH TOÁN</option>
-                                                        <option value="3">ĐANG VẬN CHUYỂN</option>
-                                                        <option value="4">ĐÃ GIAO HÀNG</option>
-                                                        <option value="5">ĐÃ HOÀN THÀNH</option>
-                                                        <option value="6">ĐÃ HỦY</option>
-                                                    </select>
-                                                </div>
                                                 <div className="form-group col-md-6">
                                                     <label htmlFor="status">Trạng thái hiện tại</label>
                                                     <select id="status" className="form-select" disabled>
@@ -329,7 +339,7 @@ function DetailOrder() {
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div className="modal-dialog">
-                <div className="modal-content">
+                    <div className="modal-content">
                         <div className="modal-header">
                             <h1 className="modal-title fs-5" id="exampleModalLabel">Huỷ đơn hàng</h1>
                             <button type="button" className="btn-close" data-bs-dismiss="modal"

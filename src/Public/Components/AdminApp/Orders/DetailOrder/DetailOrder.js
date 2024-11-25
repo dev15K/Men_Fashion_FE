@@ -117,6 +117,11 @@ function DetailOrder() {
             width: 'x',
         },
         {
+            title: 'Ghi chú',
+            dataIndex: 'notes',
+            width: '20%',
+        },
+        {
             title: 'Trạng thái',
             dataIndex: 'status',
             width: '20%',
@@ -124,7 +129,7 @@ function DetailOrder() {
         {
             title: 'Thời gian',
             dataIndex: 'created_at',
-            width: '20%',
+            width: '10%',
             render: (text) => {
                 const date = new Date(text);
                 return date.toLocaleString('vi-VN', {
@@ -310,13 +315,26 @@ function DetailOrder() {
                                                 onChange={handleTableChange}
                                             />
                                         </div>
-                                        <div className="form-group col-md-6">
-                                            <label htmlFor="status">Trạng thái</label>
-                                            <select id="status" className="form-control" disabled
-                                                    value={selectedValue}>
-                                                <option value={order.status}>{order.status}
-                                                </option>
-                                            </select>
+                                        <div className="row">
+                                            <div className="form-group col-md-6">
+                                                <label htmlFor="totalStatus">Các trạng thái đơn hàng:</label>
+                                                <select id="totalStatus" className="form-control">
+                                                    <option value="1">ĐANG XỬ LÝ</option>
+                                                    <option value="2">ĐANG CHỜ THANH TOÁN</option>
+                                                    <option value="3">ĐANG VẬN CHUYỂN</option>
+                                                    <option value="4">ĐÃ GIAO HÀNG</option>
+                                                    <option value="5">ĐÃ HOÀN THÀNH</option>
+                                                    <option value="6">ĐÃ HỦY</option>
+                                                </select>
+                                            </div>
+                                            <div className="form-group col-md-6">
+                                                <label htmlFor="status">Trạng thái</label>
+                                                <select id="status" className="form-control" disabled
+                                                        value={selectedValue}>
+                                                    <option value={order.status}>{order.status}
+                                                    </option>
+                                                </select>
+                                            </div>
                                         </div>
 
                                         {(order.status !== 'ĐÃ HỦY' && order.status !== 'ĐÃ HOÀN THÀNH') && (
