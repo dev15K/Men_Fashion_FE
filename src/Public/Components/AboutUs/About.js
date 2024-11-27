@@ -102,9 +102,9 @@ function About() {
                         <div className="block-38 text-center">
                             <div className="block-38-img">
                                 <div className="block-38-header">
-                                    <img src="/assets/clients/images/person_1.jpg" alt="Image placeholder"
+                                    <img src="/assets/clients/images/profile/tienhung.jpg" alt="Image placeholder"
                                          className="mb-4"/>
-                                    <h3 className="block-38-heading h4">Tạ Quốc Phương</h3>
+                                    <h3 className="block-38-heading h4">Nguyễn Tiến Hùng</h3>
                                     <p className="block-38-subheading">Trưởng nhóm</p>
                                 </div>
                                 <div className="block-38-body">
@@ -123,7 +123,7 @@ function About() {
                         <div className="block-38 text-center">
                             <div className="block-38-img">
                                 <div className="block-38-header">
-                                    <img src="/assets/clients/images/person_2.jpg" alt="Image placeholder"
+                                    <img src="/assets/clients/images/profile/ngochung.jpg" alt="Image placeholder"
                                          className="mb-4"/>
                                     <h3 className="block-38-heading h4">Nguyễn Ngọc Hùng</h3>
                                     <p className="block-38-subheading">Thành viên chính</p>
@@ -143,9 +143,9 @@ function About() {
                         <div className="block-38 text-center">
                             <div className="block-38-img">
                                 <div className="block-38-header">
-                                    <img src="/assets/clients/images/person_3.jpg" alt="Image placeholder"
+                                    <img src="/assets/clients/images/profile/phuong.jpg" alt="Image placeholder"
                                          className="mb-4"/>
-                                    <h3 className="block-38-heading h4">Nguyễn Tiến Hùng</h3>
+                                    <h3 className="block-38-heading h4">Tạ Quốc Phương</h3>
                                     <p className="block-38-subheading">Thành viên chính</p>
                                 </div>
                                 <div className="block-38-body">
@@ -170,7 +170,7 @@ function About() {
                                 </div>
                                 <div className="block-38-body">
                                     <p className="">
-                                        à người phụ trách phân tích, tôi tập trung vào việc thu thập và đánh giá dữ liệu
+                                        Là người phụ trách phân tích, tôi tập trung vào việc thu thập và đánh giá dữ liệu
                                         để đưa ra những thông tin có giá trị giúp định hướng chiến lược của dự án. Khả
                                         năng nhìn nhận vấn đề từ nhiều góc độ và kỹ năng phân tích chuyên sâu giúp tôi
                                         hỗ trợ đội ngũ đưa ra các quyết định sáng suốt.

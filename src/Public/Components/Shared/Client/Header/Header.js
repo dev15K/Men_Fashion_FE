@@ -26,7 +26,7 @@ function YesLogin() {
 
     const handlelogout = () => {
         sessionStorage.clear();
-        alert('Logout success!');
+        alert('Đăng xuất thành công!');
         window.location.href = '/';
     }
 
