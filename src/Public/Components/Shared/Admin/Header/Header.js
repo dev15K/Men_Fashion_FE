@@ -40,7 +40,7 @@ function Header() {
     const handleLogout = () => {
         localStorage.clear();
         sessionStorage.clear();
-        alert('Logout success!')
+        alert('Đăng xuất thành công!')
         window.location.href = `/login`;
     }
 
